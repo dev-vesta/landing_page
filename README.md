@@ -1,6 +1,9 @@
 # Vesta — Landing Page
 
 Landing page da Vesta, servida via GitHub Pages em
+**https://www.vestabi.com/**.
+
+A URL padrão do GitHub Pages, usada como endereço técnico de revisão, é
 **https://dev-vesta.github.io/landing_page/**.
 
 ## Estrutura
@@ -8,6 +11,9 @@ Landing page da Vesta, servida via GitHub Pages em
 ```
 index.html                ← landing publicada (HTML/CSS estático + JS vanilla)
 favicon.svg               ← ícone oficial da Vesta
+og.jpg                    ← imagem social 1200 × 630 para WhatsApp/LinkedIn
+robots.txt                ← regras de indexação e referência ao sitemap
+sitemap.xml               ← mapa do site para buscadores
 vesta_logo_dark.svg       ← logo para fundo escuro (tema dark)
 uploads/
   vesta_logo_light.svg    ← logo para fundo claro (tema light, padrão)
