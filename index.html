@@ -1,824 +1,631 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vesta — Plataforma de Automação Clínica</title>
-  <meta name="description" content="Automatize protocolos clínicos, gere relatórios e elimine retrabalho manual com a plataforma Vesta.">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --copper-50: #FDF6F0;
-      --copper-100: #F9E8D5;
-      --copper-200: #F0CDA6;
-      --copper-300: #E5AD72;
-      --copper-400: #D48E4B;
-      --copper-500: #B36F3A;
-      --copper-600: #965B2E;
-      --copper-700: #7A4824;
-      --copper-800: #5E371B;
-      --copper-900: #422613;
-      --navy-50: #E8F0F5;
-      --navy-100: #C4D8E5;
-      --navy-200: #8FB5CC;
-      --navy-300: #5A91B3;
-      --navy-400: #2F6D99;
-      --navy-500: #002F49;
-      --navy-600: #00263B;
-      --navy-700: #001D2E;
-      --navy-800: #001420;
-      --navy-900: #000B13;
-      --gray-50: #F8FAFC;
-      --gray-100: #F1F5F9;
-      --gray-200: #E2E8F0;
-      --gray-300: #CBD5E1;
-      --gray-400: #94A3B8;
-      --gray-500: #64748B;
-      --gray-600: #475569;
-      --gray-700: #334155;
-      --gray-800: #1E293B;
-      --gray-900: #0F172A;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      color: var(--navy-500);
-      background: var(--gray-50);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--gray-200);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      z-index: 100;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--navy-500);
-    }
-
-    .nav-logo svg {
-      height: 36px;
-      width: auto;
-    }
-
-    .nav-logo span {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--gray-600);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 150ms ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--copper-500);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 24px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 150ms ease;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--copper-500);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: var(--copper-600);
-    }
-
-    .btn-secondary {
-      background: white;
-      color: var(--navy-500);
-      border: 1px solid var(--gray-300);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--copper-300);
-      background: var(--gray-50);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--copper-600);
-    }
-
-    .btn-ghost:hover {
-      background: var(--copper-50);
-    }
-
-    .btn-lg {
-      padding: 14px 32px;
-      font-size: 16px;
-      border-radius: 10px;
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
-      background: radial-gradient(ellipse at 50% 30%, var(--copper-50) 0%, var(--gray-50) 70%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -200px;
-      right: -200px;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(179, 111, 58, 0.06) 0%, transparent 70%);
-    }
-
-    .hero-content {
-      max-width: 720px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      background: var(--copper-50);
-      color: var(--copper-700);
-      border-radius: 9999px;
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 24px;
-      border: 1px solid var(--copper-200);
-    }
-
-    .hero-badge .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--copper-500);
-    }
-
-    .hero h1 {
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      color: var(--navy-500);
-      margin-bottom: 20px;
-    }
-
-    .hero h1 .accent {
-      color: var(--copper-500);
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: var(--gray-600);
-      max-width: 540px;
-      margin: 0 auto 36px;
-      line-height: 1.6;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .hero-visual {
-      margin-top: 64px;
-      position: relative;
-    }
-
-    .hero-visual .window {
-      background: white;
-      border-radius: 16px;
-      border: 1px solid var(--gray-200);
-      box-shadow: 0 20px 60px -15px rgba(0, 47, 73, 0.12),
-                  0 0 0 1px rgba(0, 47, 73, 0.04);
-      max-width: 680px;
-      margin: 0 auto;
-      overflow: hidden;
-    }
-
-    .window-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--gray-200);
-      background: var(--gray-50);
-    }
-
-    .window-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--gray-300);
-    }
-
-    .window-body {
-      padding: 24px;
-      text-align: left;
-    }
-
-    .terminal {
-      background: var(--navy-900);
-      border-radius: 8px;
-      padding: 20px;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: 13px;
-      line-height: 1.8;
-      color: var(--gray-300);
-    }
-
-    .terminal .prompt {
-      color: var(--copper-400);
-    }
-
-    .terminal .success {
-      color: #4ADE80;
-    }
-
-    .terminal .info {
-      color: #60A5FA;
-    }
-
-    .terminal .dim {
-      color: var(--gray-600);
-    }
-
-    /* SECTIONS */
-    section {
-      padding: 96px 24px;
-    }
-
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--copper-500);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: clamp(24px, 4vw, 36px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--navy-500);
-      margin-bottom: 16px;
-    }
-
-    .section-desc {
-      font-size: 16px;
-      color: var(--gray-500);
-      max-width: 520px;
-      line-height: 1.6;
-    }
-
-    .section-header {
-      margin-bottom: 56px;
-    }
-
-    .section-header.center {
-      text-align: center;
-    }
-
-    .section-header.center .section-desc {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* FEATURES */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-
-    .feature-card {
-      background: white;
-      border: 1px solid var(--gray-200);
-      border-radius: 12px;
-      padding: 28px;
-      transition: all 200ms ease;
-    }
-
-    .feature-card:hover {
-      border-color: var(--copper-300);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      transform: translateY(-2px);
-    }
-
-    .feature-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: var(--copper-50);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    .feature-icon svg {
-      width: 22px;
-      height: 22px;
-      color: var(--copper-500);
-      stroke: currentColor;
-    }
-
-    .feature-card h3 {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--navy-500);
-      margin-bottom: 8px;
-    }
-
-    .feature-card p {
-      font-size: 14px;
-      color: var(--gray-500);
-      line-height: 1.6;
-    }
-
-    /* HOW IT WORKS */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 32px;
-      counter-reset: step;
-    }
-
-    .step {
-      position: relative;
-      counter-increment: step;
-    }
-
-    .step::before {
-      content: counter(step);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: var(--navy-500);
-      color: white;
-      font-weight: 700;
-      font-size: 16px;
-      margin-bottom: 16px;
-    }
-
-    .step h3 {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--navy-500);
-      margin-bottom: 8px;
-    }
-
-    .step p {
-      font-size: 14px;
-      color: var(--gray-500);
-      line-height: 1.6;
-    }
-
-    /* STATS */
-    .stats-section {
-      background: var(--navy-500);
-      color: white;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 32px;
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 42px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--copper-400);
-    }
-
-    .stat-label {
-      font-size: 14px;
-      color: var(--navy-200);
-      margin-top: 4px;
-    }
-
-    /* CTA */
-    .cta-section {
-      text-align: center;
-      background: radial-gradient(ellipse at 50% 80%, var(--copper-50) 0%, var(--gray-50) 70%);
-    }
-
-    .cta-card {
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .cta-card h2 {
-      font-size: clamp(24px, 4vw, 32px);
-      font-weight: 800;
-      color: var(--navy-500);
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .cta-card p {
-      font-size: 16px;
-      color: var(--gray-500);
-      margin-bottom: 32px;
-      line-height: 1.6;
-    }
-
-    .cta-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    /* FOOTER */
-    footer {
-      background: var(--navy-800);
-      color: var(--navy-200);
-      padding: 48px 24px;
-    }
-
-    .footer-content {
-      max-width: 1120px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .footer-logo svg {
-      height: 28px;
-      width: auto;
-    }
-
-    .footer-logo span {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--gray-300);
-    }
-
-    footer p {
-      font-size: 13px;
-      color: var(--navy-300);
-    }
-
-    /* ANIMATIONS */
-    @keyframes fade-in-up {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-content {
-      animation: fade-in-up 600ms ease-out;
-    }
-
-    .hero-visual {
-      animation: fade-in-up 600ms ease-out 200ms both;
-    }
-
-    @keyframes cursor-blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .terminal .cursor {
-      display: inline-block;
-      width: 8px;
-      height: 16px;
-      background: var(--copper-400);
-      animation: cursor-blink 1s step-end infinite;
-      vertical-align: middle;
-      margin-left: 2px;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      .hero {
-        padding: 100px 20px 60px;
-      }
-
-      section {
-        padding: 64px 20px;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#001B2A}
+  html{scroll-behavior:smooth}
+  a{color:var(--acc);text-decoration:none}
+  a:hover{color:var(--acc-hi)}
+  @keyframes wordIn{from{opacity:0}to{opacity:1}}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.55)}}
+  @keyframes riseIn{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes drawBar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  @keyframes ping{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+  [data-reveal]{transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+  [data-reveal].vhide{opacity:0;transform:translateY(46px);}
+  [data-reveal-line]{transform-origin:top;transition:transform 1.1s cubic-bezier(.22,1,.36,1);}
+  [data-reveal-line].vhide{transform:scaleY(0);}
+  @media (max-width:1180px){
+    #vstepper{display:none!important}
+  }
+  @media (max-width:920px){
+    #vnav{display:none!important}
+    #vtag{display:none!important}
+    #vguide{display:none!important}
+    #vmobile-cta{display:block!important}
+    footer>div:last-child{padding-bottom:104px!important}
+    [data-cols],[data-cols="2r"]{grid-template-columns:minmax(0,1fr)!important;gap:28px!important}
+    [data-cols]>*,[data-cols="2r"]>*{min-width:0}
+    [data-cols="2r"]>div:first-child{order:2}
+    [data-sticky]{position:static!important}
+    [data-step]{grid-template-columns:70px 1fr!important;row-gap:8px!important}
+    [data-step]>div:first-child{font-size:30px!important}
+    [data-step]>div:last-child{grid-column:1/-1!important}
+    #painel>div{padding:28px 22px!important}
+    #vfooter-grid{grid-template-columns:1fr 1fr!important}
+  }
+  @media (max-width:640px){
+    section{padding-left:18px!important;padding-right:18px!important}
+    header>div{padding:12px 16px!important}
+    #vfooter-grid{grid-template-columns:1fr!important;gap:26px!important}
+    [data-gain]{max-height:none!important;opacity:1!important}
+    [data-step]{padding:20px 16px!important}
+    h1{letter-spacing:-1.4px!important}
+  }
+  @media (max-width:430px){
+    [data-long]{display:none!important}
+    [data-short]{display:inline!important}
+    [data-bars],[data-barlabels]{gap:6px!important}
+    [data-barlabels] span{font-size:8px!important}
+    [data-console]{padding:18px 14px!important}
+    #painel>div{padding:22px 14px!important}
+    section h2{letter-spacing:-1px!important}
+  }
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(179,111,58,.3);border-radius:999px;border:2px solid transparent;background-clip:padding-box}
+</style>
+</helmet>
+<div style="{{ themeStyle }}"><div style="min-height:100vh;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip;transition:background .4s ease,color .4s ease;">
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    <svg width="546" height="619" viewBox="0 0 546 619" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M271.736 9C267.528 9 263.317 10.0624 259.523 12.1865L12.7871 150.337C4.89172 154.758 0.000305176 163.1 0 172.149V447.442L0.000976562 447.486L0.0126953 448.163V448.204L0.0146484 448.245C0.309063 456.967 5.13837 464.929 12.7871 469.212L259.523 607.362C263.319 609.487 267.53 610.547 271.736 610.547H276.736V574.596L37 440.364V179.183L276.736 44.9521V9H271.736Z" fill="#002F49"/>
-      <path d="M274 8.71094C278.209 8.71094 282.419 9.77337 286.213 11.8975L532.949 150.048C540.845 154.469 545.736 162.811 545.736 171.86V447.153L545.735 447.197L545.724 447.874V447.915L545.722 447.956C545.427 456.678 540.598 464.64 532.949 468.923L286.213 607.073C282.417 609.198 278.206 610.258 274 610.258H269V574.307L508.736 440.075V178.894L269 44.6631V8.71094H274Z" fill="#B36F3A"/>
-      <path d="M310 30.5C310 47.3447 296.345 61 279.5 61C262.655 61 249 47.3447 249 30.5C249 13.6553 262.655 0 279.5 0C296.345 0 310 13.6553 310 30.5Z" fill="#B36F3A"/>
-      <path d="M310 588.5C310 605.345 296.345 619 279.5 619C262.655 619 249 605.345 249 588.5C249 571.655 262.655 558 279.5 558C296.345 558 310 571.655 310 588.5Z" fill="#B36F3A"/>
-      <path d="M299.402 445.668L272.908 500.135L249.039 444.802L276.166 380.839L299.402 445.668ZM405.667 191.283L423.001 191.58L314.314 415.013L290.202 347.742L356.914 190.445L405.667 191.283Z" fill="#B36F3A"/>
-      <path d="M140 191.662L157.334 191.364L206.087 190.527L299.489 445.584L272.908 499.593L140 191.662Z" fill="#002F49"/>
-    </svg>
-    <span>Vesta</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#funcionalidades">Funcionalidades</a></li>
-    <li><a href="#como-funciona">Como Funciona</a></li>
-    <li><a href="#numeros">Resultados</a></li>
-    <li><a href="#contato" class="btn btn-primary">Começar Agora</a></li>
-  </ul>
-</nav>
+  <!-- SCROLL PROGRESS -->
+  <div style="position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:var(--ink-06);">
+    <div id="vprog" style="height:100%;width:0%;background:linear-gradient(90deg,var(--acc),var(--acc-hi));border-radius:0 999px 999px 0;"></div>
+  </div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      Plataforma SaaS para saúde
+  <!-- MOBILE CTA -->
+  <div id="vmobile-cta" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:55;padding:10px 14px 14px;background:var(--header-bg);backdrop-filter:blur(14px);border-top:1px solid var(--ink-08);">
+    <a href="{{ waLink }}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:14px;border-radius:999px;background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk';font-weight:700;font-size:15px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5 13.6c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5l-.5.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.3.1 1.6.8 1.9.9.3.2.5.2.5.4.1.1.1.7-.1 1.2Z"/></svg>Falar com a Vesta no WhatsApp</a>
+  </div>
+
+  <!-- SECTION STEPPER -->
+  <nav id="vstepper" style="position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:14px;align-items:flex-end;">
+    <sc-for list="{{ stepper }}" as="s" hint-placeholder-count="5">
+      <a href="{{ s.href }}" title="{{ s.name }}" style="display:flex;align-items:center;gap:9px;">
+        <span style="font-size:11px;font-weight:700;letter-spacing:1px;transition:opacity .25s;opacity:{{ s.labelOpacity }};color:var(--acc);">{{ s.name }}</span>
+        <span style="width:{{ s.size }};height:8px;border-radius:999px;transition:all .3s;background:{{ s.color }};"></span>
+      </a>
+    </sc-for>
+  </nav>
+
+  <!-- ASSISTANT GUIDE -->
+  <sc-if value="{{ guideVisible }}" hint-placeholder-val="{{ true }}">
+  <div id="vguide" style="position:fixed;left:24px;bottom:24px;z-index:50;max-width:320px;animation:riseIn .6s cubic-bezier(.22,1,.36,1) both;">
+    <div style="background:var(--guide-bg);backdrop-filter:blur(12px);border:1px solid var(--acc-3);border-radius:22px 22px 22px 6px;padding:16px 18px;box-shadow:0 16px 44px rgba(0,0,0,.45);">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px;">
+        <span style="position:relative;width:30px;height:30px;border-radius:11px;background:var(--acc);color:var(--on-acc);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;font-size:15px;flex:none;">V<span style="position:absolute;inset:0;border-radius:11px;border:2px solid var(--acc);animation:ping 2s ease-out infinite;"></span></span>
+        <span style="font-size:11.5px;font-weight:700;color:var(--ink-5);letter-spacing:1px;">GUIA VESTA</span>
+        <button onClick="{{ dismissGuide }}" style="margin-left:auto;border:none;background:transparent;color:var(--ink-4);cursor:pointer;font-size:15px;padding:2px 6px;" style-hover="color:var(--text);">×</button>
+      </div>
+      <div style="font-size:13.5px;line-height:1.55;color:var(--ink-85);">{{ guideMsg }}</div>
+      <a href="{{ guideHref }}" target="{{ guideTarget }}" style="display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:8px 15px;border-radius:999px;background:var(--acc-14);border:1px solid var(--acc-35);color:var(--acc);font-weight:700;font-size:12.5px;transition:background .2s;" style-hover="background:var(--acc-25);color:var(--acc);">{{ guideCta }} →</a>
     </div>
-    <h1>Automatize seus <span class="accent">protocolos clínicos</span> em minutos</h1>
-    <p>A Vesta transforma processos manuais de gestão clínica em execuções automatizadas. Upload, processe e receba relatórios prontos — sem planilhas, sem retrabalho.</p>
-    <div class="hero-actions">
-      <a href="#contato" class="btn btn-primary btn-lg">Agendar Demonstração</a>
-      <a href="#como-funciona" class="btn btn-secondary btn-lg">Ver como funciona</a>
+  </div>
+  </sc-if>
+
+  <!-- NAV -->
+  <header style="position:sticky;top:0;z-index:30;background:var(--header-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--ink-07);">
+    <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><img src="vesta_logo_dark.svg" alt="Vesta" style="height:36px;display:block;"/></sc-if>
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><img src="uploads/vesta_logo_light.svg" alt="Vesta" style="height:36px;display:block;"/></sc-if>
+        <span id="vtag" style="font-family:'JetBrains Mono';font-size:11px;color:var(--ink-45);letter-spacing:1px;">INTELIGÊNCIA OPERACIONAL</span>
+      </div>
+      <nav id="vnav" style="display:flex;align-items:center;gap:2px;">
+        <a href="#problema" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--text);">O problema</a>
+        <a href="#metodo" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--text);">Método</a>
+        <a href="#faq" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--text);">Perguntas</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button onClick="{{ toggleTheme }}" title="Alternar tema claro/escuro" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--ink-22);background:transparent;color:var(--text);cursor:pointer;transition:border-color .2s;" style-hover="border-color:var(--acc);">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg></sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg></sc-if>
+        </button>
+        <a href="{{ waLink }}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk';font-weight:700;font-size:14px;transition:transform .14s,box-shadow .2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 24px var(--acc-35);color:var(--on-acc);"><span data-long>Falar com a Vesta</span><span data-short style="display:none;">WhatsApp</span></a>
+      </div>
     </div>
-    <div class="hero-visual">
-      <div class="window">
-        <div class="window-bar">
-          <span class="window-dot"></span>
-          <span class="window-dot"></span>
-          <span class="window-dot"></span>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" data-sec="hero" onMouseMove="{{ onHeroMove }}" style="position:relative;padding:104px 24px 80px;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(var(--ink-045) 1px,transparent 1px),linear-gradient(90deg,var(--ink-045) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 80% at 50% 20%,black 30%,transparent 75%);pointer-events:none;"></div>
+    <div id="vglow" style="position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 65%);pointer-events:none;transform:translate(-50%,-50%);left:60%;top:30%;transition:left .35s cubic-bezier(.2,.8,.3,1),top .35s cubic-bezier(.2,.8,.3,1);"></div>
+    <div style="position:relative;max-width:1200px;margin:0 auto;">
+      <div style="max-width:900px;">
+        <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;border:1px solid var(--acc-35);background:var(--acc-08);font-size:13px;font-weight:600;color:var(--acc);">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pulse 1.8s ease-in-out infinite;"></span>para gestores que vivem no operacional
         </div>
-        <div class="window-body">
-          <div class="terminal">
-            <div><span class="prompt">vesta</span> <span class="info">protocolo-ar</span> <span class="dim">1T2026</span></div>
-            <div><span class="dim">→</span> Processando PDF... <span class="success">✓</span></div>
-            <div><span class="dim">→</span> Cruzando base XLS... <span class="success">✓</span></div>
-            <div><span class="dim">→</span> Gerando relatório... <span class="success">✓</span></div>
-            <div><span class="dim">→</span> 127 pacientes processados em <span class="success">4.2s</span></div>
-            <div><span class="dim">→</span> Download: <span class="info">protocolo_ar_1T2026.xlsx</span><span class="cursor"></span></div>
+        <h1 style="font-family:'Space Grotesk';font-weight:700;font-size:clamp(46px,6.6vw,80px);line-height:1.02;letter-spacing:-2.4px;margin:28px 0 0;text-wrap:balance;">Sua semana ainda é engolida por<br>{{ rotatingWord }}</h1>
+        <p style="margin:26px 0 0;font-size:19px;line-height:1.65;color:var(--ink-68);max-width:620px;text-wrap:pretty;">Menos retrabalho. Mais clareza para operar. A Vesta assume o repetitivo e devolve uma leitura clara do seu negócio, sem trocar os sistemas que você já usa.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:38px;align-items:center;">
+          <a href="{{ waLink }}" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:17px 32px;border-radius:999px;background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk';font-weight:700;font-size:16.5px;transition:transform .14s,box-shadow .2s;" style-hover="transform:translateY(-3px);box-shadow:0 12px 32px var(--acc-4);color:var(--on-acc);">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5 13.6c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5l-.5.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.3.1 1.6.8 1.9.9.3.2.5.2.5.4.1.1.1.7-.1 1.2Z"/></svg><span data-long>Falar com a Vesta no WhatsApp</span><span data-short style="display:none;">Chamar no WhatsApp</span>
+          </a>
+          <a href="mailto:contato@vestabi.com" style="display:inline-flex;align-items:center;gap:9px;padding:17px 28px;border-radius:999px;border:1px solid var(--ink-2);color:var(--text);font-weight:700;font-size:15px;transition:border-color .2s,transform .14s;" style-hover="transform:translateY(-3px);color:var(--text);border-color:var(--ink-45);">Enviar e-mail</a>
+        </div>
+        <p style="margin:18px 0 0;font-size:13.5px;font-weight:600;color:var(--ink-55);max-width:520px;line-height:1.7;">Na primeira conversa, identificamos seu principal gargalo e um ponto de partida viável. Sem custo e sem fidelidade.</p>
+      </div>
+      <div style="display:flex;justify-content:center;margin-top:56px;">
+        <a href="#problema" title="Ir para a próxima seção" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;border:1px solid var(--ink-2);color:var(--ink-4);" style-hover="color:var(--acc);border-color:var(--acc);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16m0 0-6-6m6 6 6-6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER (guiado pelo scroll) -->
+  <div style="overflow:hidden;padding:22px 0;background:var(--acc);">
+    <div id="vticker" style="display:flex;width:max-content;will-change:transform;">
+      <sc-for list="{{ marquee }}" as="m" hint-placeholder-count="12">
+        <span style="display:inline-flex;align-items:center;gap:26px;padding:0 26px;font-family:'Space Grotesk';font-weight:700;font-size:19px;color:var(--on-acc);white-space:nowrap;transition:opacity .25s,transform .25s;opacity:.85;cursor:default;" style-hover="opacity:1;transform:translateY(-2px);">{{ m }} <span style="opacity:.55;">·</span></span>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- PONTO DE PARTIDA -->
+  <section style="max-width:1200px;margin:0 auto;padding:72px 24px 0;">
+    <div data-reveal data-cols="2" style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center;">
+      <div>
+        <div style="font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--acc);letter-spacing:2.5px;text-transform:uppercase;">Ponto de partida</div>
+        <h2 style="font-family:'Space Grotesk';font-weight:700;font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-1.2px;margin:16px 0 0;text-wrap:balance;">Começamos pela realidade da sua operação</h2>
+        <p style="margin:14px 0 0;font-size:16px;line-height:1.65;color:var(--ink-62);">Antes de falar de tecnologia, três perguntas simples. Se você não tem as respostas de cabeça, é sinal de que a conversa vale a pena.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:16px;align-items:center;background:var(--ink-035);border:1px solid var(--ink-08);border-radius:20px;padding:20px 24px;">
+          <span style="font-family:'Space Grotesk';font-weight:700;font-size:26px;color:var(--acc);flex:none;">1</span>
+          <span style="font-family:'Space Grotesk';font-weight:700;font-size:17px;line-height:1.4;">Em quais etapas a operação perde mais tempo?</span>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center;background:var(--ink-035);border:1px solid var(--ink-08);border-radius:20px;padding:20px 24px;">
+          <span style="font-family:'Space Grotesk';font-weight:700;font-size:26px;color:var(--acc);flex:none;">2</span>
+          <span style="font-family:'Space Grotesk';font-weight:700;font-size:17px;line-height:1.4;">Quais dados já estão disponíveis hoje?</span>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center;background:var(--ink-035);border:1px solid var(--ink-08);border-radius:20px;padding:20px 24px;">
+          <span style="font-family:'Space Grotesk';font-weight:700;font-size:26px;color:var(--acc);flex:none;">3</span>
+          <span style="font-family:'Space Grotesk';font-weight:700;font-size:17px;line-height:1.4;">Qual melhoria traria o maior ganho primeiro?</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section id="problema" data-sec="problema" style="max-width:1200px;margin:0 auto;padding:96px 24px 40px;">
+    <div data-reveal style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <div style="max-width:640px;">
+        <div style="font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--acc);letter-spacing:2.5px;text-transform:uppercase;">O problema</div>
+        <h2 style="font-family:'Space Grotesk';font-weight:700;font-size:clamp(32px,4.5vw,48px);line-height:1.08;letter-spacing:-1.4px;margin:18px 0 0;text-wrap:balance;">Sua empresa já tem os dados. Eles só ainda não trabalham para você.</h2>
+      </div>
+      <p style="max-width:380px;font-size:16px;line-height:1.65;color:var(--ink-6);margin:0;">Processos manuais e informação espalhada custam tempo. E escondem exatamente o que a gestão precisa ver.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:52px;">
+      <sc-for list="{{ problemas }}" as="p" hint-placeholder-count="6">
+        <div data-reveal onMouseEnter="{{ p.onEnter }}" style="background:{{ p.cardBg }};border:1px solid var(--ink-08);border-radius:24px;padding:28px;transition:border-color .25s,transform .2s,background .25s;cursor:default;" style-hover="border-color:var(--acc-45);transform:translateY(-4px);background:var(--acc-05);">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12.5px;font-weight:700;color:var(--ink-4);letter-spacing:.5px;">{{ p.code }}</span>
+            <span style="font-size:11.5px;font-weight:700;color:{{ p.tagColor }};transition:color .25s;">{{ p.tag }}</span>
+          </div>
+          <div style="font-family:'Space Grotesk';font-weight:700;font-size:19px;margin-top:14px;">{{ p.title }}</div>
+          <div style="font-size:14.5px;line-height:1.6;color:var(--ink-6);margin-top:8px;">{{ p.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div data-reveal style="margin-top:44px;background:var(--acc-08);border:1px solid var(--acc-25);border-radius:28px;padding:34px 32px;">
+      <h3 style="font-family:'Space Grotesk';font-weight:700;font-size:24px;letter-spacing:-.5px;margin:0;">A Vesta é para você que…</h3>
+      <div data-cols="2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px 28px;margin-top:22px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;"><span style="width:26px;height:26px;border-radius:50%;background:var(--acc-12);border:1px solid var(--acc-35);color:var(--acc);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span style="font-size:15px;line-height:1.55;">fecha o mês conferindo planilha linha a linha;</span></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;"><span style="width:26px;height:26px;border-radius:50%;background:var(--acc-12);border:1px solid var(--acc-35);color:var(--acc);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span style="font-size:15px;line-height:1.55;">é a única pessoa que sabe como o processo funciona;</span></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;"><span style="width:26px;height:26px;border-radius:50%;background:var(--acc-12);border:1px solid var(--acc-35);color:var(--acc);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span style="font-size:15px;line-height:1.55;">descobre o problema depois que ele já custou caro;</span></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;"><span style="width:26px;height:26px;border-radius:50%;background:var(--acc-12);border:1px solid var(--acc-35);color:var(--acc);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span style="font-size:15px;line-height:1.55;">quer crescer sem contratar mais gente para tarefa repetitiva.</span></div>
+      </div>
+      <p style="margin:22px 0 0;font-size:14px;color:var(--ink-6);">Se você se reconheceu em dois ou mais, a conversa vale a pena.</p>
+    </div>
+  </section>
+
+  <!-- FRENTES DE ATUAÇÃO -->
+  <section id="frentes" data-sec="frentes" style="max-width:1200px;margin:0 auto;padding:56px 24px 40px;">
+    <div data-reveal style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <div style="max-width:640px;">
+        <div style="font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--acc);letter-spacing:2.5px;text-transform:uppercase;">Frentes de atuação</div>
+        <h2 style="font-family:'Space Grotesk';font-weight:700;font-size:clamp(32px,4.5vw,48px);line-height:1.08;letter-spacing:-1.4px;margin:18px 0 0;text-wrap:balance;">Onde a Vesta entra na sua operação</h2>
+      </div>
+      <p style="max-width:380px;font-size:16px;line-height:1.65;color:var(--ink-6);margin:0;">Hoje validamos rotinas de protocolo clínico e conciliação em clínicas e prestadoras de serviço. O método se aplica a estas quatro frentes.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:48px;">
+      <sc-for list="{{ frentes }}" as="f" hint-placeholder-count="4">
+        <div onMouseEnter="{{ f.onEnter }}" onMouseLeave="{{ f.onLeave }}" style="position:relative;overflow:hidden;background:var(--ink-035);border:1px solid;border-radius:24px;padding:28px 26px 30px;transition:border-color .3s,transform .25s;cursor:default;border-color:{{ f.border }};transform:{{ f.lift }};">
+          <span style="display:inline-flex;padding:6px 13px;border-radius:999px;background:var(--acc-12);color:var(--acc);font-size:11.5px;font-weight:700;letter-spacing:1px;">{{ f.tag }}</span>
+          <div style="font-family:'Space Grotesk';font-weight:700;font-size:20px;margin-top:16px;">{{ f.title }}</div>
+          <div style="font-size:14px;line-height:1.6;color:var(--ink-6);margin-top:8px;">{{ f.desc }}</div>
+          <div data-gain style="overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1),opacity .3s;max-height:{{ f.gainH }};opacity:{{ f.gainO }};">
+            <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--acc-35);font-size:13.5px;color:var(--acc);font-weight:600;">Ganho típico: {{ f.gain }}</div><div style="margin-top:8px;font-size:13px;line-height:1.5;color:var(--ink-55);">{{ f.ex }}</div>
+          </div>
+          <span style="position:absolute;right:20px;bottom:16px;color:var(--acc);transition:transform .3s,opacity .3s;transform:{{ f.arrowT }};opacity:{{ f.arrowO }};"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        </div>
+      </sc-for>
+    </div>
+    <div data-reveal style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:var(--acc-08);border:1px solid var(--acc-25);border-radius:24px;padding:22px 28px;margin-top:44px;">
+      <div style="font-size:15.5px;line-height:1.55;"><strong>Reconheceu sua operação?</strong> Uma conversa basta para mapear a frente de maior ganho.</div>
+      <a href="{{ waLink }}" target="_blank" style="display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk';font-weight:700;font-size:14.5px;transition:transform .14s,box-shadow .2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 22px var(--acc-35);color:var(--on-acc);"><span data-long>Mapear meus gargalos</span><span data-short style="display:none;">Mapear gargalos</span></a>
+    </div>
+  </section>
+
+  <!-- PAINEL / PROVA VISUAL -->
+  <section id="painel" data-sec="painel" style="max-width:1200px;margin:0 auto;padding:56px 24px;">
+    <div data-reveal style="position:relative;background:linear-gradient(160deg,var(--panel1),var(--panel2));border:1px solid var(--ink-09);border-radius:32px;padding:48px;overflow:hidden;">
+      <div style="max-width:680px;">
+        <div style="font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--acc);letter-spacing:2.5px;text-transform:uppercase;">A camada Vesta</div>
+        <h2 style="font-family:'Space Grotesk';font-weight:700;font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-1.2px;margin:18px 0 0;text-wrap:balance;">Uma camada de inteligência sobre a operação que você já tem</h2>
+      </div>
+
+      <div data-reveal data-cols="2" style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center;margin-top:52px;">
+        <div>
+          <div style="font-family:'Space Grotesk';font-weight:600;font-size:12.5px;color:var(--acc);letter-spacing:2px;text-transform:uppercase;">O cenário</div>
+          <h3 style="font-family:'Space Grotesk';font-weight:700;font-size:26px;letter-spacing:-.6px;margin:14px 0 0;">Informações espalhadas, leitura nenhuma</h3>
+          <p style="margin:12px 0 0;font-size:15.5px;line-height:1.65;color:var(--ink-62);">Sistemas, planilhas e conversas guardam pedaços da mesma história. Ninguém consegue ler a história inteira, e a gestão decide no escuro.</p>
+        </div>
+        <div style="background:var(--panel-inner);border:1px solid var(--ink-1);border-radius:24px;padding:30px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;">
+          <span style="padding:9px 16px;border-radius:999px;border:1px dashed var(--ink-25);color:var(--ink-6);font-size:14px;font-weight:700;">ERP</span>
+          <span style="padding:9px 16px;border-radius:999px;border:1px dashed var(--ink-25);color:var(--ink-55);font-size:13px;font-weight:600;">planilha de repasses</span>
+          <span style="padding:9px 16px;border-radius:999px;border:1px dashed var(--ink-25);color:var(--ink-6);font-size:13.5px;font-weight:600;">WhatsApp</span>
+          <span style="padding:9px 16px;border-radius:999px;border:1px dashed var(--ink-25);color:var(--ink-55);font-size:13px;font-weight:600;">e-mails</span>
+          <span style="padding:9px 16px;border-radius:999px;border:1px dashed var(--ink-25);color:var(--ink-5);font-size:12.5px;font-weight:600;">agenda</span>
+          <span style="padding:9px 16px;border-radius:999px;border:1px dashed var(--ink-25);color:var(--ink-55);font-size:13px;font-weight:600;">PDF do convênio</span>
+          <span style="padding:9px 16px;border-radius:999px;border:1px dashed var(--ink-25);color:var(--ink-5);font-size:12.5px;font-weight:600;">anotações</span>
+          <div style="width:100%;text-align:center;font-size:12px;color:var(--ink-4);margin-top:8px;">dados dispersos, sem leitura única</div>
+        </div>
+      </div>
+
+      <div data-reveal data-cols="2r" style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center;margin-top:56px;">
+        <div data-console style="background:var(--panel-inner);border:1px solid var(--ink-1);border-radius:24px;padding:26px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+            <span style="font-size:13px;font-weight:700;color:var(--ink-5);">Painel operacional da sua empresa</span>
+            <span style="display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:var(--good-soft);color:var(--good);font-size:11.5px;font-weight:700;"><span style="width:6px;height:6px;border-radius:50%;background:var(--good);animation:pulse 1.6s ease-in-out infinite;"></span>ao vivo</span>
+          </div>
+          <div style="font-size:12px;color:var(--ink-4);margin-bottom:10px;">toque ou passe o mouse nas etapas ↓</div>
+          <div data-bars style="display:flex;align-items:flex-end;gap:10px;height:130px;">
+            <sc-for list="{{ bars }}" as="b" hint-placeholder-count="6">
+              <div onMouseEnter="{{ b.onEnter }}" style="flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;">
+                <div style="height:{{ b.h }};border-radius:8px 8px 3px 3px;background:{{ b.color }};transform-origin:bottom;animation:drawBar .9s cubic-bezier(.22,1,.36,1) both;animation-delay:{{ b.delay }};transition:background .25s,filter .25s;filter:{{ b.glow }};"></div>
+              </div>
+            </sc-for>
+          </div>
+          <div data-barlabels style="display:flex;gap:10px;margin-top:10px;">
+            <sc-for list="{{ bars }}" as="b" hint-placeholder-count="6">
+              <span style="flex:1;text-align:center;font-family:'JetBrains Mono';font-size:10px;transition:color .25s;color:{{ b.labelColor }};">{{ b.label }}</span>
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:center;gap:11px;background:var(--acc-09);border:1px solid var(--acc-25);border-radius:14px;padding:13px 16px;margin-top:22px;min-height:66px;">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--acc);flex:none;animation:pulse 1.8s ease-in-out infinite;"></span>
+            <span style="font-size:13px;line-height:1.5;color:var(--ink-85);">{{ barInsight }}</span>
           </div>
         </div>
+        <div>
+          <div style="font-family:'Space Grotesk';font-weight:600;font-size:12.5px;color:var(--acc);letter-spacing:2px;text-transform:uppercase;">A camada</div>
+          <h3 style="font-family:'Space Grotesk';font-weight:700;font-size:26px;letter-spacing:-.6px;margin:14px 0 0;">O fluxo inteiro em um painel vivo</h3>
+          <p style="margin:12px 0 0;font-size:15.5px;line-height:1.65;color:var(--ink-62);">A Vesta conecta o que está disperso e devolve uma leitura única para quem decide. Toque ou passe o mouse nas etapas ao lado.</p>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- FEATURES -->
-<section id="funcionalidades">
-  <div class="container">
-    <div class="section-header center">
-      <div class="section-label">Funcionalidades</div>
-      <h2 class="section-title">Tudo que sua equipe precisa, em um só lugar</h2>
-      <p class="section-desc">Scripts clínicos validados, executados via interface web com rastreabilidade completa.</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/>
-          </svg>
+      <div data-reveal data-cols="2" style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center;margin-top:56px;">
+        <div>
+          <div style="font-family:'Space Grotesk';font-weight:600;font-size:12.5px;color:var(--acc);letter-spacing:2px;text-transform:uppercase;">O resultado</div>
+          <h3 style="font-family:'Space Grotesk';font-weight:700;font-size:26px;letter-spacing:-.6px;margin:14px 0 0;">Menos retrabalho, decisão com base</h3>
+          <p style="margin:12px 0 0;font-size:15.5px;line-height:1.65;color:var(--ink-62);">Cada rotina implantada nasce com um indicador. A gestão passa a agir antes de o problema custar caro.</p>
         </div>
-        <h3>Upload Inteligente</h3>
-        <p>Envie PDFs e planilhas do sistema clínico. A Vesta extrai, cruza e valida os dados automaticamente.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-          </svg>
+        <div style="background:var(--panel-inner);border:1px solid var(--ink-1);border-radius:24px;padding:30px;display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:'Space Grotesk';font-weight:700;font-size:38px;color:var(--acc);flex:none;">⅓</span><span style="font-size:14.5px;line-height:1.55;color:var(--ink-68);">Nosso alvo em cada rotina mapeada: cortar pelo menos um terço do retrabalho.</span></div>
+          <div style="border-top:1px solid var(--ink-08);padding-top:16px;font-size:14.5px;line-height:1.55;color:var(--ink-68);">Atuação em atendimento, relatórios, protocolos e financeiro.</div>
+          <div style="border-top:1px solid var(--ink-08);padding-top:16px;font-size:14.5px;line-height:1.55;color:var(--ink-68);">Toda rotina implantada nasce com indicador e acompanhamento contínuo.</div>
         </div>
-        <h3>Catálogo de Scripts</h3>
-        <p>Protocolos gerenciados, relatórios trimestrais e integrações — scripts validados e prontos para uso.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>
-          </svg>
-        </div>
-        <h3>Logs em Tempo Real</h3>
-        <p>Acompanhe cada execução com logs detalhados, barra de progresso e download instantâneo do resultado.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
-          </svg>
-        </div>
-        <h3>Seguro e Rastreável</h3>
-        <p>Autenticação Supabase, isolamento por empresa e histórico completo de todas as execuções.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-          </svg>
-        </div>
-        <h3>Processamento Assíncrono</h3>
-        <p>Scripts pesados rodam em workers Celery. Você recebe o resultado quando estiver pronto — sem travar a interface.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
-          </svg>
-        </div>
-        <h3>Relatórios XLSX</h3>
-        <p>Resultados formatados no template padrão da clínica, prontos para envio ou auditoria. Zero formatação manual.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- HOW IT WORKS -->
-<section id="como-funciona" style="background: white;">
-  <div class="container">
-    <div class="section-header center">
-      <div class="section-label">Como Funciona</div>
-      <h2 class="section-title">Do upload ao relatório em 3 passos</h2>
-      <p class="section-desc">Sem instalação, sem configuração. Acesse pelo navegador e comece a processar.</p>
+  <!-- MÉTODO -->
+  <section id="metodo" data-sec="metodo" style="max-width:1200px;margin:0 auto;padding:64px 24px;">
+    <div data-reveal style="max-width:640px;">
+      <div style="font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--acc);letter-spacing:2.5px;text-transform:uppercase;">O método</div>
+      <h2 style="font-family:'Space Grotesk';font-weight:700;font-size:clamp(32px,4.5vw,48px);line-height:1.08;letter-spacing:-1.4px;margin:18px 0 0;text-wrap:balance;">Começamos pelo diagnóstico, não pela ferramenta</h2>
+      <p style="margin:16px 0 0;font-size:16.5px;line-height:1.65;color:var(--ink-62);">Primeiro entendemos o fluxo real da sua empresa. Só depois vem a proposta: uma primeira rotina inteligente, escolhida pelo ganho que ela traz.</p>
     </div>
-    <div class="steps">
-      <div class="step">
-        <h3>Faça o Upload</h3>
-        <p>Envie o PDF do sistema clínico e, opcionalmente, a base XLS para cruzamento. Selecione o período de referência.</p>
+    <div style="display:grid;grid-template-columns:34px minmax(0,1fr);gap:26px;margin-top:52px;">
+      <div style="position:relative;">
+        <div data-reveal-line style="position:absolute;left:50%;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,var(--acc),var(--acc-15));transform-origin:top;"></div>
       </div>
-      <div class="step">
-        <h3>Execute o Script</h3>
-        <p>Escolha o protocolo no catálogo e clique em "Executar". O processamento acontece em background com logs em tempo real.</p>
-      </div>
-      <div class="step">
-        <h3>Baixe o Resultado</h3>
-        <p>Receba a planilha formatada no template padrão da clínica. Pronta para envio, auditoria ou análise.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <sc-for list="{{ etapas }}" as="e" hint-placeholder-count="5">
+          <div data-reveal data-step="{{ e.idx }}" onMouseEnter="{{ e.onEnter }}" style="cursor:default;display:grid;grid-template-columns:110px minmax(0,.85fr) minmax(0,1.15fr);gap:28px;align-items:center;padding:28px 22px;border-radius:24px;border:1px solid;transition:all .4s cubic-bezier(.22,1,.36,1);background:{{ e.bg }};border-color:{{ e.border }};transform:{{ e.shift }};">
+            <div style="font-family:'Space Grotesk';font-weight:700;font-size:44px;line-height:1;transition:color .4s;color:{{ e.numColor }};">{{ e.num }}</div>
+            <div style="font-family:'Space Grotesk';font-weight:700;font-size:22px;letter-spacing:-.4px;">{{ e.title }}</div>
+            <div style="font-size:15px;line-height:1.6;color:var(--ink-6);">{{ e.desc }}</div>
+          </div>
+        </sc-for>
       </div>
     </div>
-  </div>
-</section>
+    <div data-reveal style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:var(--acc-08);border:1px solid var(--acc-25);border-radius:24px;padding:22px 28px;margin-top:40px;">
+      <div style="font-size:15.5px;line-height:1.55;"><strong>Nada de caixa-preta.</strong> Escolha um gargalo e veja a primeira rotina nascer.</div>
+      <a href="{{ waLink }}" target="_blank" style="display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk';font-weight:700;font-size:14.5px;transition:transform .14s,box-shadow .2s;" style-hover="transform:translateY(-2px);box-shadow:0 8px 22px var(--acc-35);color:var(--on-acc);"><span data-long>Começar pelo diagnóstico</span><span data-short style="display:none;">Começar</span></a>
+    </div>
+  </section>
 
-<!-- STATS -->
-<section id="numeros" class="stats-section">
-  <div class="container">
-    <div class="stats-grid">
+  <!-- COMPROMISSO -->
+  <section style="max-width:1200px;margin:0 auto;padding:40px 24px 72px;">
+    <div data-cols="2" style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;align-items:start;">
+      <div data-reveal data-sticky style="position:sticky;top:110px;">
+        <div style="font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--acc);letter-spacing:2.5px;text-transform:uppercase;">Compromissos</div>
+        <h2 style="font-family:'Space Grotesk';font-weight:700;font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-1.2px;margin:16px 0 0;text-wrap:balance;">Como a Vesta trabalha com você</h2>
+        <p style="margin:14px 0 0;font-size:15px;line-height:1.6;color:var(--ink-6);">Passe pelos itens para conhecer cada compromisso.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;">
+        <sc-for list="{{ beneficios }}" as="b" hint-placeholder-count="5">
+          <div onMouseEnter="{{ b.onEnter }}" style="border-top:1px solid var(--ink-09);padding:22px 20px;border-radius:18px;transition:background .3s;cursor:default;background:{{ b.bg }};">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <span style="width:12px;height:12px;border-radius:4px;flex:none;transition:background .3s;background:{{ b.dot }};"></span>
+              <span style="font-family:'Space Grotesk';font-weight:700;font-size:20px;letter-spacing:-.3px;transition:color .3s;color:{{ b.titleColor }};">{{ b.title }}</span>
+            </div>
+            <sc-if value="{{ b.open }}" hint-placeholder-val="{{ false }}">
+              <div style="margin:10px 0 2px 26px;font-size:14.5px;line-height:1.6;color:var(--ink-65);">{{ b.desc }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <div style="border-top:1px solid var(--ink-09);"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" data-sec="faq" style="max-width:860px;margin:0 auto;padding:32px 24px 80px;">
+    <div data-reveal>
+      <div style="font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--acc);letter-spacing:2.5px;text-transform:uppercase;">Perguntas</div>
+      <h2 style="font-family:'Space Grotesk';font-weight:700;font-size:clamp(30px,4vw,42px);letter-spacing:-1.2px;margin:18px 0 0;">Respostas diretas, sem jargão</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:36px;">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="4">
+        <div data-reveal style="background:var(--ink-035);border:1px solid var(--ink-09);border-radius:22px;overflow:hidden;transition:border-color .25s;" style-hover="border-color:var(--acc-4);">
+          <button onClick="{{ f.onClick }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 26px;border:none;background:transparent;font-family:'Space Grotesk';font-weight:700;font-size:17px;color:var(--text);cursor:pointer;text-align:left;">
+            {{ f.q }}
+            <span style="width:34px;height:34px;border-radius:50%;border:1px solid var(--acc-4);color:var(--acc);display:flex;align-items:center;justify-content:center;flex:none;transition:transform .25s;transform:{{ f.chev }};"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 26px 24px;font-size:15px;line-height:1.65;color:var(--ink-65);">{{ f.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="cta" data-sec="cta" style="position:relative;border-top:1px solid var(--ink-08);padding:100px 24px;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 90% at 50% 110%,var(--acc-16),transparent 70%);pointer-events:none;"></div>
+    <div data-reveal style="position:relative;max-width:760px;margin:0 auto;text-align:center;">
+      <div style="font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--acc);letter-spacing:2.5px;text-transform:uppercase;">Próximo passo</div>
+      <h2 style="font-family:'Space Grotesk';font-weight:700;font-size:clamp(38px,5.5vw,60px);line-height:1.04;letter-spacing:-1.8px;margin:20px 0 0;text-wrap:balance;">Qual processo mais consome tempo na sua operação?</h2>
+      <p style="margin:20px auto 0;font-size:17px;line-height:1.65;color:var(--ink-65);max-width:540px;">Compartilhe seus principais gargalos no WhatsApp. Na primeira conversa, identificamos um ponto de partida viável.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px;">
+        <a href="{{ waLink }}" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:18px 34px;border-radius:999px;background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk';font-weight:700;font-size:17px;transition:transform .14s,box-shadow .2s;" style-hover="transform:translateY(-3px);box-shadow:0 14px 36px var(--acc-42);color:var(--on-acc);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5 13.6c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5l-.5.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.3.1 1.6.8 1.9.9.3.2.5.2.5.4.1.1.1.7-.1 1.2Z"/></svg><span data-long>Mapear meus processos</span><span data-short style="display:none;">Mapear processos</span>
+        </a>
+        <a href="mailto:contato@vestabi.com" style="display:inline-flex;align-items:center;gap:9px;padding:18px 30px;border-radius:999px;border:1px solid var(--ink-22);color:var(--text);font-weight:700;font-size:15.5px;transition:border-color .2s,transform .14s;" style-hover="transform:translateY(-3px);color:var(--text);border-color:var(--ink-5);">Enviar e-mail</a>
+      </div>
+      <p style="margin:18px auto 0;font-size:13.5px;font-weight:600;color:var(--ink-55);">Sem custo, sem fidelidade. Saímos da conversa com um ponto de partida viável.</p>
+    </div>
+    <div style="margin:96px auto 0;text-align:center;user-select:none;pointer-events:none;">
+      <div id="vbig" aria-hidden="true" style="display:inline-block;font-family:'Space Grotesk';font-weight:700;font-size:clamp(44px,8.6vw,136px);letter-spacing:-3px;line-height:1.06;color:transparent;padding-top:.05em;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(var(--acc-55),var(--acc-55)),linear-gradient(var(--ink-08),var(--ink-08));background-repeat:no-repeat;background-size:0% 100%,100% 100%;">INTELIGÊNCIA<br>OPERACIONAL</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top:1px solid var(--ink-08);">
+    <div id="vfooter-grid" style="max-width:1200px;margin:0 auto;padding:52px 24px 20px;display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(3,minmax(150px,1fr));gap:32px;">
       <div>
-        <div class="stat-value">95%</div>
-        <div class="stat-label">Redução de tempo manual</div>
+        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}"><img src="vesta_logo_dark.svg" alt="Vesta" style="height:28px;display:block;"/></sc-if>
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}"><img src="uploads/vesta_logo_light.svg" alt="Vesta" style="height:28px;display:block;"/></sc-if>
+        <p style="margin:14px 0 0;font-size:13px;line-height:1.7;color:var(--ink-45);max-width:280px;">Inteligência operacional, automações e reestruturação de rotinas para pequenas e médias empresas.</p>
       </div>
-      <div>
-        <div class="stat-value">&lt;5s</div>
-        <div class="stat-label">Tempo médio de processamento</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <span style="font-family:'Space Grotesk';font-weight:600;font-size:11.5px;letter-spacing:1.5px;color:var(--ink-4);">EMPRESA</span>
+        <a href="#problema" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">O problema</a>
+        <a href="#painel" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">A camada Vesta</a>
+        <a href="#metodo" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">Método</a>
+        <a href="#faq" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">Perguntas</a>
       </div>
-      <div>
-        <div class="stat-value">100%</div>
-        <div class="stat-label">Rastreabilidade das execuções</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <span style="font-family:'Space Grotesk';font-weight:600;font-size:11.5px;letter-spacing:1.5px;color:var(--ink-4);">FRENTES</span>
+        <a href="#frentes" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">Atendimento</a>
+        <a href="#frentes" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">Relatórios</a>
+        <a href="#frentes" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">Protocolos</a>
+        <a href="#frentes" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">Financeiro</a>
       </div>
-      <div>
-        <div class="stat-value">0</div>
-        <div class="stat-label">Instalação necessária</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section id="contato" class="cta-section">
-  <div class="container">
-    <div class="cta-card">
-      <h2>Pronto para automatizar seus protocolos?</h2>
-      <p>Agende uma demonstração e veja como a Vesta pode eliminar horas de trabalho manual na sua clínica.</p>
-      <div class="cta-actions">
-        <a href="mailto:contato@vesta.com.br" class="btn btn-primary btn-lg">Falar com a Equipe</a>
-        <a href="#funcionalidades" class="btn btn-ghost btn-lg">Ver funcionalidades</a>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <span style="font-family:'Space Grotesk';font-weight:600;font-size:11.5px;letter-spacing:1.5px;color:var(--ink-4);">CONTATO</span>
+        <a href="{{ waLink }}" target="_blank" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">WhatsApp</a>
+        <a href="mailto:contato@vestabi.com" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">contato@vestabi.com</a>
+        <a href="https://www.vestabi.com" target="_blank" style="font-size:14px;font-weight:600;color:var(--ink-65);" style-hover="color:var(--acc);">www.vestabi.com</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-content">
-    <div class="footer-logo">
-      <svg width="546" height="619" viewBox="0 0 546 619" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M271.736 9C267.528 9 263.317 10.0624 259.523 12.1865L12.7871 150.337C4.89172 154.758 0.000305176 163.1 0 172.149V447.442L0.000976562 447.486L0.0126953 448.163V448.204L0.0146484 448.245C0.309063 456.967 5.13837 464.929 12.7871 469.212L259.523 607.362C263.319 609.487 267.53 610.547 271.736 610.547H276.736V574.596L37 440.364V179.183L276.736 44.9521V9H271.736Z" fill="#B36F3A"/>
-        <path d="M274 8.71094C278.209 8.71094 282.419 9.77337 286.213 11.8975L532.949 150.048C540.845 154.469 545.736 162.811 545.736 171.86V447.153L545.735 447.197L545.724 447.874V447.915L545.722 447.956C545.427 456.678 540.598 464.64 532.949 468.923L286.213 607.073C282.417 609.198 278.206 610.258 274 610.258H269V574.307L508.736 440.075V178.894L269 44.6631V8.71094H274Z" fill="#B36F3A"/>
-        <path d="M310 30.5C310 47.3447 296.345 61 279.5 61C262.655 61 249 47.3447 249 30.5C249 13.6553 262.655 0 279.5 0C296.345 0 310 13.6553 310 30.5Z" fill="#B36F3A"/>
-        <path d="M310 588.5C310 605.345 296.345 619 279.5 619C262.655 619 249 605.345 249 588.5C249 571.655 262.655 558 279.5 558C296.345 558 310 571.655 310 588.5Z" fill="#B36F3A"/>
-        <path d="M299.402 445.668L272.908 500.135L249.039 444.802L276.166 380.839L299.402 445.668ZM405.667 191.283L423.001 191.58L314.314 415.013L290.202 347.742L356.914 190.445L405.667 191.283Z" fill="#B36F3A"/>
-        <path d="M140 191.662L157.334 191.364L206.087 190.527L299.489 445.584L272.908 499.593L140 191.662Z" fill="#B36F3A"/>
-      </svg>
-      <span>Vesta</span>
+    <div style="max-width:1200px;margin:0 auto;padding:18px 24px 28px;border-top:1px solid var(--ink-08);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <span style="font-size:13px;color:var(--ink-45);">© 2026 Vesta. Todos os direitos reservados.</span>
+      <span style="font-size:12.5px;color:var(--ink-4);">Feita em Salvador, Bahia.</span>
     </div>
-    <p>&copy; 2026 Vesta. Todos os direitos reservados.</p>
-  </div>
-</footer>
-
+  </footer>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5571981995565&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
+class Component extends DCLogic {
+  state = { theme: 'light', openFaq: 0, stat1: 0, statsFired: false, wordIdx: 0, activeSec: 'hero', activeStep: -1, hotBar: 2, hotProblem: -1, hotFrente: -1, hotComp: 0, guideDismissed: false };
+  frentesData = [
+    { tag:'ATENDIMENTO', title:'Triagem e resposta assistida', desc:'Classificamos e respondemos demandas repetitivas com apoio de rotina. Sua equipe assume só o que exige julgamento.', gain:'fila menor e resposta mais rápida', ex:'Ex.: análise de atendimentos para identificar demandas recorrentes.' },
+    { tag:'RELATÓRIOS', title:'Consolidação automática', desc:'Entregamos pronto, no mesmo horário, o relatório que hoje é montado à mão toda semana.', gain:'horas devolvidas toda semana', ex:'Ex.: resumo executivo semanal entregue pronto para a gestão.' },
+    { tag:'PROTOCOLOS', title:'Conferência auditável', desc:'Conferimos protocolos e lotes por rotina, com trilha de auditoria em cada etapa do processo.', gain:'menos erro, menos retrabalho', ex:'Ex.: conferência de protocolos clínicos com trilha de auditoria.' },
+    { tag:'FINANCEIRO', title:'Conciliação e alertas', desc:'Cruzamos guias, repasses e divergências automaticamente e avisamos quando algo não fecha.', gain:'divergências vistas a tempo', ex:'Ex.: alerta automático quando guia e repasse não fecham.' }
+  ];
+  beneficiosData = [
+    { title:'Acesso mínimo necessário', desc:'Dados sensíveis tratados com parcimônia e preferência por resultados agregados. Segurança e discrição fazem parte do método.' },
+    { title:'Implantação assistida', desc:'Compromisso com diagnóstico, implantação acompanhada e medição. Promessa de resultado garantido não faz parte do método. Nada muda sem validação da sua equipe.' },
+    { title:'Sobre o que você já usa', desc:'Aplicações em atendimento, relatórios, protocolos e rotinas administrativas, sem trocar seus sistemas.' },
+    { title:'Medição contínua', desc:'Cada rotina implantada nasce com indicador. O que não gera ganho mensurável é ajustado ou desligado.' },
+    { title:'Linguagem de gestão', desc:'Nada de relatório técnico indecifrável: resultados apresentados no vocabulário de quem decide.' }
+  ];
+  words = ['planilhas manuais', 'relatórios refeitos', 'conferências sem fim', 'tarefas repetitivas'];
+  problemas = [
+    { code:'Dor nº 1', title:'Atendimento sobrecarregado', desc:'Demandas repetitivas ocupam o tempo de quem deveria estar cuidando do cliente.' },
+    { code:'Dor nº 2', title:'Dados espalhados', desc:'Informações divididas entre sistemas, planilhas e conversas. Nenhuma leitura única.' },
+    { code:'Dor nº 3', title:'Relatórios manuais e recorrentes', desc:'Horas gastas toda semana montando o mesmo relatório, do zero.' },
+    { code:'Dor nº 4', title:'Processos sem indicadores confiáveis', desc:'Decisões tomadas no sentimento, porque os números nunca fecham.' },
+    { code:'Dor nº 5', title:'Informação que chega tarde', desc:'A gestão descobre o problema depois que ele já custou caro.' },
+    { code:'Dor nº 6', title:'Retrabalho operacional', desc:'Tarefas refeitas, conferências duplicadas e correções que poderiam ser evitadas.' }
+  ];
+  etapas = [
+    { num:'01', title:'Entender', desc:'Conversamos com quem vive a operação e mapeamos o caminho real do trabalho, não o do manual.' },
+    { num:'02', title:'Analisar', desc:'Levantamos o que já existe em sistemas, planilhas e conversas. Lacunas fazem parte do diagnóstico.' },
+    { num:'03', title:'Priorizar', desc:'Escolhemos juntos o ponto de maior ganho operacional para começar.' },
+    { num:'04', title:'Implantar', desc:'Automação assistida, com acompanhamento próximo da equipe. Nada muda sem validação.' },
+    { num:'05', title:'Evoluir', desc:'Indicadores mostram o que funcionou. Aprimoramos a rotina com base no uso real.' }
+  ];
+  compromissos = [
+    { icon:'[=]', title:'Acesso mínimo necessário', desc:'Dados sensíveis tratados com parcimônia e preferência por resultados agregados.' },
+    { icon:'{~}', title:'Implantação assistida', desc:'Compromisso com diagnóstico, implantação acompanhada e medição; não com promessa de resultado garantido.' },
+    { icon:'</>', title:'Sobre o que você já usa', desc:'Aplicações em atendimento, relatórios, protocolos e rotinas administrativas, sem trocar seus sistemas.' }
+  ];
+  faqs = [
+    { q:'A Vesta substitui meu sistema?', a:'Ela trabalha por cima do que você já usa: uma camada de inteligência e automação sobre os fluxos e dados existentes. O que funciona, fica.' },
+    { q:'Preciso ter dados perfeitos para começar?', a:'Começamos com o que existe hoje. Organizar os dados e diagnosticar as lacunas faz parte do trabalho.' },
+    { q:'A Vesta substitui pessoas?', a:'Não, e esse é um compromisso. O objetivo é reduzir retrabalho e devolver tempo para o que exige julgamento humano.' },
+    { q:'Como a Vesta lida com dados sensíveis?', a:'Com acesso mínimo necessário, preferência por resultados agregados e conformidade com a LGPD. Segurança e discrição fazem parte do método.' },
+    { q:'Não tenho tempo para implantar mais nada. E agora?', a:'A implantação é assistida: a Vesta conduz e sua equipe apenas valida. O objetivo é devolver tempo, não consumir o seu.' },
+    { q:'Minha equipe não é técnica. Isso é um problema?', a:'Melhor assim. As rotinas chegam prontas, em linguagem do dia a dia. Ninguém precisa aprender ferramenta nova.' },
+    { q:'Em quanto tempo vejo resultado?', a:'A primeira rotina nasce do gargalo priorizado no diagnóstico. O ganho aparece nas primeiras semanas de uso e é medido com indicador.' }
+  ];
+  barData = [
+    { label:'ENTRADA', h:'46%', insight:'Entrada estável, com volume dentro do padrão dos últimos 30 dias.' },
+    { label:'TRIAGEM', h:'70%', insight:'Triagem com fila crescente às segundas; candidata a regra automática de classificação.' },
+    { label:'RELATÓRIO', h:'100%', insight:'Gargalo detectado na etapa Relatório. Rotina de consolidação automática sugerida.' },
+    { label:'REVISÃO', h:'58%', insight:'Revisão concentrada em 2 pessoas: alerta de dependência operacional.' },
+    { label:'ENVIO', h:'32%', insight:'Envio saudável. Resumo semanal entregue à gestão hoje às 08:00.' },
+    { label:'ARQUIVO', h:'20%', insight:'Arquivo automatizável por completo; ganho rápido de implantação.' }
+  ];
+  guides = {
+    hero:     { msg:'Eu acompanho você pela página. Role para ver os problemas que a Vesta ataca.', cta:'Começar', href:'#problema', target:'_self' },
+    problema: { msg:'Esses são os seis problemas mais comuns que encontramos. O diagnóstico começa por aí.', cta:'Ver as frentes', href:'#frentes', target:'_self' },
+    frentes:  { msg:'Esta seção mostra onde a Vesta atua. O ganho típico de cada frente aparece ao passar o mouse.', cta:'Ver a camada Vesta', href:'#painel', target:'_self' },
+    painel:   { msg:'O painel ao lado é um exemplo de leitura diária da operação. As barras respondem ao mouse.', cta:'Conhecer o método', href:'#metodo', target:'_self' },
+    metodo:   { msg:'Cinco etapas, sem mágica. Nada muda sem validação da sua equipe.', cta:'Tirar dúvidas', href:'#faq', target:'_self' },
+    faq:      { msg:'Se a sua dúvida não está aqui, a conversa inicial serve justamente para isso.', cta:'Falar com a Vesta', href:'WA', target:'_blank' },
+    cta:      { msg:'Sem formulário e sem compromisso. Uma conversa direta no WhatsApp.', cta:'Chamar no WhatsApp', href:'WA', target:'_blank' }
+  };
+  componentDidMount(){
+    this._prog = 0;
+    this._onScroll = () => {
+      const h = document.documentElement;
+      this._prog = Math.min(100, (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100);
+      const el = document.getElementById('vprog');
+      if (el) el.style.width = this._prog + '%';
+      const tk = document.getElementById('vticker');
+      if (tk) {
+        const half = tk.scrollWidth / 2;
+        if (half > 0) tk.style.transform = 'translateX(' + (-((h.scrollTop * 0.55) % half)) + 'px)';
+      }
+      const big = document.getElementById('vbig');
+      if (big) {
+        const r = big.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, (window.innerHeight - r.top) / (r.height + window.innerHeight * 0.45)));
+        big.style.backgroundSize = (p * 100).toFixed(1) + '% 100%,100% 100%';
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._secObs = new IntersectionObserver((ents) => {
+      ents.forEach(en => { if (en.isIntersecting) this.setState({ activeSec: en.target.getAttribute('data-sec') }); });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    this._stepObs = new IntersectionObserver((ents) => {
+      ents.forEach(en => { if (en.isIntersecting) this.setState({ activeStep: parseInt(en.target.getAttribute('data-step')) }); });
+    }, { rootMargin: '-42% 0px -50% 0px' });
+    this._statObs = new IntersectionObserver((ents) => {
+      if (ents.some(e => e.isIntersecting) && !this.state.statsFired) {
+        this.setState({ statsFired: true });
+        const t0 = performance.now();
+        const tick = (t) => { const p = Math.min(1, (t - t0) / 1400); this.setState({ stat1: Math.round(38 * (1 - Math.pow(1 - p, 3))) }); if (p < 1) this._raf = requestAnimationFrame(tick); };
+        this._raf = requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.3 });
+    this._ioAlive = false;
+    this._revObs = new IntersectionObserver((ents) => {
+      this._ioAlive = true;
+      ents.forEach(en => { if (en.isIntersecting) { en.target.classList.remove('vhide'); this._revObs.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -30% 0px' });
+    // Watchdog: IO fires an initial callback for every observed element; if nothing fires, IO is dead — un-hide everything.
+    this._ioWatchdog = setTimeout(() => {
+      if (!this._ioAlive) document.querySelectorAll('.vhide').forEach(el => el.classList.remove('vhide'));
+    }, 1200);
+    this._observeAll = () => {
+      document.querySelectorAll('[data-reveal],[data-reveal-line]').forEach(el => { el.classList.add('vhide'); this._revObs.observe(el); });
+      document.querySelectorAll('[data-sec]').forEach(el => this._secObs.observe(el));
+      document.querySelectorAll('[data-step]').forEach(el => this._stepObs.observe(el));
+      const painel = document.getElementById('painel');
+      if (painel) this._statObs.observe(painel);
+    };
+    this._observeAll();
+    this._syncBody = () => { document.body.style.background = this.getThemes()[this.state.theme]['--bg']; };
+    this._syncBody();
+    this._wordTimer = setInterval(() => this.setState(s => ({ wordIdx: (s.wordIdx + 1) % this.words.length })), 2600);
+    this._barTimer = setInterval(() => { if (!this._barHover) this.setState(s => ({ hotBar: (s.hotBar + 1) % 6 })); }, 6000);
+    this._onScroll();
+  }
+  componentDidUpdate(){
+    const el = document.getElementById('vprog');
+    if (el) el.style.width = (this._prog || 0) + '%';
+    if (this._syncBody) this._syncBody();
+  }
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this._onScroll);
+    clearInterval(this._wordTimer); clearInterval(this._barTimer); clearTimeout(this._ioWatchdog);
+    cancelAnimationFrame(this._raf);
+    this._secObs.disconnect(); this._stepObs.disconnect(); this._statObs.disconnect(); this._revObs.disconnect();
+  }
+  toggle(i){ this.setState(s => ({ openFaq: s.openFaq === i ? -1 : i })); }
+  heroMove(e){
+    const g = document.getElementById('vglow');
+    if (!g) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    g.style.left = (e.clientX - r.left) + 'px';
+    g.style.top = (e.clientY - r.top) + 'px';
+  }
+  getThemes(){ return {"dark":{"--bg":"#001B2A","--text":"#EAF3F8","--panel1":"#04283C","--panel2":"#02202F","--panel-inner":"rgba(0,27,42,.6)","--header-bg":"rgba(0,27,42,.78)","--guide-bg":"rgba(4,40,60,.92)","--acc":"#B36F3A","--acc-hi":"#CE8A50","--good":"#4CC593","--good-soft":"rgba(30,158,106,.14)","--on-acc":"#FFFFFF","--ink-06":"rgba(234,243,248,.06)","--ink-5":"rgba(234,243,248,.5)","--ink-4":"rgba(234,243,248,.4)","--ink-85":"rgba(234,243,248,.85)","--ink-07":"rgba(234,243,248,.07)","--ink-45":"rgba(234,243,248,.45)","--ink-65":"rgba(234,243,248,.65)","--ink-045":"rgba(234,243,248,.045)","--ink-68":"rgba(234,243,248,.68)","--ink-2":"rgba(234,243,248,.2)","--ink-02":"rgba(234,243,248,.02)","--ink-6":"rgba(234,243,248,.6)","--ink-035":"rgba(234,243,248,.035)","--ink-08":"rgba(234,243,248,.08)","--ink-09":"rgba(234,243,248,.09)","--ink-62":"rgba(234,243,248,.62)","--ink-55":"rgba(234,243,248,.55)","--ink-1":"rgba(234,243,248,.1)","--ink-22":"rgba(234,243,248,.22)","--ink-25":"rgba(234,243,248,.25)","--acc-3":"rgba(179,111,58,.3)","--acc-14":"rgba(179,111,58,.14)","--acc-35":"rgba(179,111,58,.35)","--acc-25":"rgba(179,111,58,.25)","--acc-13":"rgba(179,111,58,.13)","--glow":"rgba(179,111,58,.13)","--acc-08":"rgba(179,111,58,.08)","--acc-4":"rgba(179,111,58,.4)","--acc-45":"rgba(179,111,58,.45)","--acc-05":"rgba(179,111,58,.05)","--acc-55":"rgba(179,111,58,.55)","--acc-09":"rgba(179,111,58,.09)","--acc-15":"rgba(179,111,58,.15)","--acc-12":"rgba(179,111,58,.12)","--acc-16":"rgba(179,111,58,.16)","--acc-42":"rgba(179,111,58,.42)","--acc-07":"rgba(179,111,58,.07)","--acc-5":"rgba(179,111,58,.5)"},"light":{"--bg":"#F1F5F8","--text":"#002F49","--glow":"rgba(164,95,44,.09)","--panel1":"#FFFFFF","--panel2":"#E9F0F5","--panel-inner":"rgba(255,255,255,.8)","--header-bg":"rgba(241,245,248,.85)","--guide-bg":"rgba(255,255,255,.96)","--acc":"#A45F2C","--acc-hi":"#8A4E22","--good":"#1A8C5E","--good-soft":"rgba(26,140,94,.12)","--on-acc":"#FFFFFF","--ink-06":"rgba(0,47,73,.06)","--ink-5":"rgba(0,47,73,.5)","--ink-4":"rgba(0,47,73,.4)","--ink-85":"rgba(0,47,73,.85)","--ink-07":"rgba(0,47,73,.07)","--ink-45":"rgba(0,47,73,.45)","--ink-65":"rgba(0,47,73,.65)","--ink-045":"rgba(0,47,73,.045)","--ink-68":"rgba(0,47,73,.68)","--ink-2":"rgba(0,47,73,.2)","--ink-02":"rgba(0,47,73,.02)","--ink-6":"rgba(0,47,73,.6)","--ink-035":"rgba(0,47,73,.035)","--ink-08":"rgba(0,47,73,.08)","--ink-09":"rgba(0,47,73,.09)","--ink-62":"rgba(0,47,73,.62)","--ink-55":"rgba(0,47,73,.55)","--ink-1":"rgba(0,47,73,.1)","--ink-22":"rgba(0,47,73,.22)","--ink-25":"rgba(0,47,73,.25)","--acc-3":"rgba(164,95,44,.3)","--acc-14":"rgba(164,95,44,.14)","--acc-35":"rgba(164,95,44,.35)","--acc-25":"rgba(164,95,44,.25)","--acc-13":"rgba(164,95,44,.13)","--acc-08":"rgba(164,95,44,.08)","--acc-4":"rgba(164,95,44,.4)","--acc-45":"rgba(164,95,44,.45)","--acc-05":"rgba(164,95,44,.05)","--acc-55":"rgba(164,95,44,.55)","--acc-09":"rgba(164,95,44,.09)","--acc-15":"rgba(164,95,44,.15)","--acc-12":"rgba(164,95,44,.12)","--acc-16":"rgba(164,95,44,.16)","--acc-42":"rgba(164,95,44,.42)","--acc-07":"rgba(164,95,44,.07)","--acc-5":"rgba(164,95,44,.5)"}}; }
+  renderVals(){
+    const msg = encodeURIComponent('Olá, quero entender como a Vesta pode ajudar minha empresa a organizar dados, reduzir retrabalho e melhorar processos operacionais.');
+    const num = (this.props.whatsapp || '5571981995565').replace(/\D/g, '');
+    const theme = this.state.theme;
+    const waLink = 'https://api.whatsapp.com/send/?phone=' + num + '&text=' + msg + '&type=phone_number&app_absent=0';
+    const words = ['Diagnóstico operacional','Organização de dados','Automação de rotinas','Monitoramento e indicadores','Menos retrabalho','Apoio à decisão'];
+    const secs = [
+      { id:'hero', name:'INÍCIO' }, { id:'problema', name:'PROBLEMA' }, { id:'frentes', name:'FRENTES' }, { id:'painel', name:'CAMADA' },
+      { id:'metodo', name:'MÉTODO' }, { id:'faq', name:'PERGUNTAS' }, { id:'cta', name:'CONTATO' }
+    ];
+    const g = this.guides[this.state.activeSec] || this.guides.hero;
+    const rotatingWord = React.createElement('span', { key: this.state.wordIdx, style: { color: 'var(--acc)', display: 'inline-block', animation: 'wordIn .4s ease both' } }, this.words[this.state.wordIdx]);
+    return {
+      waLink,
+      rotatingWord,
+      themeStyle: this.getThemes()[theme],
+      isDark: theme === 'dark', isLight: theme === 'light',
+      toggleTheme: () => this.setState(s => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
+      onHeroMove: (e) => this.heroMove(e),
+      stepper: secs.map(s => { const on = this.state.activeSec === s.id; return { href: '#' + s.id, name: s.name, labelOpacity: on ? 1 : 0, size: on ? '26px' : '8px', color: on ? 'var(--acc)' : 'var(--ink-25)' }; }),
+      guideVisible: !this.state.guideDismissed,
+      guideMsg: g.msg, guideCta: g.cta, guideTarget: g.target,
+      guideHref: g.href === 'WA' ? waLink : g.href,
+      dismissGuide: () => this.setState({ guideDismissed: true }),
+      marquee: [...words, ...words],
+      problemas: this.problemas.map((p, i) => ({ ...p, cardBg: i === 5 ? 'var(--acc-08)' : 'var(--ink-035)', tag: this.state.hotProblem === i ? '● DETECTADO' : '○', tagColor: this.state.hotProblem === i ? 'var(--acc)' : 'var(--ink-25)', onEnter: () => this.setState({ hotProblem: i }) })),
+      etapas: this.etapas.map((e, i) => { const on = this.state.activeStep === i; return { ...e, idx: i, bg: on ? 'var(--acc-07)' : 'var(--ink-02)', border: on ? 'var(--acc-45)' : 'var(--ink-07)', numColor: on ? 'var(--acc)' : 'var(--ink-25)', shift: on ? 'translateX(10px)' : 'translateX(0)', onEnter: () => this.setState({ activeStep: i }) }; }),
+      frentes: this.frentesData.map((f, i) => { const hot = this.state.hotFrente === i; return { ...f, border: hot ? 'var(--acc-45)' : 'var(--ink-08)', lift: hot ? 'translateY(-4px)' : 'translateY(0)', gainH: hot ? '110px' : '0px', gainO: hot ? 1 : 0, arrowT: hot ? 'translate(0,0)' : 'translate(12px,12px)', arrowO: hot ? 1 : 0, onEnter: () => this.setState({ hotFrente: i }), onLeave: () => this.setState({ hotFrente: -1 }) }; }),
+      beneficios: this.beneficiosData.map((b, i) => { const on = this.state.hotComp === i; return { ...b, open: on, bg: on ? 'var(--acc-08)' : 'transparent', dot: on ? 'var(--acc)' : 'var(--ink-2)', titleColor: on ? 'var(--text)' : 'var(--ink-55)', onEnter: () => this.setState({ hotComp: i }) }; }),
+      
+      bars: this.barData.map((b, i) => { const hot = this.state.hotBar === i; return { ...b, color: hot ? 'var(--acc)' : 'var(--ink-22)', labelColor: hot ? 'var(--acc)' : 'var(--ink-4)', glow: hot ? 'drop-shadow(0 0 14px var(--acc-5))' : 'none', delay: (i * 0.12) + 's', onEnter: () => { this._barHover = true; this.setState({ hotBar: i }); } }; }),
+      barInsight: this.barData[this.state.hotBar].insight,
+      faqs: this.faqs.map((f, i) => ({ ...f, open: this.state.openFaq === i, chev: this.state.openFaq === i ? 'rotate(180deg)' : 'rotate(0deg)', onClick: () => this.toggle(i) }))
+    };
+  }
+}
+</script>
 </body>
 </html>
