@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vesta — Plataforma de Automação Clínica</title>
+  <meta name="description" content="Automatize protocolos clínicos, gere relatórios e elimine retrabalho manual com a plataforma Vesta.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --copper-50: #FDF6F0;
+      --copper-100: #F9E8D5;
+      --copper-200: #F0CDA6;
+      --copper-300: #E5AD72;
+      --copper-400: #D48E4B;
+      --copper-500: #B36F3A;
+      --copper-600: #965B2E;
+      --copper-700: #7A4824;
+      --copper-800: #5E371B;
+      --copper-900: #422613;
+      --navy-50: #E8F0F5;
+      --navy-100: #C4D8E5;
+      --navy-200: #8FB5CC;
+      --navy-300: #5A91B3;
+      --navy-400: #2F6D99;
+      --navy-500: #002F49;
+      --navy-600: #00263B;
+      --navy-700: #001D2E;
+      --navy-800: #001420;
+      --navy-900: #000B13;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-300: #CBD5E1;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1E293B;
+      --gray-900: #0F172A;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--navy-500);
+      background: var(--gray-50);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--navy-500);
+    }
+
+    .nav-logo svg {
+      height: 36px;
+      width: auto;
+    }
+
+    .nav-logo span {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 150ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--copper-500);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 150ms ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--copper-500);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--copper-600);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--navy-500);
+      border: 1px solid var(--gray-300);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--copper-300);
+      background: var(--gray-50);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--copper-600);
+    }
+
+    .btn-ghost:hover {
+      background: var(--copper-50);
+    }
+
+    .btn-lg {
+      padding: 14px 32px;
+      font-size: 16px;
+      border-radius: 10px;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      background: radial-gradient(ellipse at 50% 30%, var(--copper-50) 0%, var(--gray-50) 70%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(179, 111, 58, 0.06) 0%, transparent 70%);
+    }
+
+    .hero-content {
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--copper-50);
+      color: var(--copper-700);
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      border: 1px solid var(--copper-200);
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--copper-500);
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--navy-500);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .accent {
+      color: var(--copper-500);
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--gray-600);
+      max-width: 540px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      margin-top: 64px;
+      position: relative;
+    }
+
+    .hero-visual .window {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--gray-200);
+      box-shadow: 0 20px 60px -15px rgba(0, 47, 73, 0.12),
+                  0 0 0 1px rgba(0, 47, 73, 0.04);
+      max-width: 680px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .window-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+
+    .window-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gray-300);
+    }
+
+    .window-body {
+      padding: 24px;
+      text-align: left;
+    }
+
+    .terminal {
+      background: var(--navy-900);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--gray-300);
+    }
+
+    .terminal .prompt {
+      color: var(--copper-400);
+    }
+
+    .terminal .success {
+      color: #4ADE80;
+    }
+
+    .terminal .info {
+      color: #60A5FA;
+    }
+
+    .terminal .dim {
+      color: var(--gray-600);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 96px 24px;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--copper-500);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--navy-500);
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--gray-500);
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    .section-header {
+      margin-bottom: 56px;
+    }
+
+    .section-header.center {
+      text-align: center;
+    }
+
+    .section-header.center .section-desc {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 28px;
+      transition: all 200ms ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--copper-300);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--copper-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .feature-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--copper-500);
+      stroke: currentColor;
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--navy-500);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      counter-increment: step;
+    }
+
+    .step::before {
+      content: counter(step);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--navy-500);
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--navy-500);
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    /* STATS */
+    .stats-section {
+      background: var(--navy-500);
+      color: white;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--copper-400);
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--navy-200);
+      margin-top: 4px;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 80%, var(--copper-50) 0%, var(--gray-50) 70%);
+    }
+
+    .cta-card {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .cta-card h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 800;
+      color: var(--navy-500);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-card p {
+      font-size: 16px;
+      color: var(--gray-500);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .cta-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy-800);
+      color: var(--navy-200);
+      padding: 48px 24px;
+    }
+
+    .footer-content {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-logo svg {
+      height: 28px;
+      width: auto;
+    }
+
+    .footer-logo span {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-300);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--navy-300);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content {
+      animation: fade-in-up 600ms ease-out;
+    }
+
+    .hero-visual {
+      animation: fade-in-up 600ms ease-out 200ms both;
+    }
+
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .terminal .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: var(--copper-400);
+      animation: cursor-blink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 2px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 100px 20px 60px;
+      }
+
+      section {
+        padding: 64px 20px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="546" height="619" viewBox="0 0 546 619" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M271.736 9C267.528 9 263.317 10.0624 259.523 12.1865L12.7871 150.337C4.89172 154.758 0.000305176 163.1 0 172.149V447.442L0.000976562 447.486L0.0126953 448.163V448.204L0.0146484 448.245C0.309063 456.967 5.13837 464.929 12.7871 469.212L259.523 607.362C263.319 609.487 267.53 610.547 271.736 610.547H276.736V574.596L37 440.364V179.183L276.736 44.9521V9H271.736Z" fill="#002F49"/>
+      <path d="M274 8.71094C278.209 8.71094 282.419 9.77337 286.213 11.8975L532.949 150.048C540.845 154.469 545.736 162.811 545.736 171.86V447.153L545.735 447.197L545.724 447.874V447.915L545.722 447.956C545.427 456.678 540.598 464.64 532.949 468.923L286.213 607.073C282.417 609.198 278.206 610.258 274 610.258H269V574.307L508.736 440.075V178.894L269 44.6631V8.71094H274Z" fill="#B36F3A"/>
+      <path d="M310 30.5C310 47.3447 296.345 61 279.5 61C262.655 61 249 47.3447 249 30.5C249 13.6553 262.655 0 279.5 0C296.345 0 310 13.6553 310 30.5Z" fill="#B36F3A"/>
+      <path d="M310 588.5C310 605.345 296.345 619 279.5 619C262.655 619 249 605.345 249 588.5C249 571.655 262.655 558 279.5 558C296.345 558 310 571.655 310 588.5Z" fill="#B36F3A"/>
+      <path d="M299.402 445.668L272.908 500.135L249.039 444.802L276.166 380.839L299.402 445.668ZM405.667 191.283L423.001 191.58L314.314 415.013L290.202 347.742L356.914 190.445L405.667 191.283Z" fill="#B36F3A"/>
+      <path d="M140 191.662L157.334 191.364L206.087 190.527L299.489 445.584L272.908 499.593L140 191.662Z" fill="#002F49"/>
+    </svg>
+    <span>Vesta</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#funcionalidades">Funcionalidades</a></li>
+    <li><a href="#como-funciona">Como Funciona</a></li>
+    <li><a href="#numeros">Resultados</a></li>
+    <li><a href="#contato" class="btn btn-primary">Começar Agora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Plataforma SaaS para saúde
+    </div>
+    <h1>Automatize seus <span class="accent">protocolos clínicos</span> em minutos</h1>
+    <p>A Vesta transforma processos manuais de gestão clínica em execuções automatizadas. Upload, processe e receba relatórios prontos — sem planilhas, sem retrabalho.</p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn btn-primary btn-lg">Agendar Demonstração</a>
+      <a href="#como-funciona" class="btn btn-secondary btn-lg">Ver como funciona</a>
+    </div>
+    <div class="hero-visual">
+      <div class="window">
+        <div class="window-bar">
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+        </div>
+        <div class="window-body">
+          <div class="terminal">
+            <div><span class="prompt">vesta</span> <span class="info">protocolo-ar</span> <span class="dim">1T2026</span></div>
+            <div><span class="dim">→</span> Processando PDF... <span class="success">✓</span></div>
+            <div><span class="dim">→</span> Cruzando base XLS... <span class="success">✓</span></div>
+            <div><span class="dim">→</span> Gerando relatório... <span class="success">✓</span></div>
+            <div><span class="dim">→</span> 127 pacientes processados em <span class="success">4.2s</span></div>
+            <div><span class="dim">→</span> Download: <span class="info">protocolo_ar_1T2026.xlsx</span><span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="funcionalidades">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">Funcionalidades</div>
+      <h2 class="section-title">Tudo que sua equipe precisa, em um só lugar</h2>
+      <p class="section-desc">Scripts clínicos validados, executados via interface web com rastreabilidade completa.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/>
+          </svg>
+        </div>
+        <h3>Upload Inteligente</h3>
+        <p>Envie PDFs e planilhas do sistema clínico. A Vesta extrai, cruza e valida os dados automaticamente.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+          </svg>
+        </div>
+        <h3>Catálogo de Scripts</h3>
+        <p>Protocolos gerenciados, relatórios trimestrais e integrações — scripts validados e prontos para uso.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>
+          </svg>
+        </div>
+        <h3>Logs em Tempo Real</h3>
+        <p>Acompanhe cada execução com logs detalhados, barra de progresso e download instantâneo do resultado.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
+          </svg>
+        </div>
+        <h3>Seguro e Rastreável</h3>
+        <p>Autenticação Supabase, isolamento por empresa e histórico completo de todas as execuções.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+          </svg>
+        </div>
+        <h3>Processamento Assíncrono</h3>
+        <p>Scripts pesados rodam em workers Celery. Você recebe o resultado quando estiver pronto — sem travar a interface.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+          </svg>
+        </div>
+        <h3>Relatórios XLSX</h3>
+        <p>Resultados formatados no template padrão da clínica, prontos para envio ou auditoria. Zero formatação manual.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="como-funciona" style="background: white;">
+  <div class="container">
+    <div class="section-header center">
+      <div class="section-label">Como Funciona</div>
+      <h2 class="section-title">Do upload ao relatório em 3 passos</h2>
+      <p class="section-desc">Sem instalação, sem configuração. Acesse pelo navegador e comece a processar.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Faça o Upload</h3>
+        <p>Envie o PDF do sistema clínico e, opcionalmente, a base XLS para cruzamento. Selecione o período de referência.</p>
+      </div>
+      <div class="step">
+        <h3>Execute o Script</h3>
+        <p>Escolha o protocolo no catálogo e clique em "Executar". O processamento acontece em background com logs em tempo real.</p>
+      </div>
+      <div class="step">
+        <h3>Baixe o Resultado</h3>
+        <p>Receba a planilha formatada no template padrão da clínica. Pronta para envio, auditoria ou análise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="numeros" class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-value">95%</div>
+        <div class="stat-label">Redução de tempo manual</div>
+      </div>
+      <div>
+        <div class="stat-value">&lt;5s</div>
+        <div class="stat-label">Tempo médio de processamento</div>
+      </div>
+      <div>
+        <div class="stat-value">100%</div>
+        <div class="stat-label">Rastreabilidade das execuções</div>
+      </div>
+      <div>
+        <div class="stat-value">0</div>
+        <div class="stat-label">Instalação necessária</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contato" class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <h2>Pronto para automatizar seus protocolos?</h2>
+      <p>Agende uma demonstração e veja como a Vesta pode eliminar horas de trabalho manual na sua clínica.</p>
+      <div class="cta-actions">
+        <a href="mailto:contato@vesta.com.br" class="btn btn-primary btn-lg">Falar com a Equipe</a>
+        <a href="#funcionalidades" class="btn btn-ghost btn-lg">Ver funcionalidades</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">
+      <svg width="546" height="619" viewBox="0 0 546 619" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M271.736 9C267.528 9 263.317 10.0624 259.523 12.1865L12.7871 150.337C4.89172 154.758 0.000305176 163.1 0 172.149V447.442L0.000976562 447.486L0.0126953 448.163V448.204L0.0146484 448.245C0.309063 456.967 5.13837 464.929 12.7871 469.212L259.523 607.362C263.319 609.487 267.53 610.547 271.736 610.547H276.736V574.596L37 440.364V179.183L276.736 44.9521V9H271.736Z" fill="#B36F3A"/>
+        <path d="M274 8.71094C278.209 8.71094 282.419 9.77337 286.213 11.8975L532.949 150.048C540.845 154.469 545.736 162.811 545.736 171.86V447.153L545.735 447.197L545.724 447.874V447.915L545.722 447.956C545.427 456.678 540.598 464.64 532.949 468.923L286.213 607.073C282.417 609.198 278.206 610.258 274 610.258H269V574.307L508.736 440.075V178.894L269 44.6631V8.71094H274Z" fill="#B36F3A"/>
+        <path d="M310 30.5C310 47.3447 296.345 61 279.5 61C262.655 61 249 47.3447 249 30.5C249 13.6553 262.655 0 279.5 0C296.345 0 310 13.6553 310 30.5Z" fill="#B36F3A"/>
+        <path d="M310 588.5C310 605.345 296.345 619 279.5 619C262.655 619 249 605.345 249 588.5C249 571.655 262.655 558 279.5 558C296.345 558 310 571.655 310 588.5Z" fill="#B36F3A"/>
+        <path d="M299.402 445.668L272.908 500.135L249.039 444.802L276.166 380.839L299.402 445.668ZM405.667 191.283L423.001 191.58L314.314 415.013L290.202 347.742L356.914 190.445L405.667 191.283Z" fill="#B36F3A"/>
+        <path d="M140 191.662L157.334 191.364L206.087 190.527L299.489 445.584L272.908 499.593L140 191.662Z" fill="#B36F3A"/>
+      </svg>
+      <span>Vesta</span>
+    </div>
+    <p>&copy; 2026 Vesta. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+</body>
+</html>
