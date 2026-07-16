@@ -156,19 +156,19 @@
   .benef{background:transparent;transition:background .3s;cursor:default}
   .benef .bdot{transition:background .3s;background:var(--ink-2)}
   .benef .btitle{transition:color .3s;color:var(--ink-55)}
-  .benef .bdesc{display:none}
+  .benef .bdesc{max-height:0;opacity:0;overflow:hidden;margin:0 0 0 26px!important;transition:max-height .38s cubic-bezier(.22,1,.36,1),opacity .28s ease,margin .38s cubic-bezier(.22,1,.36,1)}
   .benef.on{background:var(--acc-08)}
   .benef.on .bdot{background:var(--acc)}
   .benef.on .btitle{color:var(--text)}
-  .benef.on .bdesc{display:block}
+  .benef.on .bdesc{max-height:200px;opacity:1;margin:10px 0 2px 26px!important}
 
   /* ============ FAQ ============ */
   .faq-item{transition:border-color .25s}
   .faq-item:hover{border-color:var(--acc-4)}
   .faq-item .chev{transition:transform .25s}
   .faq-item.open .chev{transform:rotate(180deg)}
-  .faq-item .faq-a{display:none}
-  .faq-item.open .faq-a{display:block}
+  .faq-item .faq-a{max-height:0;opacity:0;overflow:hidden;padding:0 26px!important;transition:max-height .38s cubic-bezier(.22,1,.36,1),opacity .28s ease,padding .38s cubic-bezier(.22,1,.36,1)}
+  .faq-item.open .faq-a{max-height:400px;opacity:1;padding:0 26px 24px!important}
 
   /* ============ RESPONSIVO ============ */
   @media (max-width:1180px){
@@ -483,7 +483,7 @@
         <div data-console style="background:var(--panel-inner);border:1px solid var(--ink-1);border-radius:24px;padding:26px;">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
             <span style="font-size:13px;font-weight:700;color:var(--ink-5);">Painel operacional da sua empresa</span>
-            <span style="display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:var(--good-soft);color:var(--good);font-size:11.5px;font-weight:700;"><span style="width:6px;height:6px;border-radius:50%;background:var(--good);animation:pulse 1.6s ease-in-out infinite;"></span>ao vivo</span>
+            <span style="display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;background:var(--good-soft);color:var(--good);font-size:11.5px;font-weight:700;white-space:nowrap;flex:none;"><span style="width:6px;height:6px;border-radius:50%;background:var(--good);animation:pulse 1.6s ease-in-out infinite;flex:none;"></span>ao vivo</span>
           </div>
           <div style="font-size:12px;color:var(--ink-4);margin-bottom:10px;">toque ou passe o mouse nas etapas ↓</div>
           <div data-bars style="display:flex;align-items:flex-end;gap:10px;height:130px;">
