@@ -120,6 +120,12 @@
   /* ============ TICKER ============ */
   .tword{opacity:.85;transition:opacity .25s,transform .25s;cursor:default}
   .tword:hover{opacity:1;transform:translateY(-2px)}
+  .ticker-mobile{display:none}
+  @media (max-width:640px){
+    .ticker-desktop{display:none!important}
+    .ticker-mobile{display:flex!important;align-items:center;justify-content:center;overflow:hidden;padding:20px 24px;background:var(--acc);}
+    .ticker-mobile-word{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(14px,4.5vw,17px);color:var(--on-acc);text-align:center;white-space:nowrap;transition:opacity .32s ease,transform .32s cubic-bezier(.22,1,.36,1);}
+  }
 
   /* ============ PROBLEMA CARDS ============ */
   .pcard{background:var(--ink-035);border:1px solid var(--ink-08);transition:border-color .25s,transform .2s,background .25s;cursor:default}
@@ -286,8 +292,8 @@
     </div>
   </section>
 
-  <!-- TICKER (guiado pelo scroll) -->
-  <div style="overflow:hidden;padding:22px 0;background:var(--acc);">
+  <!-- TICKER (guiado pelo scroll, telas maiores) -->
+  <div class="ticker-desktop" style="overflow:hidden;padding:22px 0;background:var(--acc);">
     <div id="vticker" style="display:flex;width:max-content;will-change:transform;">
       <span class="tword" style="display:inline-flex;align-items:center;gap:26px;padding:0 26px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--on-acc);white-space:nowrap;">Diagnóstico operacional <span style="opacity:.55;">·</span></span>
       <span class="tword" style="display:inline-flex;align-items:center;gap:26px;padding:0 26px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--on-acc);white-space:nowrap;">Organização de dados <span style="opacity:.55;">·</span></span>
@@ -302,6 +308,11 @@
       <span class="tword" style="display:inline-flex;align-items:center;gap:26px;padding:0 26px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--on-acc);white-space:nowrap;">Menos retrabalho <span style="opacity:.55;">·</span></span>
       <span class="tword" style="display:inline-flex;align-items:center;gap:26px;padding:0 26px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--on-acc);white-space:nowrap;">Apoio à decisão <span style="opacity:.55;">·</span></span>
     </div>
+  </div>
+
+  <!-- TICKER (crossfade vertical, mobile) -->
+  <div class="ticker-mobile">
+    <span id="vtickerword" class="ticker-mobile-word">Diagnóstico operacional</span>
   </div>
 
   <!-- PONTO DE PARTIDA -->
@@ -784,6 +795,25 @@
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  /* ---- ticker mobile: crossfade vertical (independente do scroll) ---- */
+  var tickerWords = ['Diagnóstico operacional', 'Organização de dados', 'Automação de rotinas', 'Monitoramento e indicadores', 'Menos retrabalho', 'Apoio à decisão'];
+  var tickerWordEl = document.getElementById('vtickerword');
+  var ti = 0;
+  setInterval(function(){
+    tickerWordEl.style.opacity = '0';
+    tickerWordEl.style.transform = 'translateY(-14px)';
+    setTimeout(function(){
+      ti = (ti + 1) % tickerWords.length;
+      tickerWordEl.style.transition = 'none';
+      tickerWordEl.style.transform = 'translateY(14px)';
+      tickerWordEl.textContent = tickerWords[ti];
+      void tickerWordEl.offsetWidth;
+      tickerWordEl.style.transition = 'opacity .32s ease,transform .32s cubic-bezier(.22,1,.36,1)';
+      tickerWordEl.style.opacity = '1';
+      tickerWordEl.style.transform = 'translateY(0)';
+    }, 320);
+  }, 2600);
 
   /* ---- glow do hero segue o mouse ---- */
   var hero = document.getElementById('hero');
