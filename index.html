@@ -10,10 +10,16 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dev-vesta.github.io/landing_page/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  /* Fontes self-hosted (variáveis, subset latino) — mesmos arquivos do Google
+     Fonts, servidos deste repositório. Nenhuma dependência externa. */
+  @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:swap;src:url(fonts/space-grotesk.woff2) format('woff2')}
+  @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/plus-jakarta-sans.woff2) format('woff2')}
+  @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url(fonts/jetbrains-mono.woff2) format('woff2')}
+
   /* ============ THEMES ============ */
   [data-theme="dark"]{
     --bg:#001B2A;--text:#EAF3F8;--panel1:#04283C;--panel2:#02202F;--panel-inner:rgba(0,27,42,.6);
