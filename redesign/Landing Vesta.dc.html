@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#EBEEF4}
+  html{scroll-behavior:smooth}
+  a{color:#A9740F;text-decoration:none}
+  a:hover{color:#16243F}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#EBEEF4;color:#1A2945;font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;">
+
+  <!-- NAV -->
+  <header style="position:sticky;top:14px;z-index:20;max-width:1140px;margin:14px auto 0;padding:0 20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border:1px solid rgba(22,36,63,.09);border-radius:999px;padding:10px 12px 10px 20px;box-shadow:0 2px 12px rgba(22,36,63,.06);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:38px;height:38px;border-radius:13px;background:#16243F;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;">V</div>
+        <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:22px;letter-spacing:-.5px;color:#16243F;">Vesta</span>
+      </div>
+      <nav style="display:flex;align-items:center;gap:4px;">
+        <a href="#problema" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;color:#63718A;">O problema</a>
+        <a href="#solucao" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;color:#63718A;">Como a Vesta ajuda</a>
+        <a href="#comofunciona" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;color:#63718A;">Como funciona</a>
+        <a href="#faq" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;color:#63718A;">Perguntas</a>
+      </nav>
+      <a href="{{ waLink }}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;background:#E7A92E;color:#16243F;font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;box-shadow:0 6px 16px rgba(231,169,46,.3);transition:transform .14s;" style-hover="transform:translateY(-2px);color:#16243F;">Falar com a Vesta</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section style="max-width:1140px;margin:0 auto;padding:72px 20px 40px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center;">
+    <div>
+      <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:rgba(231,169,46,.15);color:#A9740F;font-size:13px;font-weight:700;">Inteligência operacional para gestão</span>
+      <h1 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:52px;line-height:1.06;letter-spacing:-1.5px;margin:20px 0 0;color:#16243F;text-wrap:pretty;">Transforme dados soltos em inteligência operacional diária</h1>
+      <p style="margin:20px 0 0;font-size:18px;line-height:1.6;color:#63718A;max-width:520px;text-wrap:pretty;">A Vesta identifica gargalos, organiza informações e cria rotinas inteligentes para reduzir retrabalho, melhorar processos e apoiar decisões de gestão.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;">
+        <a href="{{ waLink }}" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;background:#E7A92E;color:#16243F;font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;box-shadow:0 8px 20px rgba(231,169,46,.32);transition:transform .14s;" style-hover="transform:translateY(-2px);color:#16243F;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5 13.6c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5l-.5.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.3.1 1.6.8 1.9.9.3.2.5.2.5.4.1.1.1.7-.1 1.2Z"/></svg>Falar com a Vesta no WhatsApp
+        </a>
+        <a href="mailto:contato@vestabi.com" style="display:inline-flex;align-items:center;gap:9px;padding:16px 26px;border-radius:999px;border:1px solid rgba(22,36,63,.16);background:#fff;color:#16243F;font-weight:700;font-size:15px;transition:transform .14s;" style-hover="transform:translateY(-2px);color:#16243F;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>Enviar e-mail
+        </a>
+      </div>
+      <p style="margin:16px 0 0;font-size:13.5px;color:#63718A;max-width:460px;line-height:1.55;">Conversa inicial para entender gargalos, dados disponíveis e uma primeira rotina inteligente possível para sua empresa.</p>
+    </div>
+
+    <!-- HERO VISUAL: painel de indicadores -->
+    <div style="background:#fff;border:1px solid rgba(22,36,63,.09);border-radius:28px;box-shadow:0 20px 50px rgba(22,36,63,.12);padding:24px;display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;color:#16243F;">Painel operacional</div>
+        <span style="display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:rgba(30,158,106,.11);color:#1A8C5E;font-size:12px;font-weight:700;"><span style="width:7px;height:7px;border-radius:50%;background:#1E9E6A;animation:pulse 1.6s ease-in-out infinite;"></span>Rotina ativa</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:#EBEEF4;border-radius:18px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:600;color:#63718A;">Retrabalho evitado</div>
+          <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#16243F;margin-top:5px;">−38%</div>
+        </div>
+        <div style="background:#EBEEF4;border-radius:18px;padding:16px 18px;">
+          <div style="font-size:12px;font-weight:600;color:#63718A;">Relatórios automatizados</div>
+          <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:28px;color:#16243F;margin-top:5px;">12/sem</div>
+        </div>
+      </div>
+      <div style="background:#EBEEF4;border-radius:18px;padding:18px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;"><span style="font-size:12.5px;font-weight:700;color:#16243F;">Gargalos por etapa</span><span style="font-size:11.5px;color:#63718A;">últimos 30 dias</span></div>
+        <div style="display:flex;align-items:flex-end;gap:9px;height:88px;">
+          <div style="flex:1;height:46%;border-radius:8px 8px 4px 4px;background:rgba(22,36,63,.22);"></div>
+          <div style="flex:1;height:72%;border-radius:8px 8px 4px 4px;background:rgba(22,36,63,.32);"></div>
+          <div style="flex:1;height:100%;border-radius:8px 8px 4px 4px;background:#E7A92E;"></div>
+          <div style="flex:1;height:58%;border-radius:8px 8px 4px 4px;background:rgba(22,36,63,.32);"></div>
+          <div style="flex:1;height:30%;border-radius:8px 8px 4px 4px;background:rgba(22,36,63,.22);"></div>
+          <div style="flex:1;height:20%;border-radius:8px 8px 4px 4px;background:rgba(22,36,63,.16);"></div>
+        </div>
+        <div style="display:flex;gap:9px;margin-top:8px;">
+          <span style="flex:1;text-align:center;font-size:10.5px;color:#63718A;">Entrada</span><span style="flex:1;text-align:center;font-size:10.5px;color:#63718A;">Triagem</span><span style="flex:1;text-align:center;font-size:10.5px;font-weight:700;color:#A9740F;">Relatório</span><span style="flex:1;text-align:center;font-size:10.5px;color:#63718A;">Revisão</span><span style="flex:1;text-align:center;font-size:10.5px;color:#63718A;">Envio</span><span style="flex:1;text-align:center;font-size:10.5px;color:#63718A;">Arquivo</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;background:rgba(231,169,46,.13);border:1px solid rgba(231,169,46,.28);border-radius:16px;padding:13px 16px;">
+        <span style="width:34px;height:34px;border-radius:12px;background:#E7A92E;color:#16243F;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>
+        <div style="font-size:13px;line-height:1.45;color:#16243F;"><strong>Alerta da rotina:</strong> relatório semanal consolidado e enviado à gestão hoje às 08:00.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section id="problema" style="max-width:1140px;margin:0 auto;padding:56px 20px;">
+    <div style="max-width:640px;">
+      <span style="display:inline-flex;padding:7px 15px;border-radius:999px;background:#fff;border:1px solid rgba(22,36,63,.10);color:#63718A;font-size:12.5px;font-weight:700;">O problema</span>
+      <h2 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:36px;letter-spacing:-1px;line-height:1.15;margin:16px 0 0;color:#16243F;text-wrap:pretty;">Sua empresa provavelmente já tem os dados</h2>
+      <p style="margin:14px 0 0;font-size:16.5px;line-height:1.6;color:#63718A;text-wrap:pretty;">O problema é que eles ainda não estão organizados para orientar decisões, reduzir retrabalho e criar rotinas melhores.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:32px;">
+      <sc-for list="{{ problemas }}" as="p" hint-placeholder-count="6">
+        <div style="background:#fff;border:1px solid rgba(22,36,63,.08);border-radius:22px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start;">
+          <span style="width:38px;height:38px;border-radius:13px;background:rgba(224,86,59,.10);color:#D7472B;display:flex;align-items:center;justify-content:center;flex:none;font-family:'Bricolage Grotesque';font-weight:700;font-size:15px;">{{ p.n }}</span>
+          <div><div style="font-weight:700;font-size:15.5px;color:#16243F;">{{ p.title }}</div><div style="font-size:14px;color:#63718A;margin-top:4px;line-height:1.5;">{{ p.desc }}</div></div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- SOLUÇÃO -->
+  <section id="solucao" style="background:#16243F;color:#E8EEF7;border-radius:36px;max-width:1180px;margin:24px auto;padding:64px 40px;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="max-width:640px;">
+        <span style="display:inline-flex;padding:7px 15px;border-radius:999px;background:rgba(231,169,46,.18);color:#E7A92E;font-size:12.5px;font-weight:700;">Como a Vesta ajuda</span>
+        <h2 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:36px;letter-spacing:-1px;line-height:1.15;margin:16px 0 0;text-wrap:pretty;">Diagnóstico antes de ferramenta</h2>
+        <p style="margin:14px 0 0;font-size:16.5px;line-height:1.6;color:rgba(232,238,247,.72);text-wrap:pretty;">A Vesta começa entendendo o fluxo real da empresa. A partir dele, identifica gargalos, organiza dados e propõe uma primeira rotina inteligente com foco em ganho operacional.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:36px;">
+        <sc-for list="{{ pilares }}" as="p" hint-placeholder-count="5">
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:22px;padding:24px 22px;transition:transform .16s;" style-hover="transform:translateY(-4px);">
+            <span style="width:42px;height:42px;border-radius:14px;background:rgba(231,169,46,.16);color:#E7A92E;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:17px;">{{ p.n }}</span>
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:18px;margin-top:16px;">{{ p.title }}</div>
+            <div style="font-size:13.5px;line-height:1.55;color:rgba(232,238,247,.68);margin-top:7px;">{{ p.desc }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section id="comofunciona" style="max-width:1140px;margin:0 auto;padding:64px 20px;">
+    <div style="max-width:640px;">
+      <span style="display:inline-flex;padding:7px 15px;border-radius:999px;background:#fff;border:1px solid rgba(22,36,63,.10);color:#63718A;font-size:12.5px;font-weight:700;">Como funciona</span>
+      <h2 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:36px;letter-spacing:-1px;line-height:1.15;margin:16px 0 0;color:#16243F;text-wrap:pretty;">Um caminho claro, do fluxo à rotina</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:32px;">
+      <sc-for list="{{ etapas }}" as="e" hint-placeholder-count="5">
+        <div style="background:#fff;border:1px solid rgba(22,36,63,.08);border-radius:22px;padding:24px 22px;">
+          <span style="display:inline-flex;padding:6px 14px;border-radius:999px;background:rgba(231,169,46,.15);color:#A9740F;font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;">{{ e.label }}</span>
+          <div style="font-weight:700;font-size:16px;color:#16243F;margin-top:14px;">{{ e.title }}</div>
+          <div style="font-size:13.5px;line-height:1.55;color:#63718A;margin-top:6px;">{{ e.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:rgba(231,169,46,.13);border:1px solid rgba(231,169,46,.28);border-radius:24px;padding:22px 26px;margin-top:28px;">
+      <div style="flex:1;min-width:280px;font-size:15px;line-height:1.55;color:#16243F;"><strong>Onde a Vesta atua:</strong> atendimento, relatórios, protocolos e rotinas administrativas — com projetos em validação e diagnósticos operacionais em desenvolvimento.</div>
+      <a href="{{ waLink }}" target="_blank" style="display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;background:#E7A92E;color:#16243F;font-family:'Bricolage Grotesque';font-weight:700;font-size:14.5px;box-shadow:0 6px 16px rgba(231,169,46,.3);transition:transform .14s;" style-hover="transform:translateY(-2px);color:#16243F;">Conversar sobre meu fluxo</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="max-width:900px;margin:0 auto;padding:40px 20px 64px;">
+    <div style="text-align:center;">
+      <span style="display:inline-flex;padding:7px 15px;border-radius:999px;background:#fff;border:1px solid rgba(22,36,63,.10);color:#63718A;font-size:12.5px;font-weight:700;">Perguntas frequentes</span>
+      <h2 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:34px;letter-spacing:-1px;margin:16px 0 0;color:#16243F;">Respostas diretas, sem jargão</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:32px;">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="4">
+        <div style="background:#fff;border:1px solid rgba(22,36,63,.08);border-radius:22px;overflow:hidden;">
+          <button onClick="{{ f.onClick }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border:none;background:transparent;font-family:inherit;font-weight:700;font-size:16px;color:#16243F;cursor:pointer;text-align:left;">
+            {{ f.q }}
+            <span style="width:32px;height:32px;border-radius:50%;background:rgba(231,169,46,.15);color:#A9740F;display:flex;align-items:center;justify-content:center;flex:none;transition:transform .2s;transform:{{ f.chev }};"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 24px 20px;font-size:15px;line-height:1.6;color:#63718A;">{{ f.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section style="max-width:1180px;margin:0 auto 40px;padding:0 20px;">
+    <div style="background:#16243F;border-radius:36px;padding:64px 40px;text-align:center;color:#E8EEF7;">
+      <h2 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:40px;letter-spacing:-1.2px;line-height:1.1;margin:0;text-wrap:pretty;">Vamos entender o fluxo da sua empresa?</h2>
+      <p style="margin:16px auto 0;font-size:17px;line-height:1.6;color:rgba(232,238,247,.72);max-width:540px;text-wrap:pretty;">Uma conversa inicial, sem compromisso, para mapear gargalos e enxergar a primeira rotina inteligente possível.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px;">
+        <a href="{{ waLink }}" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;background:#E7A92E;color:#16243F;font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;box-shadow:0 8px 20px rgba(231,169,46,.35);transition:transform .14s;" style-hover="transform:translateY(-2px);color:#16243F;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5 13.6c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5l-.5.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.3.1 1.6.8 1.9.9.3.2.5.2.5.4.1.1.1.7-.1 1.2Z"/></svg>Falar com a Vesta no WhatsApp
+        </a>
+        <a href="mailto:contato@vestabi.com" style="display:inline-flex;align-items:center;gap:9px;padding:16px 26px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#E8EEF7;font-weight:700;font-size:15px;transition:transform .14s;" style-hover="transform:translateY(-2px);color:#E8EEF7;">Enviar e-mail</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="max-width:1140px;margin:0 auto;padding:10px 20px 36px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:9px;">
+      <div style="width:30px;height:30px;border-radius:10px;background:#16243F;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:16px;">V</div>
+      <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:17px;color:#16243F;">Vesta</span>
+    </div>
+    <span style="font-size:13px;color:#63718A;">Inteligência operacional, automações e reestruturação de rotinas · www.vestabi.com</span>
+    <span style="font-size:13px;color:#63718A;">© 2026 Vesta</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5511999999999&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
+class Component extends DCLogic {
+  state = { openFaq: 0 };
+  problemas = [
+    { title:'Atendimento sobrecarregado', desc:'Demandas repetitivas ocupam o tempo de quem deveria estar cuidando do cliente.' },
+    { title:'Dados espalhados', desc:'Informações divididas entre sistemas, planilhas e conversas — sem uma leitura única.' },
+    { title:'Relatórios manuais e recorrentes', desc:'Horas gastas toda semana montando o mesmo relatório, do zero.' },
+    { title:'Processos sem indicadores confiáveis', desc:'Decisões tomadas no sentimento porque os números não fecham.' },
+    { title:'Informação que chega tarde', desc:'A gestão descobre o problema depois que ele já custou caro.' },
+    { title:'Retrabalho operacional', desc:'Tarefas refeitas, conferências duplicadas e correções que poderiam ser evitadas.' }
+  ];
+  pilares = [
+    { title:'Diagnóstico', desc:'Mapear gargalos e padrões no fluxo real da operação.' },
+    { title:'Organização', desc:'Transformar dados soltos em leitura útil para a gestão.' },
+    { title:'Automação', desc:'Reduzir tarefas repetitivas com rotinas assistidas.' },
+    { title:'Monitoramento', desc:'Gerar alertas, indicadores e resumos recorrentes.' },
+    { title:'Evolução', desc:'Ajustar a rotina com base no uso real, mês a mês.' }
+  ];
+  etapas = [
+    { title:'Entender o fluxo', desc:'Conversamos com quem vive a operação para mapear o caminho real do trabalho.' },
+    { title:'Analisar os dados existentes', desc:'Levantamos o que já existe em sistemas, planilhas e conversas.' },
+    { title:'Priorizar gargalos', desc:'Escolhemos juntos o ponto de maior ganho operacional.' },
+    { title:'Implantar a rotina inteligente', desc:'Automação assistida, com acompanhamento próximo da equipe.' },
+    { title:'Medir e ajustar', desc:'Indicadores mostram o que funcionou e o que refinar.' }
+  ];
+  faqs = [
+    { q:'A Vesta substitui meu sistema?', a:'Não. A Vesta atua como uma camada de inteligência e automação sobre os fluxos e dados que você já tem — sem trocar o que funciona.' },
+    { q:'Preciso ter dados perfeitos para começar?', a:'Não. A organização dos dados e o diagnóstico das lacunas fazem parte do trabalho. Começamos com o que existe hoje.' },
+    { q:'A Vesta substitui pessoas?', a:'Não. O objetivo é reduzir retrabalho e preparar melhor o trabalho humano — sua equipe ganha tempo para o que exige julgamento.' },
+    { q:'Como a Vesta lida com dados sensíveis?', a:'Com acesso mínimo necessário e preferência por resultados agregados. Segurança e discrição fazem parte do método.' }
+  ];
+  toggle(i){ this.setState(s=>({ openFaq: s.openFaq===i ? -1 : i })); }
+  renderVals(){
+    const msg = encodeURIComponent('Olá, quero entender como a Vesta pode ajudar minha empresa a organizar dados, reduzir retrabalho e melhorar processos operacionais.');
+    const num = (this.props.whatsapp || '5511999999999').replace(/\D/g,'');
+    return {
+      waLink: 'https://wa.me/' + num + '?text=' + msg,
+      problemas: this.problemas.map((p,i)=>({ ...p, n:i+1 })),
+      pilares: this.pilares.map((p,i)=>({ ...p, n:i+1 })),
+      etapas: this.etapas.map((e,i)=>({ ...e, n:i+1, label:'Etapa ' + (i+1) })),
+      faqs: this.faqs.map((f,i)=>({ ...f, open:this.state.openFaq===i, chev:this.state.openFaq===i?'rotate(180deg)':'rotate(0deg)', onClick:()=>this.toggle(i) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

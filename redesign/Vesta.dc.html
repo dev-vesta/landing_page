@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#F6F2EA}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(22,36,63,.18);border-radius:999px;border:2px solid transparent;background-clip:padding-box}
+  input::placeholder{color:#94A1B5}
+</style>
+</helmet>
+<div style="{{ themeStyle }}">
+<div style="display:flex;min-height:100vh;width:100%;background:var(--bg,#F6F2EA);color:var(--text,#16243F);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside style="width:268px;flex:none;background:var(--sidebar-bg,#16243F);color:var(--sidebar-fg,#E8EEF7);position:sticky;top:18px;align-self:flex-start;height:calc(100vh - 36px);display:flex;flex-direction:column;padding:24px 18px;margin:18px;border-radius:28px;box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.10));">
+    <div style="display:flex;align-items:center;gap:12px;padding:4px 8px 22px;">
+      <div style="width:44px;height:44px;border-radius:15px;background:var(--logo-bg,rgba(255,255,255,.10));display:flex;align-items:center;justify-content:center;color:var(--logo-fg,#fff);font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;">V</div>
+      <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:25px;letter-spacing:-.6px;color:var(--sidebar-fg,#E8EEF7);">Vesta</span>
+    </div>
+    <div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--sidebar-muted,rgba(232,238,247,.55));padding:6px 14px 10px;">Menu</div>
+    <nav style="display:flex;flex-direction:column;gap:6px;">
+      <button onClick="{{ goDash }}" style="display:flex;align-items:center;gap:13px;padding:13px 16px;border:none;border-radius:999px;font-family:inherit;font-weight:600;font-size:15px;cursor:pointer;width:100%;text-align:left;transition:transform .14s ease,background .18s ease;background:{{ navDash.bg }};color:{{ navDash.color }};" style-hover="transform:translateX(3px);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/></svg>Dashboard
+      </button>
+      <button onClick="{{ goScripts }}" style="display:flex;align-items:center;gap:13px;padding:13px 16px;border:none;border-radius:999px;font-family:inherit;font-weight:600;font-size:15px;cursor:pointer;width:100%;text-align:left;transition:transform .14s ease,background .18s ease;background:{{ navScripts.bg }};color:{{ navScripts.color }};" style-hover="transform:translateX(3px);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="8.5 7 3.5 12 8.5 17"/><polyline points="15.5 7 20.5 12 15.5 17"/></svg>Scripts
+      </button>
+      <button onClick="{{ goExec }}" style="display:flex;align-items:center;gap:13px;padding:13px 16px;border:none;border-radius:999px;font-family:inherit;font-weight:600;font-size:15px;cursor:pointer;width:100%;text-align:left;transition:transform .14s ease,background .18s ease;background:{{ navExec.bg }};color:{{ navExec.color }};" style-hover="transform:translateX(3px);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="4.5" width="13" height="16" rx="3.5"/><rect x="9" y="2.8" width="6" height="3.8" rx="1.9"/><path d="M9 11h6M9 15h4"/></svg>Execuções
+      </button>
+      <button onClick="{{ goProfile }}" style="display:flex;align-items:center;gap:13px;padding:13px 16px;border:none;border-radius:999px;font-family:inherit;font-weight:600;font-size:15px;cursor:pointer;width:100%;text-align:left;transition:transform .14s ease,background .18s ease;background:{{ navProfile.bg }};color:{{ navProfile.color }};" style-hover="transform:translateX(3px);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.4 3.1-5.6 7-5.6s7 2.2 7 5.6"/></svg>Meu perfil
+      </button>
+    </nav>
+    <div style="margin-top:auto;background:var(--sidebar-hover,rgba(255,255,255,.07));border-radius:20px;padding:18px;">
+      <div style="font-weight:700;font-size:14.5px;color:var(--sidebar-fg,#E8EEF7);">Precisa de ajuda?</div>
+      <div style="font-size:12.5px;color:var(--sidebar-muted,rgba(232,238,247,.6));margin-top:5px;line-height:1.55;">A gente fica por aqui sempre que você precisar.</div>
+      <button style="margin-top:14px;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;border:none;background:var(--accent-bg,#E7A92E);color:#16243F;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;transition:transform .14s;" style-hover="transform:translateY(-2px);">Falar com suporte</button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;height:100vh;overflow:hidden;">
+
+    <!-- TOPBAR -->
+    <header style="height:76px;flex:none;display:flex;align-items:center;justify-content:flex-end;gap:18px;padding:0 34px;background:var(--topbar-bg,rgba(246,242,234,.82));backdrop-filter:blur(12px);border-bottom:1px solid var(--card-border,rgba(22,36,63,.06));z-index:5;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <div style="width:40px;height:40px;border-radius:999px;background:var(--accent-soft,rgba(231,169,46,.15));color:var(--accent,#A9740F);display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:15px;">{{ initials }}</div>
+        <div style="line-height:1.2;">
+          <div style="font-weight:700;font-size:14px;color:var(--text,#16243F);">{{ nome }}</div>
+          <div style="font-size:12px;color:var(--text-muted,#5B6A82);">Plano Clínico</div>
+        </div>
+      </div>
+      <button style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;border:1px solid var(--card-border,rgba(22,36,63,.12));background:transparent;color:var(--text-muted,#5B6A82);font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;transition:all .15s;" style-hover="color:var(--text,#16243F);">Sair</button>
+    </header>
+
+    <!-- CONTENT -->
+    <main style="flex:1;overflow-y:auto;padding:36px 40px 60px;">
+
+      <!-- ===== DASHBOARD ===== -->
+      <sc-if value="{{ showDashboard }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Dashboard" style="max-width:1180px;margin:0 auto;">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:30px;">
+          <div>
+            <h1 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:34px;letter-spacing:-.8px;margin:0;color:var(--text,#16243F);">Olá, {{ nome }} 👋</h1>
+            <p style="margin:8px 0 0;font-size:16px;color:var(--text-muted,#5B6A82);">Que bom te ver por aqui. Suas rotinas estão prontas para rodar.</p>
+          </div>
+          <button onClick="{{ goScripts }}" style="display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:999px;border:none;background:var(--accent-bg,#E7A92E);color:#16243F;font-family:'Bricolage Grotesque';font-weight:700;font-size:15px;cursor:pointer;transition:transform .14s ease,box-shadow .2s;box-shadow:0 8px 20px rgba(231,169,46,.3);" style-hover="transform:translateY(-2px);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>Executar um script
+          </button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;">
+          <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:22px 24px;display:flex;flex-direction:column;gap:13px;transition:transform .16s ease;" style-hover="transform:translateY(-3px);">
+            <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:14px;font-weight:600;color:var(--text-muted,#5B6A82);">Scripts disponíveis</span><span style="width:40px;height:40px;border-radius:13px;background:rgba(231,169,46,.15);color:#A9740F;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8.5 7 3.5 12 8.5 17"/><polyline points="15.5 7 20.5 12 15.5 17"/></svg></span></div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:38px;line-height:1;color:var(--text,#16243F);">{{ stats.disp }}</div>
+            <div style="font-size:13px;color:var(--text-muted,#5B6A82);">prontos para uso</div>
+          </div>
+          <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:22px 24px;display:flex;flex-direction:column;gap:13px;transition:transform .16s ease;" style-hover="transform:translateY(-3px);">
+            <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:14px;font-weight:600;color:var(--text-muted,#5B6A82);">Em execução</span><span style="width:40px;height:40px;border-radius:13px;background:rgba(44,107,237,.12);color:#2C6BED;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="animation:spin 1.6s linear infinite;"><path d="M12 3a9 9 0 1 0 9 9"/></svg></span></div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:38px;line-height:1;color:var(--text,#16243F);">{{ stats.run }}</div>
+            <div style="font-size:13px;color:var(--text-muted,#5B6A82);">rodando agora</div>
+          </div>
+          <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:22px 24px;display:flex;flex-direction:column;gap:13px;transition:transform .16s ease;" style-hover="transform:translateY(-3px);">
+            <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:14px;font-weight:600;color:var(--text-muted,#5B6A82);">Concluídos</span><span style="width:40px;height:40px;border-radius:13px;background:rgba(30,158,106,.12);color:#1A8C5E;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span></div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:38px;line-height:1;color:var(--text,#16243F);">{{ stats.done }}</div>
+            <div style="font-size:13px;color:var(--text-muted,#5B6A82);">terminaram com sucesso</div>
+          </div>
+          <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:22px 24px;display:flex;flex-direction:column;gap:13px;transition:transform .16s ease;" style-hover="transform:translateY(-3px);">
+            <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:14px;font-weight:600;color:var(--text-muted,#5B6A82);">Erros</span><span style="width:40px;height:40px;border-radius:13px;background:rgba(224,86,59,.12);color:#D7472B;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:38px;line-height:1;color:var(--text,#16243F);">{{ stats.err }}</div>
+            <div style="font-size:13px;color:var(--text-muted,#5B6A82);">precisam de atenção</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:38px 0 18px;">
+          <h2 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:22px;letter-spacing:-.4px;margin:0;color:var(--text,#16243F);">Seus scripts</h2>
+          <button onClick="{{ goScripts }}" style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:none;color:var(--accent,#A9740F);font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;" style-hover="gap:9px;">Ver todos <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.08));border-radius:999px;padding:13px 20px;max-width:480px;margin-bottom:18px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A1B5" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.4-3.4"/></svg>
+          <input value="{{ search }}" onChange="{{ onSearch }}" placeholder="Buscar script..." style="border:none;background:transparent;outline:none;font-family:inherit;font-size:15px;color:var(--text,#16243F);width:100%;"/>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px;">
+          <sc-for list="{{ featured }}" as="s" hint-placeholder-count="2">
+            <div onClick="{{ s.onClick }}" style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:24px;cursor:pointer;display:flex;flex-direction:column;gap:14px;transition:transform .16s ease,box-shadow .2s ease;" style-hover="transform:translateY(-4px);box-shadow:0 16px 36px rgba(22,36,63,.13);">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                <span style="display:inline-flex;padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:700;background:{{ s.catBg }};color:{{ s.catFg }};">{{ s.cat }}</span>
+                <sc-if value="{{ s.requiresFile }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--text-muted,#5B6A82);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V5M7.5 9 12 4.5 16.5 9M5 19h14"/></svg>Requer arquivo</span></sc-if>
+              </div>
+              <h3 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:19px;line-height:1.25;margin:0;color:var(--text,#16243F);">{{ s.title }}</h3>
+              <p style="margin:0;font-size:14.5px;line-height:1.55;color:var(--text-muted,#5B6A82);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ s.desc }}</p>
+              <div style="display:flex;align-items:center;gap:7px;margin-top:auto;color:var(--accent,#A9740F);font-weight:700;font-size:14px;">Ver instruções e executar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:var(--accent-soft,rgba(231,169,46,.14));border:1px solid rgba(231,169,46,.28);border-radius:var(--card-radius,24px);padding:22px 24px;margin-top:30px;">
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;color:var(--text,#16243F);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A9740F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg><span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:17px;">Atalhos</span></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button onClick="{{ goScripts }}" style="flex:1;min-width:180px;display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:999px;border:none;background:var(--card-bg,#fff);color:var(--text,#16243F);font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(22,36,63,.05);transition:transform .14s;" style-hover="transform:translateY(-2px);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A9740F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8.5 7 3.5 12 8.5 17"/><polyline points="15.5 7 20.5 12 15.5 17"/></svg>Todos os scripts</button>
+            <button onClick="{{ goExec }}" style="flex:1;min-width:180px;display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:999px;border:none;background:var(--card-bg,#fff);color:var(--text,#16243F);font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(22,36,63,.05);transition:transform .14s;" style-hover="transform:translateY(-2px);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A9740F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="4.5" width="13" height="16" rx="3.5"/><rect x="9" y="2.8" width="6" height="3.8" rx="1.9"/></svg>Minhas execuções</button>
+            <button onClick="{{ goProfile }}" style="flex:1;min-width:180px;display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:999px;border:none;background:var(--card-bg,#fff);color:var(--text,#16243F);font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(22,36,63,.05);transition:transform .14s;" style-hover="transform:translateY(-2px);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A9740F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.4 3.1-5.6 7-5.6s7 2.2 7 5.6"/></svg>Meu perfil</button>
+            <button onClick="{{ goExec }}" style="flex:1;min-width:180px;display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:999px;border:none;background:var(--card-bg,#fff);color:var(--text,#16243F);font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(22,36,63,.05);transition:transform .14s;" style-hover="transform:translateY(-2px);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A9740F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V11M10 20V5M16 20v-6M3 20h18"/></svg>Histórico</button>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== SCRIPTS ===== -->
+      <sc-if value="{{ showScripts }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Scripts" style="max-width:1180px;margin:0 auto;">
+        <h1 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:32px;letter-spacing:-.7px;margin:0;color:var(--text,#16243F);">Scripts</h1>
+        <p style="margin:8px 0 24px;font-size:16px;color:var(--text-muted,#5B6A82);">Escolha uma rotina para conhecer e executar. Sem pressa.</p>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.08));border-radius:999px;padding:14px 20px;max-width:560px;margin-bottom:16px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A1B5" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.4-3.4"/></svg>
+          <input value="{{ search }}" onChange="{{ onSearch }}" placeholder="Buscar por nome do script..." style="border:none;background:transparent;outline:none;font-family:inherit;font-size:15px;color:var(--text,#16243F);width:100%;"/>
+        </div>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:24px;">
+          <sc-for list="{{ catPills }}" as="p" hint-placeholder-count="5">
+            <button onClick="{{ p.onClick }}" style="padding:9px 18px;border-radius:999px;font-family:inherit;font-weight:600;font-size:13.5px;cursor:pointer;transition:all .16s;background:{{ p.bg }};color:{{ p.fg }};border:{{ p.border }};">{{ p.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;">
+          <sc-for list="{{ filtered }}" as="s" hint-placeholder-count="5">
+            <div onClick="{{ s.onClick }}" style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:24px;cursor:pointer;display:flex;flex-direction:column;gap:14px;transition:transform .16s ease,box-shadow .2s ease;" style-hover="transform:translateY(-4px);box-shadow:0 16px 36px rgba(22,36,63,.13);">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                <span style="display:inline-flex;padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:700;background:{{ s.catBg }};color:{{ s.catFg }};">{{ s.cat }}</span>
+                <sc-if value="{{ s.requiresFile }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--text-muted,#5B6A82);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V5M7.5 9 12 4.5 16.5 9M5 19h14"/></svg>Requer arquivo</span></sc-if>
+              </div>
+              <h3 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:19px;line-height:1.25;margin:0;color:var(--text,#16243F);">{{ s.title }}</h3>
+              <p style="margin:0;font-size:14.5px;line-height:1.55;color:var(--text-muted,#5B6A82);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{{ s.desc }}</p>
+              <div style="display:flex;align-items:center;gap:7px;margin-top:auto;color:var(--accent,#A9740F);font-weight:700;font-size:14px;">Ver instruções e executar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:60px 20px;color:var(--text-muted,#5B6A82);">
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:18px;color:var(--text,#16243F);margin-bottom:6px;">Nenhum script por aqui</div>
+            <div style="font-size:14.5px;">Tente outro termo de busca ou troque o filtro.</div>
+          </div>
+        </sc-if>
+      </div>
+      </sc-if>
+
+      <!-- ===== DETAIL ===== -->
+      <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Detalhe do script" style="max-width:1080px;margin:0 auto;">
+        <button onClick="{{ goScripts }}" style="display:inline-flex;align-items:center;gap:8px;background:transparent;border:none;color:var(--text-muted,#5B6A82);font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;padding:0;margin-bottom:18px;" style-hover="color:var(--text,#16243F);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Voltar para scripts</button>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <span style="display:inline-flex;padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:700;background:{{ selCatBg }};color:{{ selCatFg }};">{{ sel.cat }}</span>
+          <sc-if value="{{ selRequiresFile }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--text-muted,#5B6A82);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V5M7.5 9 12 4.5 16.5 9M5 19h14"/></svg>Requer arquivo</span></sc-if>
+        </div>
+        <h1 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:34px;letter-spacing:-.7px;margin:0;color:var(--text,#16243F);">{{ sel.title }}</h1>
+        <p style="margin:12px 0 28px;font-size:16px;line-height:1.6;color:var(--text-muted,#5B6A82);max-width:680px;">{{ sel.desc }}</p>
+
+        <div style="display:grid;grid-template-columns:minmax(0,1.35fr) minmax(290px,.9fr);gap:22px;align-items:start;">
+          <div style="display:flex;flex-direction:column;gap:22px;">
+            <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:26px;">
+              <h3 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:18px;margin:0 0 12px;color:var(--text,#16243F);">Como funciona</h3>
+              <sc-for list="{{ selSteps }}" as="st" hint-placeholder-count="3">
+                <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 0;">
+                  <span style="width:30px;height:30px;border-radius:50%;background:var(--accent-soft,rgba(231,169,46,.15));color:var(--accent,#A9740F);font-family:'Bricolage Grotesque';font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none;">{{ st.n }}</span>
+                  <span style="font-size:15px;line-height:1.5;color:var(--text,#16243F);padding-top:4px;">{{ st.text }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ selRequiresFile }}" hint-placeholder-val="{{ true }}">
+            <label style="display:flex;flex-direction:column;align-items:center;gap:10px;border:2px dashed var(--card-border,rgba(22,36,63,.18));border-radius:20px;padding:34px;cursor:pointer;text-align:center;transition:border-color .2s,background .2s;background:rgba(22,36,63,.02);" style-hover="border-color:var(--accent-bg,#E7A92E);background:var(--accent-soft,rgba(231,169,46,.12));">
+              <input type="file" onChange="{{ onFile }}" style="display:none;"/>
+              <span style="width:50px;height:50px;border-radius:16px;background:var(--accent-soft,rgba(231,169,46,.15));color:var(--accent,#A9740F);display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V5M7.5 9 12 4.5 16.5 9M5 19h14"/></svg></span>
+              <sc-if value="{{ noFile }}" hint-placeholder-val="{{ true }}">
+                <span style="font-weight:700;font-size:15px;color:var(--text,#16243F);">Arraste seu arquivo ou clique para selecionar</span>
+                <span style="font-size:13px;color:var(--text-muted,#5B6A82);">Formatos aceitos: .xlsx, .csv</span>
+              </sc-if>
+              <sc-if value="{{ hasFile }}" hint-placeholder-val="{{ false }}">
+                <span style="font-weight:700;font-size:15px;color:var(--text,#16243F);">{{ fileName }}</span>
+                <span style="font-size:13px;color:var(--accent,#A9740F);font-weight:600;">Arquivo pronto · clique para trocar</span>
+              </sc-if>
+            </label>
+            </sc-if>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:18px;">
+            <sc-if value="{{ runDone }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(30,158,106,.10);border:1px solid rgba(30,158,106,.28);border-radius:20px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start;">
+                <span style="width:32px;height:32px;border-radius:50%;background:#1A8C5E;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
+                <div><div style="font-weight:700;font-size:15px;color:#147049;">Tudo certo!</div><div style="font-size:13.5px;color:#1A8C5E;margin-top:2px;">Seu resultado está pronto para baixar.</div></div>
+              </div>
+            </sc-if>
+            <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:26px;">
+              <h3 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:18px;margin:0 0 6px;color:var(--text,#16243F);">Pronto para executar</h3>
+              <div style="display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--text-muted,#5B6A82);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Tempo médio: {{ selDuration }}</div>
+              <button onClick="{{ onRun }}" style="width:100%;justify-content:center;display:inline-flex;align-items:center;gap:9px;padding:16px;margin-top:18px;border-radius:999px;border:none;background:var(--accent-bg,#E7A92E);color:#16243F;font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;cursor:pointer;transition:transform .14s ease,box-shadow .2s;box-shadow:0 8px 20px rgba(231,169,46,.3);" style-hover="transform:translateY(-2px);">
+                <sc-if value="{{ notRunning }}" hint-placeholder-val="{{ true }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>Executar agora</sc-if>
+                <sc-if value="{{ running }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="animation:spin .8s linear infinite;"><path d="M12 3a9 9 0 1 0 9 9"/></svg>Executando...</sc-if>
+              </button>
+              <sc-if value="{{ selRequiresFile }}" hint-placeholder-val="{{ true }}"><div style="font-size:12.5px;color:var(--text-muted,#5B6A82);text-align:center;margin-top:12px;line-height:1.5;">Envie o arquivo ao lado para um resultado completo.</div></sc-if>
+            </div>
+            <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:22px 24px;">
+              <h3 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;margin:0 0 14px;color:var(--text,#16243F);">Execuções recentes</h3>
+              <sc-if value="{{ selHasRuns }}" hint-placeholder-val="{{ true }}">
+                <sc-for list="{{ selRuns }}" as="e" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--card-border,rgba(22,36,63,.06));">
+                    <span style="width:9px;height:9px;border-radius:50%;background:{{ e.statusDot }};flex:none;{{ e.dotAnim }}"></span>
+                    <div style="flex:1;min-width:0;"><div style="font-size:13.5px;font-weight:600;color:var(--text,#16243F);">{{ e.statusLabel }}</div><div style="font-size:12px;color:var(--text-muted,#5B6A82);">{{ e.when }}</div></div>
+                    <span style="font-size:12.5px;color:var(--text-muted,#5B6A82);">{{ e.duration }}</span>
+                  </div>
+                </sc-for>
+              </sc-if>
+              <sc-if value="{{ selNoRuns }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:13.5px;color:var(--text-muted,#5B6A82);line-height:1.55;">Este script ainda não foi executado. Que tal começar agora?</div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== EXEC ===== -->
+      <sc-if value="{{ showExec }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Execuções" style="max-width:1080px;margin:0 auto;">
+        <h1 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:32px;letter-spacing:-.7px;margin:0;color:var(--text,#16243F);">Execuções</h1>
+        <p style="margin:8px 0 22px;font-size:16px;color:var(--text-muted,#5B6A82);">Acompanhe tudo o que já rodou — e baixe os resultados.</p>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:22px;">
+          <sc-for list="{{ statusPills }}" as="p" hint-placeholder-count="4">
+            <button onClick="{{ p.onClick }}" style="padding:9px 18px;border-radius:999px;font-family:inherit;font-weight:600;font-size:13.5px;cursor:pointer;transition:all .16s;background:{{ p.bg }};color:{{ p.fg }};border:{{ p.border }};">{{ p.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <sc-for list="{{ filteredExec }}" as="e" hint-placeholder-count="5">
+            <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:20px;box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:18px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+              <span style="display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;background:{{ e.statusBg }};color:{{ e.statusFg }};"><span style="width:8px;height:8px;border-radius:50%;background:{{ e.statusDot }};{{ e.dotAnim }}"></span>{{ e.statusLabel }}</span>
+              <div style="flex:1;min-width:200px;"><div style="font-weight:700;font-size:15.5px;color:var(--text,#16243F);">{{ e.scriptTitle }}</div><div style="font-size:13px;color:var(--text-muted,#5B6A82);margin-top:3px;">{{ e.cat }} · {{ e.when }}</div></div>
+              <div style="display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--text-muted,#5B6A82);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>{{ e.duration }}</div>
+              <sc-if value="{{ e.hasResult }}" hint-placeholder-val="{{ true }}"><button style="display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid var(--card-border,rgba(22,36,63,.14));background:transparent;color:var(--accent,#A9740F);font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;transition:background .15s;" style-hover="background:var(--accent-soft,rgba(231,169,46,.14));"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11 12 15.5 16.5 11M5 20h14"/></svg>{{ e.result }}</button></sc-if>
+              <sc-if value="{{ e.noResult }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:var(--text-muted,#5B6A82);">Sem arquivo</span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== PROFILE ===== -->
+      <sc-if value="{{ showProfile }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Meu perfil" style="max-width:1000px;margin:0 auto;">
+        <h1 style="font-family:'Bricolage Grotesque';font-weight:800;font-size:32px;letter-spacing:-.7px;margin:0 0 22px;color:var(--text,#16243F);">Meu perfil</h1>
+        <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:26px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
+          <div style="width:72px;height:72px;border-radius:999px;background:var(--accent-soft,rgba(231,169,46,.15));color:var(--accent,#A9740F);display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:26px;flex:none;">{{ initials }}</div>
+          <div style="flex:1;min-width:200px;">
+            <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:22px;color:var(--text,#16243F);">{{ profile.nome }}</div>
+            <div style="font-size:14px;color:var(--text-muted,#5B6A82);margin-top:3px;">Cliente Vesta desde 2024</div>
+          </div>
+          <span style="display:inline-flex;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:700;background:var(--accent-soft,rgba(231,169,46,.15));color:var(--accent,#A9740F);">Plano Clínico</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+          <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:26px;">
+            <h3 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:18px;margin:0 0 20px;color:var(--text,#16243F);">Dados da clínica</h3>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text-muted,#5B6A82);margin-bottom:8px;">Nome da clínica</label><input value="{{ profile.nome }}" onChange="{{ onNome }}" style="width:100%;padding:13px 18px;border-radius:14px;border:1px solid var(--card-border,rgba(22,36,63,.12));background:rgba(22,36,63,.03);font-family:inherit;font-size:15px;color:var(--text,#16243F);outline:none;transition:border-color .15s;" style-focus="border-color:var(--accent-bg,#E7A92E);"/></div>
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text-muted,#5B6A82);margin-bottom:8px;">E-mail</label><input value="{{ profile.email }}" onChange="{{ onEmail }}" style="width:100%;padding:13px 18px;border-radius:14px;border:1px solid var(--card-border,rgba(22,36,63,.12));background:rgba(22,36,63,.03);font-family:inherit;font-size:15px;color:var(--text,#16243F);outline:none;transition:border-color .15s;" style-focus="border-color:var(--accent-bg,#E7A92E);"/></div>
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text-muted,#5B6A82);margin-bottom:8px;">Telefone</label><input value="{{ profile.tel }}" onChange="{{ onTel }}" style="width:100%;padding:13px 18px;border-radius:14px;border:1px solid var(--card-border,rgba(22,36,63,.12));background:rgba(22,36,63,.03);font-family:inherit;font-size:15px;color:var(--text,#16243F);outline:none;transition:border-color .15s;" style-focus="border-color:var(--accent-bg,#E7A92E);"/></div>
+              <div><label style="display:block;font-size:13px;font-weight:600;color:var(--text-muted,#5B6A82);margin-bottom:8px;">CNPJ</label><input value="{{ profile.cnpj }}" onChange="{{ onCnpj }}" style="width:100%;padding:13px 18px;border-radius:14px;border:1px solid var(--card-border,rgba(22,36,63,.12));background:rgba(22,36,63,.03);font-family:inherit;font-size:15px;color:var(--text,#16243F);outline:none;transition:border-color .15s;" style-focus="border-color:var(--accent-bg,#E7A92E);"/></div>
+            </div>
+            <button style="margin-top:22px;width:100%;justify-content:center;display:inline-flex;align-items:center;gap:8px;padding:14px;border-radius:999px;border:none;background:var(--accent-bg,#E7A92E);color:#16243F;font-family:'Bricolage Grotesque';font-weight:700;font-size:15px;cursor:pointer;transition:transform .14s;box-shadow:0 8px 20px rgba(231,169,46,.28);" style-hover="transform:translateY(-2px);">Salvar alterações</button>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div style="background:var(--card-bg,#fff);border:1px solid var(--card-border,rgba(22,36,63,.07));border-radius:var(--card-radius,24px);box-shadow:var(--card-shadow,0 6px 28px rgba(22,36,63,.07));padding:26px;">
+              <h3 style="font-family:'Bricolage Grotesque';font-weight:700;font-size:18px;margin:0 0 18px;color:var(--text,#16243F);">Preferências</h3>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--card-border,rgba(22,36,63,.06));">
+                  <div><div style="font-weight:600;font-size:14.5px;color:var(--text,#16243F);">Notificações por e-mail</div><div style="font-size:12.5px;color:var(--text-muted,#5B6A82);margin-top:2px;">Avisamos quando um script terminar.</div></div>
+                  <button onClick="{{ prefEmail.onClick }}" style="width:46px;height:28px;border-radius:999px;border:none;cursor:pointer;padding:3px;transition:background .2s;flex:none;display:flex;background:{{ prefEmail.track }};"><span style="width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s;transform:{{ prefEmail.knob }};box-shadow:0 1px 3px rgba(0,0,0,.25);"></span></button>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--card-border,rgba(22,36,63,.06));">
+                  <div><div style="font-weight:600;font-size:14.5px;color:var(--text,#16243F);">Resumo semanal</div><div style="font-size:12.5px;color:var(--text-muted,#5B6A82);margin-top:2px;">Um panorama das execuções da semana.</div></div>
+                  <button onClick="{{ prefWeekly.onClick }}" style="width:46px;height:28px;border-radius:999px;border:none;cursor:pointer;padding:3px;transition:background .2s;flex:none;display:flex;background:{{ prefWeekly.track }};"><span style="width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s;transform:{{ prefWeekly.knob }};box-shadow:0 1px 3px rgba(0,0,0,.25);"></span></button>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;">
+                  <div><div style="font-weight:600;font-size:14.5px;color:var(--text,#16243F);">Som ao concluir</div><div style="font-size:12.5px;color:var(--text-muted,#5B6A82);margin-top:2px;">Um aviso sonoro discreto.</div></div>
+                  <button onClick="{{ prefSound.onClick }}" style="width:46px;height:28px;border-radius:999px;border:none;cursor:pointer;padding:3px;transition:background .2s;flex:none;display:flex;background:{{ prefSound.track }};"><span style="width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s;transform:{{ prefSound.knob }};box-shadow:0 1px 3px rgba(0,0,0,.25);"></span></button>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--sidebar-bg,#16243F);color:var(--sidebar-fg,#E8EEF7);border-radius:var(--card-radius,24px);padding:24px;">
+              <div style="font-size:13px;font-weight:600;opacity:.7;">Seu plano</div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;margin:6px 0 4px;">Plano Clínico</div>
+              <div style="font-size:13.5px;opacity:.7;">Renova em 12/07/2026</div>
+              <button style="margin-top:16px;display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:999px;border:none;background:var(--accent-bg,#E7A92E);color:#16243F;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer;transition:transform .14s;" style-hover="transform:translateY(-2px);">Gerenciar plano</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+    </main>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;temaInicial&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Claro&quot;,&quot;Sereno&quot;],&quot;default&quot;:&quot;Claro&quot;,&quot;tsType&quot;:&quot;\&quot;Claro\&quot; | \&quot;Sereno\&quot;&quot;},&quot;corDeDestaque&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#E7A92E&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;cantoArredondado&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:24,&quot;min&quot;:10,&quot;max&quot;:30,&quot;step&quot;:2,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = {
+    direction: null,
+    screen: 'dashboard',
+    selectedScriptId: 'ar',
+    search: '',
+    categoryFilter: 'Todos',
+    statusFilter: 'Todos',
+    running: false,
+    runDone: false,
+    fileName: null,
+    prefs: { email: true, weekly: false, sound: true },
+    profile: { nome: 'Clínica Exemplo', email: 'contato@clinicaexemplo.com.br', tel: '(11) 4002-8922', cnpj: '12.345.678/0001-90' },
+    executions: [
+      { id:'e1', scriptTitle:'Protocolo AR — Artrite Reumatoide', cat:'Protocolos Clínicos', status:'executando', when:'Agora há pouco', duration:'00:42', result:null },
+      { id:'e2', scriptTitle:'Confirmação de Agenda', cat:'Rotinas', status:'concluido', when:'Hoje, 09:12', duration:'01:08', result:'agenda-17-06.pdf' },
+      { id:'e3', scriptTitle:'Protocolo AR — Artrite Reumatoide', cat:'Protocolos Clínicos', status:'concluido', when:'Ontem, 17:40', duration:'02:14', result:'protocolo-ar.xlsx' },
+      { id:'e4', scriptTitle:'Exportação TISS', cat:'Protocolos Clínicos', status:'erro', when:'Ontem, 15:05', duration:'00:09', result:null },
+      { id:'e5', scriptTitle:'Hello World', cat:'Demonstração', status:'concluido', when:'Ontem, 11:20', duration:'00:03', result:'relatorio.txt' },
+      { id:'e6', scriptTitle:'Conciliação de Faturamento', cat:'Financeiro', status:'concluido', when:'13/06, 16:30', duration:'03:51', result:'conciliacao.xlsx' }
+    ]
+  };
+
+  scripts = [
+    { id:'hello', cat:'Demonstração', title:'Hello World', desc:'Gera um relatório simples em texto. Perfeito para conhecer a plataforma sem pressa.', requiresFile:false, featured:true, duration:'~3 segundos', steps:['Clique em “Executar agora”','Aguarde alguns instantes','Baixe o relatório gerado'] },
+    { id:'ar', cat:'Protocolos Clínicos', title:'Protocolo AR — Artrite Reumatoide', desc:'Processa os dados do Protocolo Gerenciado de Artrite Reumatoide e gera uma planilha XLSX auditável, pronta para conferência.', requiresFile:true, featured:true, duration:'~2 minutos', steps:['Envie a planilha de origem do protocolo','Confira os campos identificados','Execute e baixe o XLSX auditável'] },
+    { id:'agenda', cat:'Rotinas', title:'Confirmação de Agenda', desc:'Organiza as confirmações do dia em uma lista fácil de acompanhar e envia lembretes de consulta.', requiresFile:false, featured:false, duration:'~1 minuto', steps:['Selecione a data desejada','Execute para montar a lista','Acompanhe as confirmações'] },
+    { id:'faturamento', cat:'Financeiro', title:'Conciliação de Faturamento', desc:'Compara as guias enviadas com os repasses recebidos e aponta divergências para revisão.', requiresFile:true, featured:false, duration:'~4 minutos', steps:['Envie o extrato de repasses','Execute a conciliação','Revise as divergências apontadas'] },
+    { id:'tiss', cat:'Protocolos Clínicos', title:'Exportação TISS', desc:'Monta o lote TISS no formato exigido pelo convênio a partir dos atendimentos do período.', requiresFile:true, featured:false, duration:'~3 minutos', steps:['Envie os atendimentos do período','Confira o lote gerado','Exporte no formato TISS'] }
+  ];
+
+  catStyle(cat){
+    const m = {
+      'Demonstração': { bg:'rgba(231,169,46,0.15)', fg:'#A9740F' },
+      'Protocolos Clínicos': { bg:'rgba(44,107,237,0.12)', fg:'#2C6BED' },
+      'Rotinas': { bg:'rgba(30,158,106,0.13)', fg:'#1A8C5E' },
+      'Financeiro': { bg:'rgba(123,93,214,0.13)', fg:'#6F51CE' }
+    };
+    return m[cat] || m['Demonstração'];
+  }
+  statusMeta(s){
+    const m = {
+      executando: { label:'Em execução', fg:'#2C6BED', bg:'rgba(44,107,237,0.10)', dot:'#2C6BED', pulse:true },
+      concluido: { label:'Concluído', fg:'#1A8C5E', bg:'rgba(30,158,106,0.11)', dot:'#1E9E6A', pulse:false },
+      erro: { label:'Erro', fg:'#D7472B', bg:'rgba(224,86,59,0.11)', dot:'#E0563B', pulse:false }
+    };
+    return m[s] || m.concluido;
+  }
+
+  nav(s){ this.setState({ screen:s }); }
+  setDir(d){ this.setState({ direction:d }); }
+  selectScript(id){ this.setState({ screen:'detail', selectedScriptId:id, running:false, runDone:false, fileName:null }); }
+  setSearch(e){ this.setState({ search:e.target.value }); }
+  setCat(c){ this.setState({ categoryFilter:c }); }
+  setStatus(s){ this.setState({ statusFilter:s }); }
+  onFile(e){ const f = e.target.files && e.target.files[0]; if(f) this.setState({ fileName:f.name }); }
+  togglePref(k){ this.setState(st=>({ prefs:{ ...st.prefs, [k]:!st.prefs[k] } })); }
+  setProfile(k,e){ const v = e.target.value; this.setState(st=>({ profile:{ ...st.profile, [k]:v } })); }
+  runScript(){
+    if(this.state.running) return;
+    const sel = this.scripts.find(x=>x.id===this.state.selectedScriptId) || this.scripts[0];
+    this.setState({ running:true, runDone:false });
+    setTimeout(()=>{
+      this.setState(st=>{
+        const ne = { id:'e'+Date.now(), scriptTitle:sel.title, cat:sel.cat, status:'concluido', when:'Agora há pouco', duration:'00:05', result:(sel.requiresFile?'resultado.xlsx':'relatorio.txt') };
+        return { running:false, runDone:true, executions:[ne, ...st.executions] };
+      });
+    }, 2400);
+  }
+
+  renderVals(){
+    const accent = this.props.corDeDestaque || '#E7A92E';
+    const radius = (this.props.cantoArredondado || 24) + 'px';
+    const dir = this.state.direction || (this.props.temaInicial === 'Sereno' ? 'a' : 'b');
+    const isA = dir === 'a';
+    const themes = {
+      a: { '--bg':'#F6F2EA','--sidebar-bg':'#16243F','--sidebar-fg':'#E8EEF7','--sidebar-muted':'rgba(232,238,247,0.55)','--sidebar-hover':'rgba(255,255,255,0.08)','--active-bg':accent,'--active-fg':'#16243F','--logo-bg':'rgba(255,255,255,0.10)','--logo-fg':'#FFFFFF','--card-bg':'#FFFFFF','--card-border':'rgba(22,36,63,0.07)','--card-shadow':'0 6px 28px rgba(22,36,63,0.07)','--text':'#16243F','--text-muted':'#5B6A82','--accent':'#A9740F','--accent-bg':accent,'--accent-soft':'rgba(231,169,46,0.15)','--topbar-bg':'rgba(246,242,234,0.82)','--card-radius':radius },
+      b: { '--bg':'#EBEEF4','--sidebar-bg':'#FFFFFF','--sidebar-fg':'#26334D','--sidebar-muted':'#7B889C','--sidebar-hover':'rgba(22,36,63,0.05)','--active-bg':accent,'--active-fg':'#16243F','--logo-bg':'#16243F','--logo-fg':'#FFFFFF','--card-bg':'#FFFFFF','--card-border':'rgba(22,36,63,0.09)','--card-shadow':'0 2px 12px rgba(22,36,63,0.06)','--text':'#1A2945','--text-muted':'#63718A','--accent':'#A9740F','--accent-bg':accent,'--accent-soft':'rgba(231,169,46,0.15)','--topbar-bg':'rgba(235,238,244,0.85)','--card-radius':radius }
+    };
+    const screen = this.state.screen;
+    const activeBgFg = (on)=> on ? { bg:'var(--active-bg,#E7A92E)', color:'var(--active-fg,#16243F)' } : { bg:'transparent', color:'var(--sidebar-fg,#E8EEF7)' };
+
+    const execView = this.state.executions.map(e=>{
+      const m = this.statusMeta(e.status);
+      return { ...e, statusLabel:m.label, statusFg:m.fg, statusBg:m.bg, statusDot:m.dot, dotAnim: m.pulse?'animation:pulse 1.4s ease-in-out infinite;':'', hasResult: !!e.result, noResult: !e.result, result: e.result || '—' };
+    });
+
+    const stats = {
+      disp: this.scripts.length,
+      run: this.state.executions.filter(e=>e.status==='executando').length,
+      done: this.state.executions.filter(e=>e.status==='concluido').length,
+      err: this.state.executions.filter(e=>e.status==='erro').length
+    };
+
+    const q = this.state.search.trim().toLowerCase();
+    const mapScript = (s)=>{ const c = this.catStyle(s.cat); return { ...s, catBg:c.bg, catFg:c.fg, onClick:()=>this.selectScript(s.id) }; };
+    const featured = this.scripts.filter(s=>s.featured && s.title.toLowerCase().includes(q)).map(mapScript);
+    const filtered = this.scripts.filter(s=> (this.state.categoryFilter==='Todos'||s.cat===this.state.categoryFilter) && s.title.toLowerCase().includes(q) ).map(mapScript);
+
+    const pill = (active, onClick, label)=>({ label, active, bg: active?'var(--accent-bg,#E7A92E)':'transparent', fg: active?'#16243F':'var(--text-muted,#5B6A82)', border: active?'1px solid transparent':'1px solid var(--card-border,rgba(22,36,63,0.12))', onClick });
+    const cats = ['Todos','Demonstração','Protocolos Clínicos','Rotinas','Financeiro'];
+    const catPills = cats.map(c=>pill(this.state.categoryFilter===c, ()=>this.setCat(c), c));
+    const statuses = ['Todos','Em execução','Concluído','Erro'];
+    const statusPills = statuses.map(c=>pill(this.state.statusFilter===c, ()=>this.setStatus(c), c));
+    const filteredExec = execView.filter(e=> this.state.statusFilter==='Todos' || e.statusLabel===this.state.statusFilter );
+
+    const sel = this.scripts.find(s=>s.id===this.state.selectedScriptId) || this.scripts[0];
+    const selC = this.catStyle(sel.cat);
+    const selSteps = sel.steps.map((t,i)=>({ n:i+1, text:t }));
+    const selRuns = execView.filter(e=>e.scriptTitle===sel.title).slice(0,3);
+
+    const prefView = (k)=>{ const on = this.state.prefs[k]; return { on, track: on?'var(--accent-bg,#E7A92E)':'rgba(22,36,63,0.16)', knob: on?'translateX(18px)':'translateX(0)', onClick:()=>this.togglePref(k) }; };
+
+    return {
+      themeStyle: themes[dir],
+      segA: isA?'background:var(--accent-bg,#E7A92E);color:#16243F;':'background:transparent;color:var(--text-muted,#5B6A82);',
+      segB: !isA?'background:var(--accent-bg,#E7A92E);color:#16243F;':'background:transparent;color:var(--text-muted,#5B6A82);',
+      setA:()=>this.setDir('a'), setB:()=>this.setDir('b'),
+      goDash:()=>this.nav('dashboard'), goScripts:()=>this.nav('scripts'), goExec:()=>this.nav('exec'), goProfile:()=>this.nav('profile'),
+      navDash: activeBgFg(screen==='dashboard'),
+      navScripts: activeBgFg(screen==='scripts'||screen==='detail'),
+      navExec: activeBgFg(screen==='exec'),
+      navProfile: activeBgFg(screen==='profile'),
+      showDashboard: screen==='dashboard', showScripts: screen==='scripts', showDetail: screen==='detail', showExec: screen==='exec', showProfile: screen==='profile',
+      nome: this.state.profile.nome, initials: 'CL',
+      search: this.state.search, onSearch:(e)=>this.setSearch(e),
+      featured, filtered, noResults: filtered.length===0,
+      catPills, statusPills, filteredExec, stats,
+      sel, selCatBg:selC.bg, selCatFg:selC.fg, selRequiresFile: sel.requiresFile, selDuration: sel.duration,
+      selSteps, selRuns, selHasRuns: selRuns.length>0, selNoRuns: selRuns.length===0,
+      fileName: this.state.fileName, hasFile: !!this.state.fileName, noFile: !this.state.fileName, onFile:(e)=>this.onFile(e),
+      running: this.state.running, notRunning: !this.state.running, runDone: this.state.runDone, onRun:()=>this.runScript(),
+      profile: this.state.profile,
+      onNome:(e)=>this.setProfile('nome',e), onEmail:(e)=>this.setProfile('email',e), onTel:(e)=>this.setProfile('tel',e), onCnpj:(e)=>this.setProfile('cnpj',e),
+      prefEmail: prefView('email'), prefWeekly: prefView('weekly'), prefSound: prefView('sound')
+    };
+  }
+}
+</script>
+</body>
+</html>
