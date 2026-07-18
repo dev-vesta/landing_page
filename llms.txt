@@ -1,0 +1,38 @@
+# Vesta
+
+> Inteligência operacional para pequenas e médias empresas. A Vesta organiza dados dispersos, reduz trabalho manual e transforma rotinas repetitivas em processos automatizados e mensuráveis — sem trocar os sistemas que a empresa já usa.
+
+## O que é a Vesta
+
+A Vesta é uma camada de inteligência e automação que trabalha por cima dos sistemas, planilhas e canais que a empresa já utiliza. O foco é reduzir retrabalho, dar visibilidade da operação e apoiar decisões com indicadores. A implantação é assistida e começa por um diagnóstico do fluxo real de trabalho, não pela ferramenta.
+
+## Para quem
+
+Gestores de pequenas e médias empresas que vivem no operacional — especialmente clínicas e prestadoras de serviço — e que hoje dependem de conferência manual de planilhas, relatórios refeitos toda semana e informação espalhada entre sistemas.
+
+## Frentes de atuação
+
+- Atendimento: triagem e resposta assistida a demandas repetitivas.
+- Relatórios: consolidação automática de relatórios recorrentes.
+- Protocolos: conferência auditável de protocolos e lotes, com trilha de auditoria.
+- Financeiro: conciliação de guias e repasses, com alertas de divergência.
+
+## Método
+
+1. Entender o fluxo real da operação.
+2. Analisar os dados já disponíveis.
+3. Priorizar o ponto de maior ganho.
+4. Implantar automação assistida, com validação da equipe.
+5. Evoluir com base em indicadores.
+
+## Compromissos
+
+- Acesso mínimo necessário aos dados, com preferência por resultados agregados e conformidade com a LGPD.
+- Nada muda sem validação da equipe do cliente.
+- A Vesta não substitui pessoas: reduz retrabalho e devolve tempo para o que exige julgamento humano.
+
+## Contato
+
+- Site: https://www.vestabi.com/
+- E-mail: contato@vestabi.com
+- Localização: Salvador, Bahia, Brasil

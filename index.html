@@ -21,7 +21,57 @@
 <meta name="twitter:title" content="Vesta — Inteligência Operacional">
 <meta name="twitter:description" content="Menos retrabalho. Mais clareza para operar.">
 <meta name="twitter:image" content="https://www.vestabi.com/og.jpg">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="light dark">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.vestabi.com/#org",
+      "name": "Vesta",
+      "url": "https://www.vestabi.com/",
+      "logo": "https://www.vestabi.com/icon-512.png",
+      "image": "https://www.vestabi.com/og.jpg",
+      "description": "Inteligência operacional para pequenas e médias empresas: organiza dados, reduz trabalho manual e melhora processos operacionais, sem trocar os sistemas que a empresa já usa.",
+      "email": "contato@vestabi.com",
+      "areaServed": "BR",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Salvador",
+        "addressRegion": "BA",
+        "addressCountry": "BR"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.vestabi.com/#website",
+      "url": "https://www.vestabi.com/",
+      "name": "Vesta — Inteligência Operacional",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://www.vestabi.com/#org" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.vestabi.com/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "A Vesta substitui meu sistema?", "acceptedAnswer": { "@type": "Answer", "text": "Ela trabalha por cima do que você já usa: uma camada de inteligência e automação sobre os fluxos e dados existentes. O que funciona, fica." } },
+        { "@type": "Question", "name": "Preciso ter dados perfeitos para começar?", "acceptedAnswer": { "@type": "Answer", "text": "Começamos com o que existe hoje. Organizar os dados e diagnosticar as lacunas faz parte do trabalho." } },
+        { "@type": "Question", "name": "A Vesta substitui pessoas?", "acceptedAnswer": { "@type": "Answer", "text": "Não, e esse é um compromisso. O objetivo é reduzir retrabalho e devolver tempo para o que exige julgamento humano." } },
+        { "@type": "Question", "name": "Como a Vesta lida com dados sensíveis?", "acceptedAnswer": { "@type": "Answer", "text": "Com acesso mínimo necessário, preferência por resultados agregados e conformidade com a LGPD. Segurança e discrição fazem parte do método." } },
+        { "@type": "Question", "name": "Não tenho tempo para implantar mais nada. E agora?", "acceptedAnswer": { "@type": "Answer", "text": "A implantação é assistida: a Vesta conduz e sua equipe apenas valida. O objetivo é devolver tempo, não consumir o seu." } },
+        { "@type": "Question", "name": "Minha equipe não é técnica. Isso é um problema?", "acceptedAnswer": { "@type": "Answer", "text": "Melhor assim. As rotinas chegam prontas, em linguagem do dia a dia. Ninguém precisa aprender ferramenta nova." } },
+        { "@type": "Question", "name": "Em quanto tempo vejo resultado?", "acceptedAnswer": { "@type": "Answer", "text": "A primeira rotina nasce do gargalo priorizado no diagnóstico. O ganho aparece nas primeiras semanas de uso e é medido com indicador." } }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
@@ -87,6 +137,11 @@
   #vwrap{min-height:100vh;overflow-x:clip}
   a{color:var(--acc);text-decoration:none}
   a:hover{color:var(--acc-hi)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+  .skip-link{position:absolute;left:12px;top:-60px;z-index:100;background:var(--acc);color:var(--on-acc);
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;
+    text-decoration:none;transition:top .2s ease}
+  .skip-link:focus{top:12px;color:var(--on-acc)}
   @keyframes wordIn{from{opacity:0}to{opacity:1}}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.55)}}
   @keyframes drawBar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
@@ -232,6 +287,7 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#hero">Pular para o conteúdo</a>
 <div id="vwrap">
 
   <!-- SCROLL PROGRESS -->
@@ -288,7 +344,7 @@
         <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;border:1px solid var(--acc-35);background:var(--acc-08);font-size:13px;font-weight:600;color:var(--acc);">
           <span style="width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pulse 1.8s ease-in-out infinite;"></span>para gestores que vivem no operacional
         </div>
-        <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(46px,6.6vw,80px);line-height:1.02;letter-spacing:-2.4px;margin:28px 0 0;text-wrap:balance;">Sua semana ainda é engolida por<br><span id="vword" style="color:var(--acc);display:inline-block;animation:wordIn .4s ease both;">planilhas manuais</span></h1>
+        <h1 aria-label="Sua semana ainda é engolida por planilhas manuais, relatórios refeitos, conferências sem fim e tarefas repetitivas." style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(46px,6.6vw,80px);line-height:1.02;letter-spacing:-2.4px;margin:28px 0 0;text-wrap:balance;">Sua semana ainda é engolida por<br><span id="vword" style="color:var(--acc);display:inline-block;animation:wordIn .4s ease both;">planilhas manuais</span></h1>
         <p style="margin:26px 0 0;font-size:19px;line-height:1.65;color:var(--ink-68);max-width:620px;text-wrap:pretty;">Menos retrabalho. Mais clareza para operar. A Vesta assume o repetitivo e devolve uma leitura clara do seu negócio, sem trocar os sistemas que você já usa.</p>
         <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:38px;align-items:center;">
           <a class="cta cta-l" href="https://api.whatsapp.com/send/?phone=5571981995565&amp;text=Ol%C3%A1%2C%20quero%20entender%20como%20a%20Vesta%20pode%20ajudar%20minha%20empresa%20a%20organizar%20dados%2C%20reduzir%20retrabalho%20e%20melhorar%20processos%20operacionais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:17px 32px;font-size:16.5px;">
@@ -731,8 +787,8 @@
   <footer style="border-top:1px solid var(--ink-08);">
     <div id="vfooter-grid" style="max-width:1200px;margin:0 auto;padding:52px 24px 20px;display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(3,minmax(150px,1fr));gap:32px;">
       <div>
-        <img class="only-dark" src="vesta_logo_dark.svg" alt="Vesta" style="height:28px;">
-        <img class="only-light" src="uploads/vesta_logo_light.svg" alt="Vesta" style="height:28px;">
+        <img class="only-dark" src="vesta_logo_dark.svg" alt="Vesta" width="110" height="28" loading="lazy" decoding="async" style="height:28px;width:auto;">
+        <img class="only-light" src="uploads/vesta_logo_light.svg" alt="Vesta" width="110" height="28" loading="lazy" decoding="async" style="height:28px;width:auto;">
         <p style="margin:14px 0 0;font-size:13px;line-height:1.7;color:var(--ink-45);max-width:280px;">Inteligência operacional, automações e reestruturação de rotinas para pequenas e médias empresas.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;">
@@ -757,7 +813,7 @@
       </div>
     </div>
     <div style="max-width:1200px;margin:0 auto;padding:18px 24px 28px;border-top:1px solid var(--ink-08);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-      <span style="font-size:13px;color:var(--ink-45);">© 2026 Vesta. Todos os direitos reservados.</span>
+      <span style="font-size:13px;color:var(--ink-45);">© 2026 Vesta. Todos os direitos reservados. · <a class="flink" href="privacidade.html" style="font-weight:600;">Política de Privacidade</a></span>
       <span style="font-size:12.5px;color:var(--ink-4);">Feita em Salvador, Bahia.</span>
     </div>
   </footer>
@@ -917,13 +973,22 @@
   setBar(2);
   setInterval(function(){ if (!barHover) setBar((hotBar + 1) % bars.length); }, 6000);
 
-  /* ---- FAQ: um aberto por vez ---- */
+  /* ---- FAQ: um aberto por vez, com estado acessível ---- */
   var faqs = [].slice.call(document.querySelectorAll('.faq-item'));
+  function syncFaqAria(){
+    faqs.forEach(function(x){
+      var b = x.querySelector('button');
+      if (b) b.setAttribute('aria-expanded', x.classList.contains('open') ? 'true' : 'false');
+    });
+  }
   faqs.forEach(function(item){
-    item.querySelector('button').addEventListener('click', function(){
+    var btn = item.querySelector('button');
+    if (btn) btn.setAttribute('aria-expanded', item.classList.contains('open') ? 'true' : 'false');
+    btn.addEventListener('click', function(){
       var wasOpen = item.classList.contains('open');
       faqs.forEach(function(x){ x.classList.remove('open'); });
       if (!wasOpen) item.classList.add('open');
+      syncFaqAria();
     });
   });
 })();

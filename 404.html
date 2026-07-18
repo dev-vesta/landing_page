@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página não encontrada — Vesta</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F1F5F8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<style>
+  @font-face{font-family:'Space Grotesk';font-weight:500 700;font-display:swap;src:url(/fonts/space-grotesk.woff2) format('woff2')}
+  @font-face{font-family:'Plus Jakarta Sans';font-weight:400 700;font-display:swap;src:url(/fonts/plus-jakarta-sans.woff2) format('woff2')}
+  :root{--bg:#F1F5F8;--text:#002F49;--muted:#5B6A82;--acc:#A45F2C;--acc-hi:#8A4E22;--on-acc:#fff;--line:rgba(0,47,73,.12)}
+  @media (prefers-color-scheme:dark){:root{--bg:#001B2A;--text:#EAF3F8;--muted:#8CA3B5;--acc:#C88A52;--acc-hi:#E0A970;--on-acc:#001B2A;--line:rgba(234,243,248,.14)}}
+  :root[data-theme="dark"]{--bg:#001B2A;--text:#EAF3F8;--muted:#8CA3B5;--acc:#C88A52;--acc-hi:#E0A970;--on-acc:#001B2A;--line:rgba(234,243,248,.14)}
+  :root[data-theme="light"]{--bg:#F1F5F8;--text:#002F49;--muted:#5B6A82;--acc:#A45F2C;--acc-hi:#8A4E22;--on-acc:#fff;--line:rgba(0,47,73,.12)}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+    background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-text-size-adjust:100%;text-align:center}
+  .box{max-width:460px}
+  .code{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(64px,18vw,120px);line-height:1;letter-spacing:-4px;color:var(--acc)}
+  h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5vw,28px);letter-spacing:-.5px;margin:18px 0 0}
+  p{color:var(--muted);font-size:16px;line-height:1.6;margin:14px 0 0}
+  a.btn{display:inline-flex;align-items:center;gap:8px;margin-top:28px;padding:14px 28px;border-radius:999px;
+    background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;text-decoration:none;transition:background .18s}
+  a.btn:hover{background:var(--acc-hi)}
+  a.txt{color:var(--acc);text-decoration:none;font-weight:600}
+  a.txt:hover{color:var(--acc-hi)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="code">404</div>
+    <h1>Esta página não existe</h1>
+    <p>O endereço que você tentou abrir não foi encontrado. Talvez o link esteja desatualizado.</p>
+    <a class="btn" href="/">Voltar para a Vesta</a>
+    <p style="margin-top:22px;font-size:14px;">Ou <a class="txt" href="mailto:contato@vestabi.com">fale com a gente</a>.</p>
+  </div>
+</body>
+</html>
