@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atender para Manter · Treinamento de Atendimento GSM — Vesta</title>
+<meta name="description" content="Material de treinamento do time de atendimento da GSM Bahia — conteúdo completo das 7 unidades, no padrão visual Vesta.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.vestabi.com/treinamentos/atendimento-gsm/">
+<meta name="theme-color" content="#F1F5F8">
+<meta name="color-scheme" content="light dark">
+<link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* ====== Fontes self-hosted (mesmos arquivos da landing Vesta) ====== */
+  @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/space-grotesk.woff2) format('woff2')}
+  @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/space-grotesk.woff2) format('woff2')}
+  @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/space-grotesk.woff2) format('woff2')}
+  @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/plus-jakarta-sans.woff2) format('woff2')}
+  @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/plus-jakarta-sans.woff2) format('woff2')}
+  @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/plus-jakarta-sans.woff2) format('woff2')}
+  @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/plus-jakarta-sans.woff2) format('woff2')}
+  @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono.woff2) format('woff2')}
+  @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/jetbrains-mono.woff2) format('woff2')}
+
+  /* ====== TOKENS — sistema de design Vesta ====== */
+  [data-theme="dark"]{
+    --bg:#001B2A;--text:#EAF3F8;--panel1:#04283C;--panel2:#02202F;--panel-inner:rgba(0,27,42,.6);
+    --header-bg:rgba(0,27,42,.82);--acc:#B36F3A;--acc-hi:#CE8A50;--on-acc:#FFFFFF;--glow:rgba(179,111,58,.15);
+    --good:#4CC593;--good-soft:rgba(30,158,106,.16);--good-border:rgba(76,197,147,.32);--good-ink:#8fe0bd;
+    --bad:#E8776B;--bad-soft:rgba(232,119,107,.13);--bad-border:rgba(232,119,107,.32);--bad-ink:#F1B7B0;
+    --warn:#E3B341;--warn-soft:rgba(227,179,65,.14);--warn-border:rgba(227,179,65,.36);--warn-ink:#ecd9a2;
+    --ink-02:rgba(234,243,248,.02);--ink-035:rgba(234,243,248,.035);--ink-045:rgba(234,243,248,.045);
+    --ink-06:rgba(234,243,248,.06);--ink-07:rgba(234,243,248,.07);--ink-08:rgba(234,243,248,.08);
+    --ink-09:rgba(234,243,248,.09);--ink-1:rgba(234,243,248,.1);--ink-2:rgba(234,243,248,.2);
+    --ink-22:rgba(234,243,248,.22);--ink-25:rgba(234,243,248,.25);--ink-3:rgba(234,243,248,.3);
+    --ink-4:rgba(234,243,248,.4);--ink-45:rgba(234,243,248,.45);--ink-5:rgba(234,243,248,.5);
+    --ink-55:rgba(234,243,248,.55);--ink-6:rgba(234,243,248,.6);--ink-62:rgba(234,243,248,.62);
+    --ink-65:rgba(234,243,248,.65);--ink-68:rgba(234,243,248,.68);--ink-85:rgba(234,243,248,.85);
+    --acc-05:rgba(179,111,58,.05);--acc-07:rgba(179,111,58,.07);--acc-08:rgba(179,111,58,.08);
+    --acc-09:rgba(179,111,58,.09);--acc-12:rgba(179,111,58,.12);--acc-14:rgba(179,111,58,.14);
+    --acc-15:rgba(179,111,58,.15);--acc-16:rgba(179,111,58,.16);--acc-25:rgba(179,111,58,.25);
+    --acc-3:rgba(179,111,58,.3);--acc-35:rgba(179,111,58,.35);--acc-4:rgba(179,111,58,.4);
+    --acc-45:rgba(179,111,58,.45);--acc-5:rgba(179,111,58,.5);--acc-55:rgba(179,111,58,.55);
+  }
+  [data-theme="light"]{
+    --bg:#F1F5F8;--text:#002F49;--panel1:#FFFFFF;--panel2:#E9F0F5;--panel-inner:rgba(255,255,255,.8);
+    --header-bg:rgba(241,245,248,.88);--acc:#A45F2C;--acc-hi:#8A4E22;--on-acc:#FFFFFF;--glow:rgba(164,95,44,.10);
+    --good:#1A8C5E;--good-soft:rgba(26,140,94,.12);--good-border:rgba(26,140,94,.26);--good-ink:#0f5b32;
+    --bad:#C0392B;--bad-soft:rgba(192,57,43,.07);--bad-border:rgba(192,57,43,.24);--bad-ink:#8a2f26;
+    --warn:#B5730A;--warn-soft:rgba(242,183,5,.12);--warn-border:rgba(242,183,5,.42);--warn-ink:#7a5406;
+    --ink-02:rgba(0,47,73,.02);--ink-035:rgba(0,47,73,.035);--ink-045:rgba(0,47,73,.045);
+    --ink-06:rgba(0,47,73,.06);--ink-07:rgba(0,47,73,.07);--ink-08:rgba(0,47,73,.08);
+    --ink-09:rgba(0,47,73,.09);--ink-1:rgba(0,47,73,.1);--ink-2:rgba(0,47,73,.2);
+    --ink-22:rgba(0,47,73,.22);--ink-25:rgba(0,47,73,.25);--ink-3:rgba(0,47,73,.3);
+    --ink-4:rgba(0,47,73,.4);--ink-45:rgba(0,47,73,.45);--ink-5:rgba(0,47,73,.5);
+    --ink-55:rgba(0,47,73,.55);--ink-6:rgba(0,47,73,.6);--ink-62:rgba(0,47,73,.62);
+    --ink-65:rgba(0,47,73,.65);--ink-68:rgba(0,47,73,.68);--ink-85:rgba(0,47,73,.85);
+    --acc-05:rgba(164,95,44,.05);--acc-07:rgba(164,95,44,.07);--acc-08:rgba(164,95,44,.08);
+    --acc-09:rgba(164,95,44,.09);--acc-12:rgba(164,95,44,.12);--acc-14:rgba(164,95,44,.14);
+    --acc-15:rgba(164,95,44,.15);--acc-16:rgba(164,95,44,.16);--acc-25:rgba(164,95,44,.25);
+    --acc-3:rgba(164,95,44,.3);--acc-35:rgba(164,95,44,.35);--acc-4:rgba(164,95,44,.4);
+    --acc-45:rgba(164,95,44,.45);--acc-5:rgba(164,95,44,.5);--acc-55:rgba(164,95,44,.55);
+    --nav-w:300px;
+  }
+  :root{--nav-w:300px;}
+  /* aliases de compatibilidade — mapeiam tokens legados (GSM) no sistema Vesta,
+     para estilos inline herdados do conteúdo original resolverem em ambos os temas */
+  :root{
+    --blue:var(--acc);--deep:var(--text);--lime:var(--acc);--green:var(--good);
+    --red:var(--bad);--yellow:var(--warn);--ink:var(--text);--muted:var(--ink-55);
+    --line:var(--ink-1);--paper:var(--acc-05);--card:var(--panel1);--soft:var(--acc-08);
+  }
+
+  /* ====== BASE ====== */
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+  body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--text);background:var(--bg);
+    line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .4s ease,color .4s ease;}
+  a{color:var(--acc);text-decoration:none;transition:color .18s;}
+  a:hover{color:var(--acc-hi);}
+  img{max-width:100%;}
+  ::selection{background:var(--acc-25);}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px;}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-thumb{background:var(--acc-3);border-radius:999px;border:2px solid transparent;background-clip:padding-box;}
+
+  /* reveal ao rolar */
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.55)}}
+  @keyframes wordIn{from{opacity:0}to{opacity:1}}
+  [data-reveal]{transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1);}
+  [data-reveal].vhide{opacity:0;transform:translateY(34px);}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}
+    html{scroll-behavior:auto;}
+    [data-reveal].vhide{opacity:1;transform:none;}
+  }
+
+  /* ====== LAYOUT ====== */
+  .shell{display:flex;min-height:100vh;}
+  .main{flex:1;min-width:0;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 40px 110px;}
+
+  /* progresso de leitura */
+  .progress{position:fixed;top:0;left:0;right:0;height:3px;background:var(--ink-06);z-index:60;}
+  .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc-hi));
+    border-radius:0 999px 999px 0;transition:width .1s linear;}
+
+  /* ====== SIDEBAR ====== */
+  .sidebar{width:var(--nav-w);flex:0 0 var(--nav-w);background:var(--panel2);
+    border-right:1px solid var(--ink-08);position:sticky;top:0;height:100vh;overflow-y:auto;
+    padding:26px 20px 34px;}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
+  .brand img{height:30px;width:auto;}
+  .brand .only-dark{display:none;}
+  [data-theme="dark"] .brand .only-dark{display:inline;}
+  [data-theme="dark"] .brand .only-light{display:none;}
+  .brand-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:1.2px;
+    color:var(--ink-45);text-transform:uppercase;margin:14px 0 10px;display:block;}
+  .nav-group{font-family:'Space Grotesk',sans-serif;font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;
+    color:var(--acc);margin:20px 0 8px;font-weight:600;}
+  .nav a{display:flex;align-items:center;gap:9px;color:var(--ink-65);font-size:13.5px;font-weight:500;
+    padding:8px 13px;border-radius:12px;margin-bottom:2px;border-left:2px solid transparent;transition:.18s;}
+  .nav a:hover{background:var(--ink-045);color:var(--text);}
+  .nav a.active{background:var(--acc-08);color:var(--text);border-left-color:var(--acc);font-weight:700;}
+
+  /* botão de tema na sidebar */
+  .theme-row{display:flex;align-items:center;gap:10px;margin:20px 0 4px;}
+  #vtheme{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:42px;border-radius:999px;
+    border:1px solid var(--ink-2);background:transparent;color:var(--text);cursor:pointer;font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:13px;transition:border-color .2s;}
+  #vtheme:hover{border-color:var(--acc);}
+  #vtheme .ico-sun{display:none;}
+  [data-theme="dark"] #vtheme .ico-sun{display:inline-flex;}
+  [data-theme="dark"] #vtheme .ico-moon{display:none;}
+  #vtheme .lbl-dark{display:none;}
+  [data-theme="dark"] #vtheme .lbl-dark{display:inline;}
+  [data-theme="dark"] #vtheme .lbl-light{display:none;}
+
+  /* ====== TOPBAR (mobile) ====== */
+  .topbar{display:none;position:sticky;top:0;z-index:40;background:var(--header-bg);
+    backdrop-filter:blur(14px);border-bottom:1px solid var(--ink-08);
+    align-items:center;justify-content:space-between;padding:12px 18px;}
+  .topbar img{height:26px;}
+  .topbar .tb-right{display:flex;align-items:center;gap:10px;}
+  .burger,.tb-theme{background:transparent;border:1px solid var(--ink-2);color:var(--text);
+    border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px;cursor:pointer;
+    font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;gap:7px;}
+  .tb-theme{padding:9px 11px;}
+  .tb-theme .ico-sun{display:none;}
+  [data-theme="dark"] .tb-theme .ico-sun{display:inline-flex;}
+  [data-theme="dark"] .tb-theme .ico-moon{display:none;}
+  .backdrop{display:none;}
+
+  /* ====== HERO ====== */
+  .hero{position:relative;padding:88px 40px 76px;overflow:hidden;border-bottom:1px solid var(--ink-08);}
+  .hero .grid-bg{position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(var(--ink-045) 1px,transparent 1px),linear-gradient(90deg,var(--ink-045) 1px,transparent 1px);
+    background-size:54px 54px;
+    -webkit-mask-image:radial-gradient(ellipse 90% 80% at 30% 15%,black 30%,transparent 75%);
+    mask-image:radial-gradient(ellipse 90% 80% at 30% 15%,black 30%,transparent 75%);}
+  .hero #vglow{position:absolute;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,var(--glow),transparent 65%);pointer-events:none;
+    transform:translate(-50%,-50%);left:55%;top:25%;
+    transition:left .35s cubic-bezier(.2,.8,.3,1),top .35s cubic-bezier(.2,.8,.3,1);}
+  .hero-inner{position:relative;max-width:900px;margin:0 auto;}
+  .hero .kicker{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;
+    border:1px solid var(--acc-35);background:var(--acc-08);color:var(--acc);
+    font-size:12.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:.4px;}
+  .hero .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pulse 1.8s ease-in-out infinite;}
+  .hero h1{font-family:'Space Grotesk',sans-serif;font-weight:700;margin:26px 0 0;
+    font-size:clamp(40px,6vw,66px);line-height:1.03;letter-spacing:-2px;max-width:15ch;text-wrap:balance;}
+  .hero h1 .em{color:var(--acc);display:inline-block;animation:wordIn .4s ease both;}
+  .hero .lead{font-size:18.5px;line-height:1.6;color:var(--ink-68);max-width:640px;margin:24px 0 0;text-wrap:pretty;}
+  .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:36px;}
+  .cta{display:inline-flex;align-items:center;gap:9px;background:var(--acc);color:var(--on-acc);
+    font-family:'Space Grotesk',sans-serif;font-weight:700;border-radius:999px;padding:15px 28px;font-size:15.5px;
+    transition:transform .14s,box-shadow .2s;}
+  .cta:hover{color:var(--on-acc);transform:translateY(-3px);box-shadow:0 12px 32px var(--acc-4);}
+  .obtn{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--ink-22);color:var(--text);
+    border-radius:999px;padding:15px 26px;font-weight:700;font-size:15px;font-family:'Space Grotesk',sans-serif;
+    transition:border-color .2s,transform .14s;}
+  .obtn:hover{border-color:var(--ink-45);color:var(--text);transform:translateY(-3px);}
+
+  /* ====== SEÇÕES ====== */
+  section{padding-top:64px;scroll-margin-top:16px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--acc);
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:2.4px;
+    text-transform:uppercase;margin-bottom:12px;}
+  .eyebrow .n{background:var(--acc-12);border:1px solid var(--acc-35);color:var(--acc);width:28px;height:28px;
+    border-radius:9px;display:grid;place-items:center;font-size:13px;}
+  h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.6vw,40px);line-height:1.1;
+    margin:2px 0 12px;font-weight:700;letter-spacing:-1px;text-wrap:balance;}
+  h3{font-family:'Space Grotesk',sans-serif;font-size:22px;margin:38px 0 10px;font-weight:700;
+    letter-spacing:-.4px;color:var(--text);}
+  h4{font-family:'Space Grotesk',sans-serif;font-size:15.5px;margin:20px 0 6px;font-weight:700;color:var(--acc);}
+  p{margin:0 0 14px;font-size:16px;color:var(--ink-85);}
+  .lead-p{font-size:17.5px;color:var(--ink-85);}
+  ul,ol{font-size:16px;color:var(--ink-85);}
+  li{margin:6px 0;}
+  strong,b{color:var(--text);font-weight:700;}
+
+  /* cabeçalho de unidade */
+  .unit-head{background:linear-gradient(155deg,var(--panel1),var(--panel2));border:1px solid var(--ink-09);
+    border-radius:24px;padding:26px 28px;display:flex;align-items:center;gap:20px;margin-top:8px;position:relative;overflow:hidden;}
+  .unit-head:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--acc);}
+  .unit-head .badge{flex:0 0 auto;background:var(--acc-12);border:1px solid var(--acc-35);color:var(--acc);
+    font-family:'Space Grotesk',sans-serif;font-weight:700;border-radius:16px;padding:14px 18px;font-size:12px;
+    text-align:center;line-height:1.1;letter-spacing:1px;text-transform:uppercase;}
+  .unit-head .badge b{display:block;font-size:30px;color:var(--acc);letter-spacing:0;}
+  .unit-head h2{margin:0;font-size:clamp(22px,2.6vw,27px);letter-spacing:-.6px;}
+  .unit-head p{margin:6px 0 0;color:var(--ink-6);font-size:14.5px;}
+
+  /* objetivo */
+  .obj{background:var(--acc-08);border:1px solid var(--acc-25);border-left:4px solid var(--acc);
+    border-radius:0 16px 16px 0;padding:16px 20px;margin:20px 0;font-size:15.5px;}
+  .obj b{color:var(--acc);}
+
+  /* conceito */
+  .concept{background:var(--panel1);border:1px solid var(--ink-08);border-left:4px solid var(--acc);
+    border-radius:0 16px 16px 0;padding:18px 20px;margin:18px 0;}
+  .concept .lbl{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;
+    text-transform:uppercase;color:var(--acc);margin-bottom:6px;}
+  .concept p{margin:0;}
+
+  /* caixas genéricas */
+  .box{border-radius:18px;padding:18px 20px;margin:18px 0;font-size:15.5px;border:1px solid;}
+  .box .lbl{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;
+    text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+  .box.attn{background:var(--warn-soft);border-color:var(--warn-border);color:var(--warn-ink);}
+  .box.attn .lbl{color:var(--warn);}
+  .box.attn b,.box.attn strong{color:var(--warn-ink);}
+  .box.good{background:var(--good-soft);border-color:var(--good-border);color:var(--good-ink);}
+  .box.good .lbl{color:var(--good);}
+  .box.good b,.box.good strong{color:var(--good-ink);}
+  .box.phrase{background:var(--acc-08);border-color:var(--acc-25);color:var(--text);}
+  .box.phrase .lbl{color:var(--acc);}
+  .box.phrase .q{font-style:italic;background:var(--panel1);border:1px solid var(--ink-08);border-radius:12px;
+    padding:10px 14px;margin:7px 0;font-size:14.5px;color:var(--ink-85);}
+  /* caixa de dados — "spotlight" escuro (padrão painel Vesta) */
+  .box.data{background:linear-gradient(160deg,#04283C,#02202F);border-color:rgba(179,111,58,.3);color:#dbeaf3;}
+  .box.data .lbl{color:var(--acc-hi);}
+  .box.data b,.box.data strong{color:#fff;}
+  .box.data .num{color:var(--acc-hi);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .box.data ul li{color:#c3d5e2;}
+  .box.data a{color:var(--acc-hi);}
+  .box ul{margin:4px 0 0;padding-left:18px;}
+  .box li{margin:5px 0;color:inherit;}
+
+  /* espelho de falas reais */
+  .mirror{background:var(--panel1);border:1px solid var(--ink-08);border-radius:20px;padding:22px 24px;margin:20px 0;
+    box-shadow:0 1px 2px var(--ink-06);}
+  .mirror .lbl{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:.8px;
+    text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+  .mirror .sub{font-size:13px;color:var(--ink-55);margin:0 0 14px;}
+  .rq{display:block;position:relative;background:var(--bad-soft);border:1px solid var(--bad-border);border-radius:14px;
+    padding:11px 15px 11px 36px;margin:9px 0;font-size:14.5px;color:var(--bad-ink);font-style:italic;}
+  .rq:before{content:"\201C";position:absolute;left:13px;top:7px;font-size:24px;color:var(--bad);opacity:.6;font-style:normal;}
+  .rq.ok{background:var(--good-soft);border-color:var(--good-border);color:var(--good-ink);}
+  .rq.ok:before{color:var(--good);}
+  .reflect{margin-top:16px;background:var(--warn-soft);border:1px solid var(--warn-border);border-radius:14px;
+    padding:12px 15px;font-size:14px;color:var(--warn-ink);}
+  .reflect .rlbl{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:.6px;
+    text-transform:uppercase;color:var(--warn);display:block;margin-bottom:4px;}
+  .srcnote{font-size:11.5px;color:var(--ink-45);font-style:italic;margin:12px 0 0;}
+
+  /* grid */
+  .grid{display:grid;gap:14px;}
+  .grid.c2{grid-template-columns:repeat(2,1fr);}
+  .grid.c3{grid-template-columns:repeat(3,1fr);}
+
+  /* antes/depois */
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
+  .ba > div{border-radius:16px;padding:16px 18px;border:1px solid;}
+  .ba .before{background:var(--bad-soft);border-color:var(--bad-border);}
+  .ba .after{background:var(--good-soft);border-color:var(--good-border);}
+  .ba .tag{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.6px;
+    text-transform:uppercase;display:block;margin-bottom:8px;}
+  .ba .before .tag{color:var(--bad);}
+  .ba .after .tag{color:var(--good);}
+  .ba .msg{background:var(--panel1);border:1px solid var(--ink-08);border-radius:10px;padding:11px 13px;font-size:14px;color:var(--ink-85);}
+
+  /* chat estilo whatsapp */
+  .chat{background:var(--panel2);border:1px solid var(--ink-08);border-radius:18px;padding:18px 16px;margin:18px 0;}
+  .chat .title{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.6px;
+    text-transform:uppercase;color:var(--ink-5);margin:0 4px 14px;display:flex;align-items:center;gap:7px;}
+  .bubble{max-width:78%;padding:10px 14px;border-radius:16px;margin:8px 0;font-size:14px;line-height:1.45;
+    position:relative;clear:both;}
+  .bubble .who{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.4px;
+    text-transform:uppercase;margin-bottom:3px;opacity:.8;}
+  .bubble.cli{background:var(--panel1);border:1px solid var(--ink-08);float:left;border-top-left-radius:5px;color:var(--ink-85);}
+  .bubble.att{background:var(--good-soft);border:1px solid var(--good-border);float:right;border-top-right-radius:5px;color:var(--good-ink);}
+  .bubble.cli .who{color:var(--ink-55);}
+  .bubble.att .who{color:var(--good);}
+  .chat:after{content:"";display:block;clear:both;}
+  .chat-note{clear:both;font-size:12.5px;color:var(--ink-55);margin:12px 4px 0;font-style:italic;}
+
+  /* passos numerados */
+  .steps{counter-reset:s;list-style:none;padding:0;margin:16px 0;}
+  .steps li{counter-increment:s;position:relative;padding:8px 0 8px 48px;font-size:15.5px;margin-bottom:6px;color:var(--ink-85);}
+  .steps li:before{content:counter(s);position:absolute;left:0;top:4px;width:34px;height:34px;border-radius:11px;
+    background:var(--acc);color:var(--on-acc);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:14px;}
+
+  /* checklist */
+  .check{list-style:none;padding:0;margin:12px 0;}
+  .check li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--ink-1);font-size:15.5px;}
+  .check li:last-child{border-bottom:0;}
+  .check .mark{flex:0 0 24px;height:24px;border-radius:8px;background:var(--acc-12);border:1px solid var(--acc-35);
+    color:var(--acc);display:grid;place-items:center;font-size:12px;font-weight:900;margin-top:1px;}
+
+  /* exercícios / atividades */
+  .task{background:var(--panel1);border:1px solid var(--ink-08);border-radius:20px;padding:22px 24px;margin:20px 0;
+    transition:border-color .25s,transform .2s;}
+  .task:hover{border-color:var(--acc-45);transform:translateY(-3px);}
+  .task .head{display:flex;align-items:center;gap:11px;margin-bottom:6px;}
+  .task .ico{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:16px;flex:0 0 auto;}
+  .task.ex .ico{background:var(--acc-12);color:var(--acc);}
+  .task.act .ico{background:var(--warn-soft);color:var(--warn);}
+  .task .head h4{margin:0;font-size:16.5px;color:var(--text);}
+  .task .head .kind{font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.6px;
+    text-transform:uppercase;color:var(--ink-5);}
+  .task ol{margin:8px 0 0;padding-left:20px;}
+  .task ol li{margin:8px 0;}
+  .gab{margin-top:14px;border-top:1px dashed var(--ink-1);padding-top:12px;}
+  .gab summary{cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;color:var(--acc);list-style:none;}
+  .gab summary::-webkit-details-marker{display:none;}
+  .gab summary:before{content:"\25B8 ";}
+  .gab[open] summary:before{content:"\25BE ";}
+  .gab .body{margin-top:10px;font-size:14px;color:var(--ink-85);background:var(--acc-05);border:1px solid var(--ink-07);
+    border-radius:12px;padding:13px 15px;}
+
+  /* tabelas */
+  .table-scroll{overflow-x:auto;}
+  .tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;border-radius:14px;border:1px solid var(--ink-1);overflow:hidden;}
+  .tbl th{background:var(--acc);color:var(--on-acc);text-align:left;padding:12px 14px;font-family:'Space Grotesk',sans-serif;
+    font-weight:600;font-size:13px;}
+  .tbl td{padding:11px 14px;border-top:1px solid var(--ink-08);color:var(--ink-85);}
+  .tbl tr:nth-child(even) td{background:var(--ink-02);}
+  .tbl .em{font-weight:700;color:var(--text);}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+  .chips span{background:var(--panel1);border:1px solid var(--ink-1);border-radius:999px;padding:8px 14px;font-size:13px;color:var(--text);}
+
+  .divider{height:1px;background:var(--ink-08);margin:52px 0 0;}
+
+  /* ====== FOOTER ====== */
+  .footer{border-top:1px solid var(--ink-08);background:var(--panel2);padding:52px 40px;margin-top:70px;}
+  .footer-inner{max-width:920px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;}
+  .footer .only-dark{display:none;}
+  [data-theme="dark"] .footer .only-dark{display:inline;}
+  [data-theme="dark"] .footer .only-light{display:none;}
+  .footer img{height:30px;width:auto;opacity:.92;}
+  .footer p{font-size:13px;margin:0;max-width:540px;line-height:1.6;color:var(--ink-6);}
+  .footer .note{color:var(--ink-45);font-size:11.5px;margin-top:8px;}
+
+  /* caixa "Foco Retenção" — trilha do setor de Retenção e Cancelamento */
+  .box.ret{background:var(--acc-08);border-color:var(--acc-25);color:var(--text);}
+  .box.ret .lbl{color:var(--acc);}
+  .box.ret a{font-weight:700;}
+  /* etiqueta de foco retenção no cabeçalho da unidade */
+  .ret-tag{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 12px;border-radius:999px;
+    background:var(--acc-12);border:1px solid var(--acc-35);color:var(--acc);font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;}
+
+  /* ====== EXERCÍCIOS INTERATIVOS ====== */
+  .ix{margin:14px 0 0;}
+  .ix-inst{font-size:14.5px;color:var(--ink-68);margin:0 0 12px;}
+  .ix-score{display:inline-flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:12px;letter-spacing:.4px;color:var(--acc);background:var(--acc-08);border:1px solid var(--acc-25);
+    border-radius:999px;padding:5px 13px;margin-bottom:14px;}
+  .ix-score .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);}
+  /* múltipla escolha */
+  .ix-q{margin:0;padding:0;}
+  .ix-q + .ix-q{border-top:1px dashed var(--ink-1);padding-top:16px;margin-top:16px;}
+  .ix-stem{font-size:15px;color:var(--text);font-weight:600;margin:0 0 10px;line-height:1.5;}
+  .ix-stem .qn{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:8px;background:var(--acc-12);
+    border:1px solid var(--acc-35);color:var(--acc);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;
+    margin-right:8px;vertical-align:middle;}
+  .ix-opts{display:flex;flex-wrap:wrap;gap:8px;}
+  .ix-opt{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:var(--text);
+    background:var(--panel1);border:1px solid var(--ink-2);border-radius:12px;padding:10px 16px;cursor:pointer;
+    transition:border-color .18s,background .18s,transform .1s;}
+  .ix-opt:hover:not(:disabled){border-color:var(--acc);transform:translateY(-1px);}
+  .ix-opt:disabled{cursor:default;}
+  .ix-opt.correct{background:var(--good-soft);border-color:var(--good-border);color:var(--good-ink);}
+  .ix-opt.wrong{background:var(--bad-soft);border-color:var(--bad-border);color:var(--bad-ink);}
+  .ix-fb{max-height:0;opacity:0;overflow:hidden;font-size:14px;line-height:1.55;color:var(--ink-68);
+    transition:max-height .35s cubic-bezier(.22,1,.36,1),opacity .3s,margin .35s;margin:0;}
+  .ix-fb.show{max-height:340px;opacity:1;margin:10px 0 0;}
+  .ix-fb .r{font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .ix-fb.ok .r{color:var(--good);} .ix-fb.no .r{color:var(--bad);}
+  /* ligar (arrastar) */
+  .ix-match{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;align-items:start;}
+  .ix-pool,.ix-slots{display:flex;flex-direction:column;gap:10px;}
+  .ix-col-lbl{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.8px;
+    text-transform:uppercase;color:var(--ink-5);margin-bottom:2px;}
+  .ix-chip{display:flex;align-items:center;gap:8px;background:var(--panel1);border:1px solid var(--ink-2);
+    border-radius:12px;padding:11px 14px;font-size:13.5px;font-weight:600;color:var(--text);cursor:grab;
+    touch-action:none;user-select:none;transition:border-color .18s,box-shadow .18s;}
+  .ix-chip:before{content:"⠿";color:var(--ink-4);font-size:13px;}
+  .ix-chip:hover{border-color:var(--acc);}
+  .ix-chip.dragging{opacity:.4;}
+  .ix-chip.picked{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc-25);}
+  .ix-slot{min-height:56px;border:1.5px dashed var(--ink-25);border-radius:12px;padding:10px 13px;
+    display:flex;flex-direction:column;gap:8px;justify-content:center;transition:border-color .18s,background .18s;}
+  .ix-slot .slot-target{font-size:13px;line-height:1.4;color:var(--ink-6);}
+  .ix-slot.over{border-color:var(--acc);background:var(--acc-08);}
+  .ix-slot .ix-chip{cursor:grab;}
+  .ix-slot.correct{border-style:solid;border-color:var(--good-border);background:var(--good-soft);}
+  .ix-slot.wrong{border-style:solid;border-color:var(--bad-border);background:var(--bad-soft);}
+  .ix-drag-ghost{position:fixed;z-index:999;pointer-events:none;box-shadow:0 14px 34px rgba(0,0,0,.28);opacity:.95;}
+  /* ordenar (arrastar) */
+  .ix-order{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+  .ix-order-item{display:flex;align-items:center;gap:12px;background:var(--panel1);border:1px solid var(--ink-2);
+    border-radius:14px;padding:12px 14px;touch-action:none;user-select:none;transition:border-color .18s,box-shadow .18s,background .18s;}
+  .ix-order-item .grip{color:var(--ink-4);flex:none;cursor:grab;font-size:15px;}
+  .ix-order-item .otext{font-size:14.5px;flex:1;line-height:1.45;}
+  .ix-order-item.dragging{opacity:.5;border-color:var(--acc);box-shadow:0 8px 24px var(--acc-25);}
+  .ix-order-item.correct{border-color:var(--good-border);background:var(--good-soft);}
+  .ix-order-item.wrong{border-color:var(--bad-border);background:var(--bad-soft);}
+  .ix-order-item .updown{display:flex;flex-direction:column;gap:1px;flex:none;}
+  .ix-order-item .updown button{border:none;background:transparent;color:var(--ink-45);cursor:pointer;padding:0 4px;
+    font-size:12px;line-height:1;}
+  .ix-order-item .updown button:hover{color:var(--acc);}
+  /* clicar na bolha (spot) */
+  .ix-spot .bubble{cursor:pointer;transition:box-shadow .18s,transform .1s;}
+  .ix-spot .bubble:hover{box-shadow:0 0 0 2px var(--acc-35);}
+  .ix-spot.done .bubble{cursor:default;}
+  .ix-spot .bubble.picked-correct{box-shadow:0 0 0 2px var(--good);}
+  .ix-spot .bubble.picked-wrong{box-shadow:0 0 0 2px var(--bad);}
+  /* escrever + revelar */
+  .ix-write textarea{width:100%;min-height:96px;resize:vertical;font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:14.5px;line-height:1.55;color:var(--text);background:var(--panel1);border:1px solid var(--ink-2);
+    border-radius:14px;padding:13px 15px;transition:border-color .18s;}
+  .ix-write textarea:focus{outline:none;border-color:var(--acc);}
+  .ix-crit{display:flex;flex-direction:column;gap:7px;margin:13px 0 2px;}
+  .ix-crit .crit-lbl{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.6px;
+    text-transform:uppercase;color:var(--acc);}
+  .ix-crit label{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:var(--ink-68);cursor:pointer;}
+  .ix-crit input{margin-top:2px;accent-color:var(--acc);width:16px;height:16px;flex:none;}
+  .ix-crit label:has(input:checked){color:var(--text);}
+  .ix-model{max-height:0;opacity:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1),opacity .3s,margin .4s;}
+  .ix-model.show{max-height:500px;opacity:1;margin-top:12px;}
+  .ix-model-inner{background:var(--good-soft);border:1px solid var(--good-border);border-radius:14px;padding:14px 16px;
+    font-size:14.5px;line-height:1.55;color:var(--good-ink);}
+  .ix-model-inner .ml{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.6px;
+    text-transform:uppercase;color:var(--good);display:block;margin-bottom:6px;}
+  /* botões e resultado */
+  .ix-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center;}
+  .ix-btn{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;cursor:pointer;border-radius:999px;
+    padding:10px 20px;border:1px solid var(--acc);background:var(--acc);color:var(--on-acc);
+    transition:transform .12s,box-shadow .2s,opacity .2s;}
+  .ix-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px var(--acc-35);color:var(--on-acc);}
+  .ix-btn.ghost{background:transparent;color:var(--acc);}
+  .ix-btn.ghost:hover{box-shadow:none;background:var(--acc-08);}
+  .ix-btn:disabled{opacity:.5;cursor:default;transform:none;box-shadow:none;}
+  .ix-result{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;}
+  .ix-result.ok{color:var(--good);} .ix-result.no{color:var(--bad);}
+  /* checklist interativo */
+  .ix-check{list-style:none;padding:0;margin:14px 0 6px;}
+  .ix-check li{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--ink-1);
+    font-size:15.5px;cursor:pointer;}
+  .ix-check li:last-child{border-bottom:0;}
+  .ix-check .cbox{flex:0 0 24px;height:24px;border-radius:8px;border:1.5px solid var(--ink-25);background:transparent;
+    display:grid;place-items:center;font-size:13px;font-weight:900;color:transparent;transition:.18s;margin-top:1px;}
+  .ix-check li.done .cbox{background:var(--good);border-color:var(--good);color:#fff;}
+  .ix-check li.done .ctext{color:var(--ink-5);}
+  .ix-progress{height:8px;background:var(--ink-08);border-radius:999px;overflow:hidden;margin:8px 0 2px;}
+  .ix-progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--good),var(--good));
+    border-radius:999px;transition:width .3s;}
+  .ix-progress-lbl{font-size:12.5px;color:var(--ink-55);font-weight:600;}
+
+  /* ====== RESPONSIVO ====== */
+  @media(max-width:900px){
+    .sidebar{position:fixed;left:0;top:0;z-index:45;transform:translateX(-100%);transition:.25s;
+      box-shadow:0 0 60px rgba(0,0,0,.35);}
+    .sidebar.open{transform:translateX(0);}
+    .topbar{display:flex;}
+    .backdrop.show{display:block;position:fixed;inset:0;background:rgba(0,20,35,.55);z-index:44;}
+    .hero{padding:52px 22px 44px;}
+    .wrap{padding:0 20px 80px;}
+    .grid.c2,.grid.c3{grid-template-columns:1fr;}
+    .ba{grid-template-columns:1fr;}
+    .ix-match{grid-template-columns:1fr;}
+    .bubble{max-width:88%;}
+    .unit-head{flex-direction:row;}
+  }
+  @media(max-width:520px){
+    .hero h1{letter-spacing:-1.2px;}
+    section{padding-top:52px;}
+  }
+  @media print{
+    .sidebar,.topbar,.progress,.backdrop,#vtheme{display:none!important;}
+    body{background:#fff;color:#000;}
+    section{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress"><i id="bar"></i></div>
+
+<div class="topbar">
+  <img class="only-light" src="/uploads/vesta_logo_light.svg" alt="Vesta">
+  <img class="only-dark" src="/vesta_logo_dark.svg" alt="Vesta" style="display:none;">
+  <div class="tb-right">
+    <button class="tb-theme" onclick="toggleTheme()" title="Alternar tema" aria-label="Alternar tema claro/escuro">
+      <span class="ico-moon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg></span>
+      <span class="ico-sun" style="display:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg></span>
+    </button>
+    <button class="burger" onclick="toggleNav()">☰ Índice</button>
+  </div>
+</div>
+<div class="backdrop" id="backdrop" onclick="toggleNav()"></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img class="only-light" src="/uploads/vesta_logo_light.svg" alt="Vesta">
+      <img class="only-dark" src="/vesta_logo_dark.svg" alt="Vesta">
+    </div>
+    <span class="brand-tag">Treinamento · Uso interno · GSM Bahia</span>
+    <nav class="nav" id="nav">
+      <div class="nav-group">Abertura</div>
+      <a href="#apresentacao">Apresentação</a>
+      <a href="#como-usar">Como usar este material</a>
+      <div class="nav-group">Unidades</div>
+      <a href="#u1">1 · Conceito de Atendimento</a>
+      <a href="#u2">2 · Atendimento e Reputação</a>
+      <a href="#u3">3 · Medindo a Satisfação</a>
+      <a href="#u4">4 · Comunicação</a>
+      <a href="#u5">5 · Relacionamento e Registro</a>
+      <a href="#u6">6 · Retenção e Cancelamento</a>
+      <a href="#u7">7 · Atendimento Integrado</a>
+      <div class="nav-group">Fechamento</div>
+      <a href="#fechamento">Checklist e autoavaliação</a>
+    </nav>
+    <div class="theme-row">
+      <button id="vtheme" onclick="toggleTheme()" title="Alternar tema claro/escuro">
+        <span class="ico-moon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg></span>
+        <span class="ico-sun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg></span>
+        <span class="lbl-light">Modo escuro</span><span class="lbl-dark">Modo claro</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="hero" id="topo">
+      <div class="grid-bg"></div>
+      <div id="vglow"></div>
+      <div class="hero-inner">
+        <span class="kicker"><span class="dot"></span>Treinamento · Retenção e Cancelamento · GSM Bahia</span>
+        <h1>Atender para <span class="em" id="vword">manter</span></h1>
+        <p class="lead">Este é o seu guia de atendimento e retenção no WhatsApp/OpaSuite. São sete unidades
+        com falas reais da GSM, exercícios que você resolve na tela e frases prontas para usar hoje mesmo.
+        A Unidade 6 é o coração do trabalho de quem segura o cliente que quer sair.</p>
+        <div class="cta-row">
+          <a class="cta" href="#u6">Ir direto para Retenção (Unidade 6)
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg></a>
+          <a class="obtn" href="#como-usar">Como usar este material</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <section id="apresentacao">
+        <div class="eyebrow"><span class="n">✦</span> Abertura</div>
+        <h2>Apresentação</h2>
+        <p class="lead-p">Este material é para você, que atende cliente da GSM o dia inteiro. Pro cliente, quem fala
+        no WhatsApp é a empresa. Sua conversa tem peso: ela acalma quem chegou nervoso ou empurra pro cancelamento
+        quem já estava no limite.</p>
+        <p>A ideia aqui não é decorar regra. É te dar um jeito de trabalhar que funciona: acolher, resolver de
+        verdade, escrever com clareza e saber o que fazer quando o cliente está irritado ou falando em cancelar.
+        Tudo com frase pronta pra você adaptar e com situações bem parecidas com as que caem no seu atendimento.</p>
+        <p>Ela chega primeiro no time de <b>Retenção e Cancelamento</b>, então boa parte dos exemplos vem daí.
+        As falas que você vai ver <b>não foram inventadas</b>: são frases reais de atendimentos da GSM, todas
+        sanitizadas, sem nenhum dado de cliente. A intenção é que você se reconheça nelas, pense "isso eu já
+        respondi assim" e veja como dava pra fazer melhor.</p>
+        <div class="mirror"><div class="lbl">🪞 Espelho — você se reconhece em alguma dessas?</div>
+          <p class="sub">Frases reais que atendentes da GSM já enviaram a clientes:</p>
+          <span class="rq">Infelizmente não é possível.</span>
+          <span class="rq">Um momento!</span>
+          <span class="rq">Irei transferir para o setor responsável.</span>
+          <span class="rq">Qualquer coisa, estamos à disposição.</span>
+          <span class="rq">O sistema não permite.</span>
+          <div class="reflect"><span class="rlbl">Pare e pense</span>
+          Sozinha, nenhuma dessas frases é errada. O que elas têm em comum é o que falta: não acolhem, não explicam
+          e não dizem qual é o próximo passo. Do outro lado, um cliente que já está cansado lê tudo isso como "não
+          vão me ajudar". Ao longo do treinamento você vai treinar como virar cada uma delas.</div>
+          <p class="srcnote">Falas reais extraídas dos atendimentos, sanitizadas pelo sistema (sem nome, telefone, documento, endereço ou protocolo).</p>
+        </div>
+        <div class="concept">
+          <div class="lbl">A ideia central do treinamento</div>
+          <p>Um bom atendimento faz duas coisas ao mesmo tempo: <b>trata bem</b> e <b>resolve o problema</b>.
+          Quando as duas andam juntas, o cliente fica e ainda fala bem da GSM na rua.</p>
+        </div>
+        <div class="box good"><div class="lbl">✓ Compromisso de privacidade</div>
+          As falas de atendentes usadas como exemplo são <b>reais</b>, mas passaram pelo <b>sistema de sanitização</b>
+          da GSM: nome, telefone, documento, endereço, protocolo e datas saem antes de aparecer aqui. Nenhum exemplo
+          identifica um cliente ou um atendente. Você aprende com o que de fato acontece, sem expor ninguém.</div>
+      </section>
+
+      <!-- Como usar -->
+      <section id="como-usar">
+        <div class="eyebrow"><span class="n">▸</span> Abertura</div>
+        <h2>Como usar este material</h2>
+        <p>São sete unidades. Você pode ler na ordem ou pular direto pra parte que mais te ajuda hoje.
+        Em cada unidade você encontra estes blocos:</p>
+        <div class="table-scroll">
+        <table class="tbl">
+          <thead><tr><th>Bloco</th><th>Para que serve</th></tr></thead>
+          <tbody>
+            <tr><td class="em">Objetivo</td><td>O que você vai aprender na unidade.</td></tr>
+            <tr><td class="em">Conceito</td><td>A ideia principal explicada de forma simples.</td></tr>
+            <tr><td class="em">Exemplo / Antes e Depois</td><td>Como fica a resposta ruim e a resposta melhor.</td></tr>
+            <tr><td class="em">⚠ Erros comuns</td><td>O que evitar, o que mais atrapalha o atendimento.</td></tr>
+            <tr><td class="em">✓ Boas práticas</td><td>O que fazer pra acertar.</td></tr>
+            <tr><td class="em">💬 Frase pronta</td><td>Modelos de mensagem pra você copiar e adaptar.</td></tr>
+            <tr><td class="em">Exercício interativo</td><td>Pra praticar na própria tela: clicando, arrastando e escrevendo.</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="box phrase"><div class="lbl">Dica de leitura</div>
+          Toda vez que aparecer uma <b>frase pronta</b>, não copie igual em toda conversa. Ajuste as palavras pro
+          cliente e pra situação. A frase é ponto de partida, não carimbo.</div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ================= UNIDADE 1 ================= -->
+      <section id="u1">
+        <div class="unit-head">
+          <div class="badge">UN<b>1</b></div>
+          <div><h2>Conceito de Atendimento ao Cliente</h2>
+          <p>O que é atender bem e qual é o seu papel na experiência do cliente.</p>
+          <span class="ret-tag">🎯 Base da retenção</span></div>
+        </div>
+        <div class="obj"><b>Objetivo desta unidade:</b> entender a diferença entre responder e resolver,
+        e aprender a acolher o cliente sem prometer o que você não pode cumprir.</div>
+
+        <h3>1.1 O que é atender bem</h3>
+        <p>Atender bem vai além de ser educado. É resolver o problema do cliente tratando ele com respeito.
+        Só educação, sem solução, deixa o cliente com raiva ("foram gentis, mas não resolveram nada"). Só solução,
+        sem educação, deixa ele magoado ("resolveram, mas me trataram mal"). O bom atendimento junta as duas coisas.</p>
+        <div class="concept">
+          <div class="lbl">Conceito</div>
+          <p><b>Atender bem = resolver + acolher.</b> Resolver é acabar com o problema. Acolher é mostrar, já na
+          primeira mensagem, que você entendeu a situação e vai cuidar dela.</p>
+        </div>
+
+        <h3>1.2 Diferença entre responder e resolver</h3>
+        <p><b>Responder</b> é mandar uma mensagem de volta. <b>Resolver</b> é fazer o problema acabar.
+        Tem conversa cheia de resposta e nenhuma solução, e é justamente isso que esgota o cliente.</p>
+        <div class="table-scroll">
+        <table class="tbl">
+          <thead><tr><th>Só responder</th><th>Resolver de verdade</th></tr></thead>
+          <tbody>
+            <tr><td>"Vou verificar."</td><td>"Estou verificando agora e já te digo o que encontrei."</td></tr>
+            <tr><td>"É com outro setor."</td><td>"Isso é com o setor tal. Já vou te encaminhar com o resumo do seu caso."</td></tr>
+            <tr><td>"Aguarde."</td><td>"Preciso de uns minutos pra checar. Às [tempo] eu te retorno, pode ser?"</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>1.3 O papel do atendente na experiência do cliente</h3>
+        <p>Pro cliente, <b>você é a GSM</b>. Ele não enxerga a empresa inteira, enxerga a sua conversa. Se você
+        acolhe e resolve, a imagem da empresa melhora. Se você some ou responde seco, a imagem piora, mesmo que
+        o problema não tenha sido culpa sua.</p>
+
+        <div class="mirror"><div class="lbl">🪞 Espelho — isto é "responder" sem "resolver"</div>
+          <p class="sub">Falas reais de atendentes da GSM que apenas respondem e deixam o cliente no ar:</p>
+          <span class="rq">Um momento!</span>
+          <span class="rq">Aguarde um instante, por favor.</span>
+          <span class="rq">Certo, vou transferir o atendimento.</span>
+          <div class="reflect"><span class="rlbl">Pare e pense</span>
+          Depois de qualquer uma dessas, o que o cliente ficou sabendo sobre o problema dele? Nada. Ele não sabe o
+          que você viu, o que vai fazer, nem quando você volta. Um "Um momento" vira dez minutos de silêncio.
+          Resolver é dizer o que você está fazendo e qual é o próximo passo, nem que seja pra pedir um instante,
+          mas com contexto.</div>
+        </div>
+
+        <h3>1.4 Como acolher sem prometer o que não pode cumprir</h3>
+        <p>Acolher é reconhecer o que o cliente está sentindo e mostrar que você vai cuidar. Mas atenção: acolher
+        não é prometer prazo ou solução que você não controla. Promessa que não se cumpre gera ainda mais raiva.</p>
+        <div class="ba">
+          <div class="before"><span class="tag">Antes (fala real)</span>
+            <div class="msg">"Vou verificar." <i>(e o cliente fica sem resposta por muito tempo)</i></div></div>
+          <div class="after"><span class="tag">Depois (fala real de um atendente da GSM)</span>
+            <div class="msg">"Já verifiquei aqui, estou encaminhando os técnicos e não vou finalizar esse atendimento, porque eu mesma vou acompanhar a resolução da sua solicitação."</div></div>
+        </div>
+        <p style="font-size:14px;color:var(--muted);margin-top:-4px"><i>Olha o "depois": é uma fala verdadeira de um
+        atendimento da GSM. Ela mostra ação ("já verifiquei", "estou encaminhando") e assume o caso ("eu mesma vou
+        acompanhar"). É isso que separa resolver de só responder.</i></p>
+        <div class="ba">
+          <div class="before"><span class="tag">Antes — promessa arriscada</span>
+            <div class="msg">"Pode deixar que hoje mesmo já está resolvido!"</div></div>
+          <div class="after"><span class="tag">Depois — acolhe sem prometer demais</span>
+            <div class="msg">"Entendo que você precisa disso resolvido logo. Vou dar andamento agora e te manter avisado a cada passo."</div></div>
+        </div>
+
+        <div class="box attn"><div class="lbl">⚠ Erros comuns</div><ul>
+          <li>Responder sem resolver e já encerrar a conversa.</li>
+          <li>Prometer prazo ("hoje mesmo", "em 5 minutos") sem ter certeza.</li>
+          <li>Copiar e colar mensagem padrão sem ler o que o cliente escreveu.</li>
+          <li>Usar palavra difícil ou termo interno que o cliente não entende.</li>
+        </ul></div>
+        <div class="box good"><div class="lbl">✓ Boas práticas</div><ul>
+          <li>Ler a mensagem inteira antes de responder.</li>
+          <li>Confirmar o problema com as suas palavras: "Deixa eu ver se entendi: ..."</li>
+          <li>Prometer só o que depende de você. Pro resto, prometer <b>acompanhamento</b>.</li>
+          <li>Dizer sempre o próximo passo, pro cliente não ficar no escuro.</li>
+        </ul></div>
+        <div class="box phrase"><div class="lbl">💬 Frases prontas para adaptar</div>
+          <div class="q">"Deixa eu ver se entendi direitinho: [resumo do problema]. É isso?"</div>
+          <div class="q">"Já estou cuidando disso. Assim que eu tiver uma resposta, te aviso por aqui."</div>
+        </div>
+
+        <div class="task ex">
+          <div class="head"><span class="ico">✎</span><div><span class="kind">Exercício interativo · clique</span><h4>Responder ou resolver?</h4></div></div>
+          <p class="ix-inst">Leia cada fala e toque na resposta certa. O comentário aparece na hora.</p>
+          <div class="ix" data-ix="quiz">
+            <span class="ix-score"><span class="dot"></span><span data-score></span></span>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">1</span>"Vou passar seu caso para o setor responsável agora e explico a eles o que houve."</p>
+              <div class="ix-opts"><button class="ix-opt" data-correct>Resolver</button><button class="ix-opt">Só responder</button></div>
+              <div class="ix-fb"><span class="r">Resolver.</span> Ela age e ainda diz o que vai fazer no próximo passo (explicar o caso pro setor).</div>
+            </div>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">2</span>"Não sei, aguarde."</p>
+              <div class="ix-opts"><button class="ix-opt">Resolver</button><button class="ix-opt" data-correct>Só responder</button></div>
+              <div class="ix-fb"><span class="r">Só responder.</span> Manda o cliente esperar sem dizer o que você vai fazer nem quando volta.</div>
+            </div>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">3</span>"Já reiniciei seu sinal daqui. Pode testar e me dizer se melhorou?"</p>
+              <div class="ix-opts"><button class="ix-opt" data-correct>Resolver</button><button class="ix-opt">Só responder</button></div>
+              <div class="ix-fb"><span class="r">Resolver.</span> Fez a ação e deixou claro o próximo passo pro cliente.</div>
+            </div>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">4</span>"Isso não é comigo."</p>
+              <div class="ix-opts"><button class="ix-opt">Resolver</button><button class="ix-opt" data-correct>Só responder</button></div>
+              <div class="ix-fb"><span class="r">Só responder.</span> Empurra o cliente adiante e passa sensação de abandono. Se não é com você, encaminhe <i>com resumo</i>, não largue.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="task act">
+          <div class="head"><span class="ico">◎</span><div><span class="kind">Atividade prática · escreva</span><h4>Primeira mensagem de acolhimento</h4></div></div>
+          <p class="ix-inst">Um cliente escreve, irritado, que a internet "cai toda hora". Escreva aqui a primeira
+          mensagem que você mandaria. Depois compare com um modelo.</p>
+          <div class="ix ix-write" data-ix="write">
+            <textarea placeholder="Escreva sua primeira mensagem para esse cliente..."></textarea>
+            <div class="ix-crit"><span class="crit-lbl">Confira você mesmo</span>
+              <label><input type="checkbox">Reconheci o incômodo do cliente</label>
+              <label><input type="checkbox">Mostrei que vou cuidar do caso</label>
+              <label><input type="checkbox">Não prometi prazo que não controlo</label>
+            </div>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver um modelo">Ver um modelo</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Modelo de resposta</span>
+              "Poxa, imagino como é chato a internet cair bem na hora que você precisa. Já vou verificar aqui o que
+              está acontecendo com a sua conexão e te digo o próximo passo, tá bem?"</div></div>
+          </div>
+        </div>
+
+        <div class="box ret"><div class="lbl">🎯 Foco Retenção</div>
+          Quando o cliente diz "quero cancelar", quase sempre ele está querendo dizer "resolve o meu problema".
+          Essa unidade é a base disso: só quem sabe a diferença entre responder e resolver consegue segurar
+          um cliente de verdade. O passo a passo completo está na <a href="#u6">Unidade 6</a>.</div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ================= UNIDADE 2 ================= -->
+      <section id="u2">
+        <div class="unit-head">
+          <div class="badge">UN<b>2</b></div>
+          <div><h2>Atendimento ao Cliente e Reputação do Negócio</h2>
+          <p>Como cada conversa constrói ou destrói a imagem da GSM.</p>
+          <span class="ret-tag">🎯 Alto impacto na retenção</span></div>
+        </div>
+        <div class="obj"><b>Objetivo desta unidade:</b> sentir o peso de cada atendimento na imagem da empresa
+        e aprender a recuperar a confiança do cliente ainda dentro da conversa.</div>
+
+        <h3>2.1 Como cada atendimento afeta a imagem da GSM</h3>
+        <p>Reputação é o que as pessoas falam da empresa quando você não está por perto. E grande parte dessa fala
+        nasce de um atendimento. Cliente bem atendido comenta "resolveram rápido, foram atenciosos". Cliente mal
+        atendido comenta "não resolvem nada, é uma novela". Quem escreve essa frase, no fundo, é você.</p>
+
+        <h3>2.2 O impacto de uma experiência ruim no cancelamento</h3>
+        <p>Quase ninguém cancela por causa de um problema técnico isolado. O cliente cancela pela soma: o problema,
+        mais a demora, mais a sensação de não ter sido ouvido. O atendimento ruim costuma ser o empurrão final.
+        Por isso, tratar bem num momento difícil vale mais do que parece.</p>
+
+        <h3>2.3 Como as reclamações se espalham</h3>
+        <p>Provedor de internet atende bairro e região inteira. Vizinho usa a mesma rede e conversa com vizinho.
+        Uma experiência ruim vira comentário na rua, no grupo do bairro e nas redes. Dentro da empresa, ela vira
+        <b>caso de Ouvidoria</b>. Nos atendimentos da GSM, a Ouvidoria é um dos maiores volumes: é pra lá que vai
+        o cliente que se sentiu desrespeitado e não teve o caso fechado.</p>
+        <div class="mirror"><div class="lbl">🪞 Espelho — falas que jogam a culpa "na régua" e afastam o cliente</div>
+          <p class="sub">Falas reais de atendentes da GSM diante de um cliente insatisfeito:</p>
+          <span class="rq">Infelizmente foi uma causa que não foi causada por nós.</span>
+          <span class="rq">Não entendo o motivo, pois no sistema não há nada vencido.</span>
+          <span class="rq">Como informado, infelizmente não é possível.</span>
+          <div class="reflect"><span class="rlbl">Pare e pense</span>
+          As três defendem a empresa e deixam o cliente sozinho com o problema. A segunda ainda dá a entender que
+          ele está mentindo. Mesmo quando a GSM não teve culpa, o cliente precisa sentir que tem alguém do lado
+          dele. Defender a régua ganha a discussão e perde o cliente.</div>
+        </div>
+        <div class="ba">
+          <div class="before"><span class="tag">Antes (fala real)</span>
+            <div class="msg">"Infelizmente foi uma causa que não foi causada por nós."</div></div>
+          <div class="after"><span class="tag">Depois (fala real de um atendente da GSM)</span>
+            <div class="msg">"Peço desculpas pela demora no atendimento: uma fibra principal se rompeu aqui na região e fomos afetados. Mas já foi resolvido!"</div></div>
+        </div>
+        <p style="font-size:14px;color:var(--muted);margin-top:-4px"><i>O "depois" é real e resolve o mesmo problema
+        de outro jeito: reconhece ("peço desculpas"), explica sem jargão ("uma fibra se rompeu") e fecha ("já foi
+        resolvido"). Mesmo fato, e o cliente sai com outra imagem da empresa.</i></p>
+
+        <h3>2.4 Como recuperar a confiança durante o atendimento</h3>
+        <p>Dá pra virar o jogo mesmo com o cliente irritado. O caminho é reconhecer, assumir e mostrar ação.</p>
+        <ol class="steps">
+          <li><b>Reconhecer</b> o incômodo sem discutir de quem é a culpa.</li>
+          <li><b>Assumir</b> a conversa: "a partir de agora eu cuido disso com você".</li>
+          <li><b>Mostrar ação</b>: diga o que você já está fazendo e o próximo passo.</li>
+        </ol>
+        <div class="ba">
+          <div class="before"><span class="tag">Antes — defensivo</span>
+            <div class="msg">"Não é problema nosso, o senhor que configurou errado."</div></div>
+          <div class="after"><span class="tag">Depois — recupera confiança</span>
+            <div class="msg">"Entendo sua frustração e vou te ajudar a resolver isso agora. Vamos fazer juntos um passo de cada vez, pode ser?"</div></div>
+        </div>
+
+        <div class="box attn"><div class="lbl">⚠ Erros comuns</div><ul>
+          <li>Tom defensivo: "não é problema nosso", "o senhor que...".</li>
+          <li>Ignorar que o cliente já está cansado de tentar.</li>
+          <li>Tratar a reclamação como incômodo, e não como chance de melhorar.</li>
+        </ul></div>
+        <div class="box good"><div class="lbl">✓ Boas práticas</div><ul>
+          <li>Falar como representante da empresa: "nós vamos resolver".</li>
+          <li>Reconhecer o incômodo <b>antes</b> de explicar qualquer regra.</li>
+          <li>Fechar confirmando que o cliente saiu atendido: "ficou resolvido pra você?".</li>
+        </ul></div>
+
+        <div class="task ex">
+          <div class="head"><span class="ico">✎</span><div><span class="kind">Atividade prática · escreva</span><h4>Reescreva a resposta defensiva</h4></div></div>
+          <p class="ix-inst">Pegue estas duas respostas defensivas e reescreva do seu jeito, de um jeito que recupere
+          a confiança. Depois compare com as sugestões.</p>
+          <div class="box phrase" style="margin-top:2px"><div class="q">1) "Já falei que não posso fazer nada."</div>
+            <div class="q">2) "Isso aí é o senhor que não sabe mexer."</div></div>
+          <div class="ix ix-write" data-ix="write">
+            <textarea placeholder="Reescreva as duas respostas..."></textarea>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver sugestões">Ver sugestões</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Sugestões</span>
+              1) "Sei que não é a resposta que você queria. O que eu <b>consigo</b> fazer por aqui é [opção]; e o que
+              não depende de mim eu já encaminho pra frente." &nbsp; 2) "Sem problema, isso é bem comum. Vou te guiar
+              passo a passo, é rapidinho."</div></div>
+          </div>
+        </div>
+        <div class="task act">
+          <div class="head"><span class="ico">◎</span><div><span class="kind">Atividade prática · escreva</span><h4>Virando o jogo</h4></div></div>
+          <p class="ix-inst">Um cliente chega dizendo que "já é a terceira vez que fala do mesmo problema e ninguém
+          resolve". Escreva uma mensagem que reconheça, assuma e mostre ação, sem prometer o que você não controla.</p>
+          <div class="ix ix-write" data-ix="write">
+            <textarea placeholder="Escreva sua resposta para virar o jogo..."></textarea>
+            <div class="ix-crit"><span class="crit-lbl">Confira você mesmo</span>
+              <label><input type="checkbox">Reconheci que ele já tentou várias vezes</label>
+              <label><input type="checkbox">Assumi o caso ("eu cuido disso com você")</label>
+              <label><input type="checkbox">Mostrei uma ação concreta e o próximo passo</label>
+            </div>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver um modelo">Ver um modelo</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Modelo de resposta</span>
+              "Poxa, sinto muito que você já tenha vindo aqui três vezes por causa disso. Não é justo. A partir de
+              agora eu assumo o seu caso: já estou olhando o histórico pra não te fazer repetir tudo e, assim que
+              eu entender o que está travando, te digo exatamente o próximo passo."</div></div>
+          </div>
+        </div>
+
+        <div class="box ret"><div class="lbl">🎯 Foco Retenção</div>
+          Muitos cancelamentos são o resultado de uma reputação que foi quebrando aos poucos, atendimento por
+          atendimento. Recuperar a confiança dentro da conversa é o seu trabalho antes mesmo de o cliente falar em
+          sair. Quando ele já falou, vá pra <a href="#u6">Unidade 6</a>.</div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ================= UNIDADE 3 ================= -->
+      <section id="u3">
+        <div class="unit-head">
+          <div class="badge">UN<b>3</b></div>
+          <div><h2>Medindo a Satisfação do Cliente com o Atendimento</h2>
+          <p>Ler os sinais do cliente durante a conversa e agir a tempo.</p>
+          <span class="ret-tag">🎯 Seu radar de cancelamento</span></div>
+        </div>
+        <div class="obj"><b>Objetivo desta unidade:</b> reconhecer, no texto do cliente, sinais de irritação,
+        urgência, desconfiança e risco de cancelamento, e saber o que fazer em cada caso.</div>
+
+        <h3>3.1 Percebendo satisfação e insatisfação na conversa</h3>
+        <p>No WhatsApp você não vê o rosto nem ouve a voz do cliente. Só tem o texto. Por isso precisa aprender a
+        ler nas entrelinhas: o jeito de escrever entrega como o cliente está se sentindo.</p>
+
+        <h3>3.2 Sinais de irritação, urgência, desconfiança e risco de cancelamento</h3>
+        <div class="table-scroll">
+        <table class="tbl">
+          <thead><tr><th>O cliente escreve algo como…</th><th>Sinal provável</th><th>O que fazer</th></tr></thead>
+          <tbody>
+            <tr><td>"De novo isso?", "toda semana a mesma coisa"</td><td class="em">Frustração acumulada</td><td>Reconhecer o histórico antes de qualquer explicação.</td></tr>
+            <tr><td>"Preciso agora", "estou trabalhando e sem internet"</td><td class="em">Urgência</td><td>Priorizar, agir rápido e dizer o tempo real.</td></tr>
+            <tr><td>"Já me falaram isso e não resolveu"</td><td class="em">Desconfiança</td><td>Ser concreto: mostrar o que <b>desta vez</b> vai ser feito.</td></tr>
+            <tr><td>"Então quero cancelar", "vou pra outra empresa"</td><td class="em">Risco de cancelamento</td><td>Mudar a condução (ver Unidade 6): entender o motivo real.</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="box attn"><div class="lbl">⚠ Sinais de alerta no texto</div><ul>
+          <li>Mensagem em CAIXA ALTA ou com muito ponto de exclamação.</li>
+          <li>Palavra como "sempre", "nunca", "toda vez", "de novo".</li>
+          <li>Ameaça de cancelar ou de "reclamar em todo lugar".</li>
+          <li>Silêncio longo depois de você prometer algo. Pode ser desistência.</li>
+          <li><b>Vários áudios seguidos</b>: quem cansou de digitar e desabafa por áudio quase sempre está muito frustrado.</li>
+        </ul></div>
+        <div class="mirror"><div class="lbl">🪞 Espelho — a resposta seca que ignora o sinal</div>
+          <p class="sub">Quando o cliente demonstra cansaço, estas respostas reais passam por cima do que ele sente:</p>
+          <span class="rq">Um momento!</span>
+          <span class="rq">Pronto.</span>
+          <span class="rq">Sim.</span>
+          <div class="reflect"><span class="rlbl">Pare e pense</span>
+          Se o cliente escreveu "toda semana é a mesma coisa" e recebe de volta um "Um momento!", o sinal de
+          frustração foi ignorado. Antes de resolver, mostre que você percebeu: "Entendo, e não é justo isso se
+          repetir". <b>Dica da base real da GSM:</b> quando o cliente manda vários áudios seguidos, trate como
+          alerta vermelho. É gente cansada de digitar, querendo ser ouvida. Acolhe primeiro, resolve depois.</div>
+        </div>
+
+        <h3>3.3 Usando pesquisas de satisfação de forma útil</h3>
+        <p>Muita vez, no fim do atendimento, o cliente recebe uma nota pra dar. Essa nota só vale se o time olhar
+        pra ela. Nota baixa não é ataque pessoal, é pista do que melhorar. Nota alta mostra o que está funcionando
+        e deve continuar.</p>
+
+        <h3>3.4 Transformando reclamação em melhoria</h3>
+        <p>Reclamação que se repete é um mapa: mostra onde o atendimento trava. Se muita gente reclama de demora na
+        mesma etapa, aquela etapa precisa mudar. Anote os padrões, porque eles ajudam o time inteiro a melhorar.</p>
+
+        <div class="box good"><div class="lbl">✓ Boas práticas</div><ul>
+          <li>Ajustar o tom assim que perceber irritação, sem seguir no piloto automático.</li>
+          <li>Priorizar quem demonstra urgência real (trabalho, saúde, segurança).</li>
+          <li>Ao ver sinal de cancelamento, parar o script e ouvir o motivo.</li>
+        </ul></div>
+
+        <div class="task ex">
+          <div class="head"><span class="ico">✎</span><div><span class="kind">Exercício interativo · clique</span><h4>Qual é o sinal?</h4></div></div>
+          <p class="ix-inst">Para cada mensagem, toque no sinal predominante.</p>
+          <div class="ix" data-ix="quiz">
+            <span class="ix-score"><span class="dot"></span><span data-score></span></span>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">1</span>"Vocês já disseram que ia melhorar e continua igual."</p>
+              <div class="ix-opts"><button class="ix-opt">Frustração</button><button class="ix-opt">Urgência</button><button class="ix-opt" data-correct>Desconfiança</button><button class="ix-opt">Risco de cancelamento</button></div>
+              <div class="ix-fb"><span class="r">Desconfiança.</span> Ele já ouviu promessa antes. Aqui você precisa ser concreto sobre o que <b>desta vez</b> vai ser feito.</div>
+            </div>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">2</span>"Estou numa reunião importante e caiu tudo, preciso disso já."</p>
+              <div class="ix-opts"><button class="ix-opt">Frustração</button><button class="ix-opt" data-correct>Urgência</button><button class="ix-opt">Desconfiança</button><button class="ix-opt">Risco de cancelamento</button></div>
+              <div class="ix-fb"><span class="r">Urgência.</span> Prioridade máxima: agir rápido e dizer o tempo real de retorno.</div>
+            </div>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">3</span>"Cansei, me manda o cancelamento."</p>
+              <div class="ix-opts"><button class="ix-opt">Frustração</button><button class="ix-opt">Urgência</button><button class="ix-opt">Desconfiança</button><button class="ix-opt" data-correct>Risco de cancelamento</button></div>
+              <div class="ix-fb"><span class="r">Risco de cancelamento</span>, com bastante frustração acumulada por trás. Hora de parar o script e investigar o motivo real (Unidade 6).</div>
+            </div>
+          </div>
+        </div>
+        <div class="task act">
+          <div class="head"><span class="ico">◎</span><div><span class="kind">Atividade interativa · clique + escreva</span><h4>Onde apareceu o risco?</h4></div></div>
+          <p class="ix-inst">Leia o diálogo e <b>toque na mensagem</b> em que o risco de cancelamento aparece.</p>
+          <div class="ix ix-spot" data-ix="spot">
+            <div class="chat">
+              <div class="title">💬 Conversa fictícia (WhatsApp)</div>
+              <div class="bubble cli" data-spot><span class="who">Cliente</span>Boa tarde, minha internet tá lenta de novo.</div>
+              <div class="bubble att"><span class="who">Atendente</span>Boa tarde! Vou verificar sua conexão.</div>
+              <div class="bubble cli" data-spot><span class="who">Cliente</span>Toda semana é isso, viu. Já perdi a conta.</div>
+              <div class="bubble cli" data-spot data-correct><span class="who">Cliente</span>Se continuar assim eu vou procurar outra empresa.</div>
+            </div>
+            <div class="ix-fb"><span class="r">Isso.</span> O risco aparece de forma clara na última mensagem ("vou procurar outra empresa"), mas o alerta já estava na anterior ("toda semana é isso"). Ali é hora de reconhecer o histórico e assumir.</div>
+          </div>
+          <div class="ix ix-write" data-ix="write" style="margin-top:6px">
+            <p class="ix-inst">Agora escreva o que você mandaria <b>naquele exato momento</b>.</p>
+            <textarea placeholder="Escreva sua resposta ao cliente em risco de sair..."></textarea>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver um caminho">Ver um caminho</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Um caminho possível</span>
+              "Entendo, e não é justo você passar por isso toda semana. Vou verificar a fundo o que está causando
+              essa repetição e te explicar o que dá pra fazer pra estabilizar de vez."</div></div>
+          </div>
+        </div>
+
+        <div class="box ret"><div class="lbl">🎯 Foco Retenção</div>
+          Esta unidade é o seu radar. A maioria dos cancelamentos manda sinal antes ("toda semana", "cansei",
+          vários áudios). Quem lê o sinal cedo age enquanto ainda dá pra reverter, em vez de receber o "quero
+          cancelar" já pronto.</div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ================= UNIDADE 4 ================= -->
+      <section id="u4">
+        <div class="unit-head">
+          <div class="badge">UN<b>4</b></div>
+          <div><h2>Melhorando a Comunicação com o Cliente</h2>
+          <p>Escrever com clareza, empatia e objetividade no WhatsApp.</p>
+          <span class="ret-tag">🎯 A conversa que segura o cliente</span></div>
+        </div>
+        <div class="obj"><b>Objetivo desta unidade:</b> aprender a explicar prazos, procedimentos e limitações
+        de um jeito claro e humano, sem cair em resposta fria, repetitiva ou defensiva.</div>
+
+        <h3>4.1 Clareza, empatia e objetividade</h3>
+        <p>Três palavras guiam toda mensagem no atendimento:</p>
+        <div class="grid c3">
+          <div class="concept"><div class="lbl">Clareza</div><p>O cliente entende de primeira, sem palavra difícil.</p></div>
+          <div class="concept"><div class="lbl">Empatia</div><p>O cliente sente que você se importa com a situação dele.</p></div>
+          <div class="concept"><div class="lbl">Objetividade</div><p>Direto ao ponto, sem enrolar nem encher de texto.</p></div>
+        </div>
+        <p>No WhatsApp, vá de <b>uma ideia por mensagem</b> e <b>frase curta</b>. Textão gigante cansa e confunde.
+        Quebre em partes que o cliente acompanha melhor.</p>
+
+        <h3>4.2 Como explicar prazos, procedimentos e limitações</h3>
+        <p>Ninguém gosta de ouvir "não pode". Mas dá pra explicar um limite sem bater a porta na cara do cliente.
+        A fórmula é simples: <b>reconhecer + explicar o limite + oferecer o que você pode</b>.</p>
+        <div class="ba">
+          <div class="before"><span class="tag">Antes — frio e fechado</span>
+            <div class="msg">"Não posso fazer nada, é regra."</div></div>
+          <div class="after"><span class="tag">Depois — claro e com saída</span>
+            <div class="msg">"Essa parte segue uma regra que eu não consigo mudar por aqui. Mas o que eu <b>posso</b> fazer agora por você é [opção]. Quer que eu siga por esse caminho?"</div></div>
+        </div>
+        <h4>Traduzindo o "técnico" para o simples</h4>
+        <div class="table-scroll">
+        <table class="tbl">
+          <thead><tr><th>Evite dizer</th><th>Prefira dizer</th></tr></thead>
+          <tbody>
+            <tr><td>"Vou fazer um reset na sua ONU."</td><td>"Vou reiniciar o seu aparelho de internet daqui."</td></tr>
+            <tr><td>"Está com perda de pacotes."</td><td>"Sua conexão está instável, com falhas."</td></tr>
+            <tr><td>"Abrir um chamado no sistema."</td><td>"Registrar o seu problema para a equipe técnica cuidar."</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>4.3 Como evitar respostas frias, repetitivas ou defensivas</h3>
+        <p>Resposta pronta ajuda a ganhar tempo, mas usada sem ajuste soa como robô. Leia o que o cliente disse e
+        adapte pelo menos uma parte da mensagem ao caso dele. E nunca responda no modo "defesa": o cliente não é
+        seu adversário.</p>
+        <div class="mirror"><div class="lbl">🪞 Espelho — "é o sistema" fecha a porta na cara do cliente</div>
+          <p class="sub">Falas reais de atendentes da GSM que só informam o limite, sem oferecer saída:</p>
+          <span class="rq">O sistema não permite.</span>
+          <span class="rq">Infelizmente não é possível.</span>
+          <span class="rq">Qualquer coisa, estamos à disposição.</span>
+          <div class="reflect"><span class="rlbl">Pare e pense</span>
+          "O sistema não permite" pode até ser verdade, mas sozinho soa como "o problema é seu". E "qualquer coisa,
+          estamos à disposição" encerra a conversa sem resolver nada. Falta sempre a mesma coisa: <b>o que você
+          PODE fazer</b>. Compare com a fala real ao lado, de um atendente que topa o limite e mesmo assim oferece
+          uma saída:</div>
+        </div>
+        <div class="ba">
+          <div class="before"><span class="tag">Antes (fala real)</span>
+            <div class="msg">"O sistema não me permite a liberação em confiança novamente."</div></div>
+          <div class="after"><span class="tag">Depois (fala real de um atendente da GSM)</span>
+            <div class="msg">"O sistema não me permite a liberação em confiança novamente, mas consigo aguardar o seu pagamento até o dia 30, sem bloquear."</div></div>
+        </div>
+        <p style="font-size:14px;color:var(--muted);margin-top:-4px"><i>Mesmo limite, e o cliente sai com outra
+        sensação. O "depois" real acrescenta o "mas o que eu posso fazer é...". É a fórmula desta unidade:
+        reconhecer o limite e oferecer a saída possível.</i></p>
+
+        <h3>4.4 Como conduzir conversas difíceis por WhatsApp</h3>
+        <ol class="steps">
+          <li><b>Respire antes de responder</b> a uma mensagem agressiva. Não responda no impulso.</li>
+          <li><b>Comece pelo acolhimento</b>, não pela regra.</li>
+          <li><b>Seja concreto</b>: diga o que vai acontecer e quando você retorna.</li>
+          <li><b>Feche o ciclo</b>: confirme se ficou resolvido antes de encerrar.</li>
+        </ol>
+
+        <div class="box attn"><div class="lbl">⚠ Erros comuns</div><ul>
+          <li>Mensagem seca de uma palavra: "aguarde", "ok", "não".</li>
+          <li>Explicação cheia de termo técnico que o cliente não entende.</li>
+          <li>Repetir a mesma resposta pronta sem ler o caso.</li>
+          <li>Responder no impulso quando o cliente é grosseiro.</li>
+        </ul></div>
+        <div class="box good"><div class="lbl">✓ Boas práticas</div><ul>
+          <li>Uma ideia por mensagem, frase curta.</li>
+          <li>Traduzir o técnico pra palavra do dia a dia.</li>
+          <li>Sempre terminar dizendo o próximo passo.</li>
+          <li>Manter a educação mesmo diante da grosseria.</li>
+        </ul></div>
+        <div class="box phrase"><div class="lbl">💬 Frases prontas para adaptar</div>
+          <div class="q">"Deixa eu te explicar de um jeito simples: [explicação curta]."</div>
+          <div class="q">"Esse procedimento leva um tempo porque [motivo]. Assim que terminar, eu te aviso por aqui."</div>
+          <div class="q">"Entendo seu ponto. O que eu consigo fazer agora é [opção]. Fica bom assim pra você?"</div>
+        </div>
+
+        <div class="task ex">
+          <div class="head"><span class="ico">✎</span><div><span class="kind">Atividade prática · escreva</span><h4>Encurte sem perder a clareza</h4></div></div>
+          <p class="ix-inst">Reescreva esta mensagem longa em no máximo duas frases curtas, mantendo o sentido.</p>
+          <div class="box phrase" style="margin-top:2px"><div class="q">"Prezado cliente, informamos que o seu procedimento
+          de reativação encontra-se em análise pelo setor competente e assim que o mesmo for concluído o senhor será
+          devidamente comunicado através deste canal, agradecemos a compreensão."</div></div>
+          <div class="ix ix-write" data-ix="write">
+            <textarea placeholder="Reescreva em no máximo duas frases curtas..."></textarea>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver sugestão">Ver sugestão</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Sugestão</span>
+              "Sua reativação já está em andamento com a equipe. Assim que ficar pronta, eu te aviso por aqui, tá bem?"</div></div>
+          </div>
+        </div>
+        <div class="task act">
+          <div class="head"><span class="ico">◎</span><div><span class="kind">Atividade prática · escreva</span><h4>Explicar um prazo sem soar frio</h4></div></div>
+          <p class="ix-inst">Um cliente quer saber por que a visita técnica só pode ser amanhã, e não hoje. Escreva
+          a mensagem que explica o prazo, reconhece a pressa dele e mantém o tom humano.</p>
+          <div class="ix ix-write" data-ix="write">
+            <textarea placeholder="Escreva a mensagem que explica o prazo..."></textarea>
+            <div class="ix-crit"><span class="crit-lbl">Confira você mesmo</span>
+              <label><input type="checkbox">Reconheci a pressa do cliente</label>
+              <label><input type="checkbox">Expliquei o motivo do prazo em linguagem simples</label>
+              <label><input type="checkbox">Deixei claro o próximo passo</label>
+            </div>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver um modelo">Ver um modelo</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Modelo de resposta</span>
+              "Entendo que você queria hoje, e faz todo sentido. O que acontece é que as equipes de hoje já estão
+              todas em rota, então o primeiro horário livre pra ir aí é amanhã de manhã. Já deixo agendado e te
+              confirmo o horário certinho. Enquanto isso, se piorar, me chama que eu vejo o que dá pra fazer daqui."</div></div>
+          </div>
+        </div>
+
+        <div class="box ret"><div class="lbl">🎯 Foco Retenção</div>
+          Reter é, na prática, conduzir uma conversa difícil bem conduzida. A fórmula "reconhecer + explicar o
+          limite + oferecer o que posso" é a mesma que você vai usar na frente do "quero cancelar" na
+          <a href="#u6">Unidade 6</a>. Aqui você treina o jeito de falar; lá você aplica no cancelamento.</div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ================= UNIDADE 5 ================= -->
+      <section id="u5">
+        <div class="unit-head">
+          <div class="badge">UN<b>5</b></div>
+          <div><h2>Gestão do Relacionamento com o Cliente</h2>
+          <p>Histórico, registro e continuidade, pro cliente não repetir tudo.</p>
+          <span class="ret-tag">🎯 Registro que vira retenção</span></div>
+        </div>
+        <div class="obj"><b>Objetivo desta unidade:</b> registrar bem cada atendimento e usar o histórico pra dar
+        continuidade, sem obrigar o cliente a contar a mesma história várias vezes.</div>
+
+        <h3>5.1 Histórico do cliente e continuidade do atendimento</h3>
+        <p>Poucas coisas cansam mais um cliente do que recomeçar do zero a cada contato. Quando você olha o
+        histórico antes de responder, ele sente que a GSM "lembra" dele. Isso acalma e agiliza.</p>
+        <div class="mirror"><div class="lbl">🪞 Espelho — "vou transferir" sem levar a história junto</div>
+          <p class="sub">Falas reais de atendentes da GSM ao encaminhar o cliente:</p>
+          <span class="rq">Irei transferir para o setor responsável.</span>
+          <span class="rq">Certo, vou transferir o atendimento.</span>
+          <span class="rq">Vou registrar e transferir para o setor responsável.</span>
+          <div class="reflect"><span class="rlbl">Pare e pense</span>
+          Transferir não é o problema. O problema é o que não vai junto. Nessas falas, o próximo atendente recebe o
+          cliente sem saber de nada, e o cliente precisa repetir tudo de novo. É a maior causa do "já contei isso
+          três vezes". Transferir bem é levar o resumo junto e avisar o cliente.</div>
+        </div>
+        <div class="ba">
+          <div class="before"><span class="tag">Antes (fala real)</span>
+            <div class="msg">"Certo, vou transferir o atendimento."</div></div>
+          <div class="after"><span class="tag">Depois (fala real de um atendente da GSM)</span>
+            <div class="msg">"Já verifiquei aqui e não vou finalizar esse atendimento, porque eu mesma vou acompanhar a resolução da sua solicitação."</div></div>
+        </div>
+        <p style="font-size:14px;color:var(--muted);margin-top:-4px"><i>Quando dá pra assumir, assuma. Quando
+        precisar transferir, faça como na próxima seção: com resumo e avisando o cliente.</i></p>
+
+        <h3>5.2 Registro correto das informações importantes</h3>
+        <p>Um bom registro responde quatro perguntas. Se a próxima pessoa que pegar o caso entender tudo só de ler
+        o seu registro, você registrou bem.</p>
+        <div class="table-scroll">
+        <table class="tbl">
+          <thead><tr><th>Registre sempre</th><th>Exemplo (fictício)</th></tr></thead>
+          <tbody>
+            <tr><td class="em">O que o cliente pediu</td><td>Cliente relatou quedas de conexão à noite.</td></tr>
+            <tr><td class="em">O que já foi tentado</td><td>Sinal reiniciado remotamente; melhorou parcialmente.</td></tr>
+            <tr><td class="em">O que ficou combinado</td><td>Visita técnica agendada para o período da tarde.</td></tr>
+            <tr><td class="em">O próximo passo</td><td>Técnico confirma horário e verifica o cabo externo.</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="ba">
+          <div class="before"><span class="tag">Registro ruim</span>
+            <div class="msg">"Cliente reclamou. Resolvido."</div></div>
+          <div class="after"><span class="tag">Registro útil</span>
+            <div class="msg">"Quedas à noite. Sinal reiniciado, melhora parcial. Agendada visita à tarde para checar cabo externo. Aguardando confirmação do técnico."</div></div>
+        </div>
+
+        <h3>5.3 Como evitar que o cliente repita a mesma história</h3>
+        <p>Antes de perguntar tudo de novo, leia o histórico e mostre que você já se informou: "Vi aqui que você
+        falou ontem sobre as quedas à noite. Vou continuar de onde paramos." O cliente relaxa na hora.</p>
+
+        <h3>5.4 Quando encaminhar para outro setor e como fazer sem parecer abandono</h3>
+        <p>Encaminhar é normal e às vezes necessário. O problema nunca é a transferência em si, é transferir sem
+        avisar e sem contexto, fazendo o cliente recomeçar. Faça assim:</p>
+        <ol class="steps">
+          <li><b>Explique o porquê</b>: "esse ajuste é o setor tal que faz, pra você ser atendido certinho".</li>
+          <li><b>Passe o resumo</b> do caso pro próximo setor (os quatro itens do registro).</li>
+          <li><b>Avise o cliente</b> que está transferindo e o que esperar em seguida.</li>
+        </ol>
+        <div class="box phrase"><div class="lbl">💬 Frase pronta para adaptar</div>
+          <div class="q">"Seu caso é com a equipe [setor], que resolve isso mais rápido. Já vou te encaminhar com
+          tudo o que a gente conversou, então você <b>não</b> vai precisar repetir. Eles seguem daqui, tá?"</div>
+        </div>
+
+        <div class="box attn"><div class="lbl">⚠ Erros comuns</div><ul>
+          <li>Registro vazio ou genérico ("cliente reclamou").</li>
+          <li>Encaminhar sem contexto, e o cliente repete tudo do zero.</li>
+          <li>Passar o cliente adiante sem avisar que está transferindo.</li>
+        </ul></div>
+        <div class="box good"><div class="lbl">✓ Boas práticas</div><ul>
+          <li>Registrar o essencial em frase objetiva.</li>
+          <li>Ler o histórico antes de responder.</li>
+          <li>Transferir com resumo e avisando o cliente.</li>
+        </ul></div>
+
+        <div class="task ex">
+          <div class="head"><span class="ico">✎</span><div><span class="kind">Atividade prática · escreva</span><h4>Melhore o registro</h4></div></div>
+          <p class="ix-inst">Transforme este registro vago em um registro útil, usando os quatro itens.</p>
+          <div class="box phrase" style="margin-top:2px"><div class="q">"Falei com o cliente sobre boleto. Ok."</div></div>
+          <div class="ix ix-write" data-ix="write">
+            <textarea placeholder="Reescreva o registro com os quatro itens..."></textarea>
+            <div class="ix-crit"><span class="crit-lbl">Os quatro itens</span>
+              <label><input type="checkbox">O que o cliente pediu</label>
+              <label><input type="checkbox">O que já foi tentado</label>
+              <label><input type="checkbox">O que ficou combinado</label>
+              <label><input type="checkbox">O próximo passo</label>
+            </div>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver sugestão">Ver sugestão</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Sugestão</span>
+              "Cliente não recebeu o boleto do mês. Enviada a segunda via pelo WhatsApp. Combinado: cliente paga e o
+              desbloqueio ocorre após a confirmação. Próximo passo: conferir a liberação do sinal no dia seguinte."</div></div>
+          </div>
+        </div>
+        <div class="task act">
+          <div class="head"><span class="ico">◎</span><div><span class="kind">Atividade prática · escreva</span><h4>Resumo de passagem entre setores</h4></div></div>
+          <p class="ix-inst">Você atendeu um cliente com problema técnico e agora precisa passar o caso pra outra
+          equipe. Escreva o resumo de passagem (os quatro itens) pro cliente não precisar repetir a história.</p>
+          <div class="ix ix-write" data-ix="write">
+            <textarea placeholder="Escreva o resumo de passagem..."></textarea>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver um modelo">Ver um modelo</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Modelo de resumo</span>
+              "Pedido: cliente relata queda de sinal todas as noites, há uma semana. Tentado: reinício remoto do
+              sinal, melhora só parcial. Combinado: visita técnica no período da tarde pra checar o cabo externo.
+              Próximo passo: técnico confirma horário e retorna com o diagnóstico. Cliente já foi avisado."</div></div>
+          </div>
+        </div>
+
+        <div class="box ret"><div class="lbl">🎯 Foco Retenção</div>
+          Cliente que precisa repetir a história a cada contato é candidato a cancelar por cansaço. E, quando o
+          cancelamento acontece, o registro do <b>motivo real</b> é o que permite ao time reter melhor da próxima
+          vez. Registrar bem, aqui, é retenção nos dois sentidos.</div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ================= UNIDADE 6 ================= -->
+      <section id="u6">
+        <div class="unit-head">
+          <div class="badge">UN<b>6</b></div>
+          <div><h2>Retenção e Cancelamento na Prática</h2>
+          <p>Unidade central: como agir quando o cliente pede pra cancelar.</p>
+          <span class="ret-tag">🎯 Núcleo do seu trabalho</span></div>
+        </div>
+        <div class="obj"><b>Objetivo desta unidade:</b> conduzir pedidos de cancelamento com calma, entender o
+        motivo real, oferecer alternativa de forma ética (sem pressão) e registrar o motivo com clareza.</div>
+
+        <h3>6.1 O que fazer quando o cliente pede cancelamento</h3>
+        <p>Quando o cliente diz "quero cancelar", o pior caminho é dizer "ok" na hora. O segundo pior é pressionar
+        pra ele desistir. O certo é acolher e entender. Boa parte das vezes o cliente nem quer cancelar de verdade,
+        ele quer que o problema pare.</p>
+        <div class="concept">
+          <div class="lbl">Conceito-chave</div>
+          <p>"Quero cancelar" quase sempre quer dizer <b>"resolve o meu problema"</b>. Seu trabalho é descobrir
+          qual é esse problema antes de encerrar qualquer coisa.</p>
+        </div>
+        <div class="mirror"><div class="lbl">🪞 Espelho — aceitar o cancelamento na hora, sem entender o porquê</div>
+          <p class="sub">Falas reais de atendentes da GSM diante de um pedido de cancelamento:</p>
+          <span class="rq">Tudo bem! Irei passar as informações sobre o cancelamento.</span>
+          <span class="rq">Não temos atendimento nessa área, vou iniciar o cancelamento, tudo bem?</span>
+          <div class="reflect"><span class="rlbl">Pare e pense</span>
+          Nas duas, o cancelamento é aceito antes de entender o motivo. E o motivo muda tudo: nos cancelamentos
+          reais da GSM, preço puro é minoria. A maioria sai por mudança de endereço, por quedas que não foram
+          resolvidas ou pelo próprio atendimento. Cada um desses pede uma saída diferente, e sem perguntar o porquê
+          você nunca oferece a saída certa. Veja duas falas reais que fazem diferente:</div>
+          <span class="rq ok">Lamento que esteja pensando em cancelar. Posso entender melhor o motivo? Talvez a gente encontre uma solução que atenda melhor você.</span>
+          <span class="rq ok">Em opção ao cancelamento, conhece alguém com interesse em assumir o contrato, por uma troca de titularidade?</span>
+        </div>
+
+        <h3>6.2 Entender o motivo real antes de encerrar</h3>
+        <p>Existe o motivo <b>declarado</b> ("está caro") e o motivo <b>real</b> ("está caro pro que me entrega,
+        porque vive caindo"). Pergunte com respeito e escute. É no motivo real que mora a solução.</p>
+        <h4>Passo a passo do pedido de cancelamento</h4>
+        <ol class="steps">
+          <li><b>Acolher</b> — reconhecer o pedido sem tratar o cliente como adversário.</li>
+          <li><b>Entender</b> — perguntar, com respeito, o que levou a essa decisão.</li>
+          <li><b>Espelhar o motivo real</b> — repetir com suas palavras: "então o que mais pesou foi...".</li>
+          <li><b>Apresentar</b> o que a GSM pode fazer <b>sobre aquele motivo</b>.</li>
+          <li><b>Respeitar a decisão</b> se o cliente mantiver, e registrar o motivo real com clareza.</li>
+        </ol>
+
+        <div class="task ex">
+          <div class="head"><span class="ico">⇅</span><div><span class="kind">Exercício interativo · arraste</span><h4>Monte a ordem do atendimento de cancelamento</h4></div></div>
+          <p class="ix-inst">Os cinco passos estão fora de ordem. <b>Arraste</b> pra colocar na sequência certa
+          (use as setas se preferir). Depois toque em Conferir.</p>
+          <div class="ix" data-ix="order">
+            <div class="ix-order">
+              <div class="ix-order-item" data-pos="4"><span class="grip">⠿</span><span class="otext"><b>Apresentar</b> o que a GSM pode fazer sobre aquele motivo</span><span class="updown"><button data-up aria-label="subir">▲</button><button data-down aria-label="descer">▼</button></span></div>
+              <div class="ix-order-item" data-pos="1"><span class="grip">⠿</span><span class="otext"><b>Acolher</b> o pedido sem tratar o cliente como adversário</span><span class="updown"><button data-up aria-label="subir">▲</button><button data-down aria-label="descer">▼</button></span></div>
+              <div class="ix-order-item" data-pos="3"><span class="grip">⠿</span><span class="otext"><b>Espelhar</b> o motivo real com suas palavras</span><span class="updown"><button data-up aria-label="subir">▲</button><button data-down aria-label="descer">▼</button></span></div>
+              <div class="ix-order-item" data-pos="5"><span class="grip">⠿</span><span class="otext"><b>Respeitar</b> a decisão e registrar o motivo real</span><span class="updown"><button data-up aria-label="subir">▲</button><button data-down aria-label="descer">▼</button></span></div>
+              <div class="ix-order-item" data-pos="2"><span class="grip">⠿</span><span class="otext"><b>Entender</b> o que levou o cliente a essa decisão</span><span class="updown"><button data-up aria-label="subir">▲</button><button data-down aria-label="descer">▼</button></span></div>
+            </div>
+            <div class="ix-actions"><button class="ix-btn" data-check>Conferir ordem</button><span class="ix-result"></span></div>
+          </div>
+        </div>
+
+        <div class="ba">
+          <div class="before"><span class="tag">Antes — encerra na hora</span>
+            <div class="msg">"Ok, vou solicitar o seu cancelamento."</div></div>
+          <div class="after"><span class="tag">Depois — acolhe e investiga</span>
+            <div class="msg">"Entendi o seu pedido e vou respeitar a sua decisão. Antes, me ajuda a entender o que pesou mais? Assim eu vejo se consigo resolver isso pra você."</div></div>
+        </div>
+
+        <h3>6.3 Lidando com os motivos mais comuns</h3>
+        <p>Cada motivo pede um caminho diferente. Oferecer desconto pra quem está saindo por mudança ou por serviço
+        ruim não funciona, e nos dados é assim que se ouve "recusou a oferta". Ofereça <b>a solução do motivo</b>:</p>
+        <div class="table-scroll">
+        <table class="tbl">
+          <thead><tr><th>Motivo</th><th>O que está por trás</th><th>Caminho que realmente ajuda</th></tr></thead>
+          <tbody>
+            <tr><td class="em">Mudança de endereço</td><td>Mudou de casa/cidade ou fechou o ponto. Desconto não resolve.</td><td><b>Verificar viabilidade no novo local</b> e oferecer <b>transferência do ponto</b> ou de titularidade. Se for definitivo, <b>encerrar bem</b>.</td></tr>
+            <tr><td class="em">Instabilidade / quedas</td><td>Cansaço com o problema técnico que nunca fecha.</td><td><b>Resolver a causa na hora</b> (visita/teste) e, se melhorar, rever o plano. Ação concreta, não promessa.</td></tr>
+            <tr><td class="em">Financeiro / multa</td><td>Cobrança sentida como injusta.</td><td><b>Revisar a cobrança</b> e ajustar o que for indevido antes de qualquer oferta.</td></tr>
+            <tr><td class="em">Atendimento / demora</td><td>Cansou de esperar e de repetir.</td><td><b>Assumir o caso do início ao fim</b>, sem nova transferência, e dar retorno rápido.</td></tr>
+            <tr><td class="em">Concorrência</td><td>Recebeu proposta de outra empresa.</td><td>Ouvir a comparação sem falar mal do concorrente e apresentar <b>rápido</b> o que a GSM pode fazer.</td></tr>
+            <tr><td class="em">Preço / reajuste</td><td>Valor pesou (às vezes junto de quedas).</td><td>Entender o uso e mostrar opção real de plano, sem prometer o impossível.</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>6.4 Oferecer alternativas sem pressão indevida</h3>
+        <p>Reter é diferente de forçar. Ofereça a alternativa ligada ao motivo do cliente e deixe a escolha com
+        ele. Nunca use medo ("você vai se arrepender") nem promessa que você não pode cumprir.</p>
+        <div class="box attn"><div class="lbl">⚠ O que NÃO fazer (erros reais da base)</div><ul>
+          <li>Aceitar o cancelamento na hora, sem entender o motivo.</li>
+          <li><b>Deixar o caso "em aberto"</b>: cerca de 1 em cada 5 cancelamentos fica no limbo, sem confirmar se o cliente saiu ou ficou. Nem retém, nem resolve.</li>
+          <li><b>Transferir</b> um cliente que está cancelando: ele repete o motivo a cada atendente e se convence ainda mais de sair.</li>
+          <li>Pressionar ou culpar o cliente ("você que não configurou direito").</li>
+          <li>Prometer desconto ou melhoria que você não está autorizado a dar.</li>
+          <li><b>Não registrar o motivo real</b>: sem ele, não tem retenção nem melhoria de processo.</li>
+        </ul></div>
+        <div class="box good"><div class="lbl">✓ O que fazer</div><ul>
+          <li>Separar o motivo declarado do motivo real.</li>
+          <li>Oferecer alternativa que resolva <b>aquele</b> motivo específico.</li>
+          <li>Respeitar o "não" do cliente com educação.</li>
+          <li>Registrar o motivo real em categoria clara.</li>
+        </ul></div>
+
+        <h3>6.5 Registrar o motivo do cancelamento com clareza</h3>
+        <p>Quando o cliente cancela mesmo assim, o registro do motivo real é ouro pra empresa melhorar. Evite
+        "cliente quis cancelar". Prefira uma categoria clara + um detalhe:</p>
+        <div class="chips">
+          <span>Preço</span><span>Técnico / instabilidade</span><span>Atendimento / demora</span>
+          <span>Concorrência</span><span>Mudança de endereço</span><span>Motivo financeiro</span>
+        </div>
+
+        <div class="task act">
+          <div class="head"><span class="ico">◎</span><div><span class="kind">Atividade interativa · escreva</span><h4>Cancelamento sem motivo declarado</h4></div></div>
+          <p class="ix-inst">Leia o início do diálogo e continue a conversa aqui, aplicando o passo a passo. No fim,
+          escreva como você registraria o motivo real.</p>
+          <div class="chat">
+            <div class="title">💬 Conversa fictícia (WhatsApp)</div>
+            <div class="bubble cli"><span class="who">Cliente</span>Quero cancelar.</div>
+            <div class="bubble att"><span class="who">Atendente</span>Tudo bem, vou te ajudar com isso. Só pra eu entender e ver se consigo melhorar algo pra você: o que motivou a decisão?</div>
+            <div class="bubble cli"><span class="who">Cliente</span>Ah, vários motivos. Não tá valendo a pena.</div>
+          </div>
+          <div class="ix ix-write" data-ix="write">
+            <textarea placeholder="Continue a conversa e, no fim, escreva o registro do motivo real..."></textarea>
+            <div class="ix-crit"><span class="crit-lbl">Passe por todos os passos</span>
+              <label><input type="checkbox">Acolhi sem tratar o cliente como adversário</label>
+              <label><input type="checkbox">Perguntei pra entender o motivo real</label>
+              <label><input type="checkbox">Espelhei o motivo com minhas palavras</label>
+              <label><input type="checkbox">Apresentei uma saída ligada àquele motivo</label>
+              <label><input type="checkbox">Registrei o motivo real (não "cliente quis cancelar")</label>
+            </div>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver um caminho">Ver um caminho</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Um caminho possível</span>
+              <b>Espelhar/investigar:</b> "Entendo. Quando você diz que não está valendo a pena, é mais pela questão
+              do valor, pela internet cair, ou pela demora quando você precisa de ajuda? Assim eu foco no que mais
+              te incomoda." → o cliente revela o motivo real (ex.: quedas frequentes). <b>Apresentar:</b> tratar a
+              causa técnica de verdade e explicar o passo concreto. <b>Respeitar:</b> se ainda assim quiser cancelar,
+              seguir com educação. <b>Registro:</b> "Cancelamento — motivo real: instabilidade recorrente à noite;
+              desconforto com a repetição do problema." (nunca "cliente quis cancelar").</div></div>
+          </div>
+        </div>
+        <div class="task ex">
+          <div class="head"><span class="ico">⇄</span><div><span class="kind">Exercício interativo · arraste</span><h4>Ligue o motivo à alternativa ética</h4></div></div>
+          <p class="ix-inst">Arraste cada motivo pro caminho que realmente ajuda (ou toque no motivo e depois no
+          caminho). Repare: pra nenhum deles a primeira resposta é "desconto".</p>
+          <div class="ix" data-ix="match">
+            <div class="ix-match">
+              <div class="ix-pool">
+                <span class="ix-col-lbl">Motivos</span>
+                <div class="ix-chip" data-key="viab">Mudança de endereço</div>
+                <div class="ix-chip" data-key="tec">Instabilidade / quedas</div>
+                <div class="ix-chip" data-key="rev">Cobrança sentida como injusta</div>
+              </div>
+              <div class="ix-slots">
+                <span class="ix-col-lbl">Caminhos</span>
+                <div class="ix-slot" data-accept="tec"><span class="slot-target">Tratar a causa técnica na hora, antes de qualquer oferta</span></div>
+                <div class="ix-slot" data-accept="viab"><span class="slot-target">Verificar viabilidade no novo local e oferecer transferência do ponto/titularidade</span></div>
+                <div class="ix-slot" data-accept="rev"><span class="slot-target">Revisar a cobrança e ajustar o que for indevido</span></div>
+              </div>
+            </div>
+            <div class="ix-actions"><button class="ix-btn" data-check>Conferir ligações</button><span class="ix-result"></span></div>
+          </div>
+        </div>
+
+        <div class="box ret"><div class="lbl">🎯 Foco Retenção</div>
+          Esta é a sua unidade. Guarde o resumo: <b>acolher → entender → espelhar → apresentar → respeitar</b>,
+          sempre pela solução do motivo real e nunca por desconto automático. E não esqueça de fechar o caso: um
+          cancelamento deixado "em aberto" não retém ninguém.</div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ================= UNIDADE 7 ================= -->
+      <section id="u7">
+        <div class="unit-head">
+          <div class="badge">UN<b>7</b></div>
+          <div><h2>Atendimento Integrado — Financeiro, Suporte e Retenção</h2>
+          <p>Diferenciar o tipo de problema e reduzir atrito nas transferências.</p>
+          <span class="ret-tag">🎯 Achar o motivo real</span></div>
+        </div>
+        <div class="obj"><b>Objetivo desta unidade:</b> identificar se o problema é financeiro, técnico ou
+        relacional, evitar transferência desnecessária e manter o cliente informado quando o caso passa por mais de um setor.</div>
+
+        <h3>7.1 Diferenciar problema financeiro, técnico e relacional</h3>
+        <p>Antes de agir ou transferir, descubra de que tipo é o problema. Isso evita mandar o cliente pro lugar errado.</p>
+        <div class="table-scroll">
+        <table class="tbl">
+          <thead><tr><th>O cliente diz…</th><th>Tipo</th><th>Primeiro passo</th></tr></thead>
+          <tbody>
+            <tr><td>"Não consigo pagar", "o boleto veio errado", "estou bloqueado"</td><td class="em">Financeiro</td><td>Ver a situação da conta e a segunda via.</td></tr>
+            <tr><td>"Está sem sinal", "cai toda hora", "está lento"</td><td class="em">Técnico</td><td>Fazer o diagnóstico técnico.</td></tr>
+            <tr><td>"Ninguém me responde", "cansei", "já é a terceira vez"</td><td class="em">Relacional</td><td>Acolher, assumir o caso e recuperar a confiança.</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="box attn"><div class="lbl">⚠ Atenção</div>
+          Muitos casos vêm <b>misturados</b>: o cliente pode estar bloqueado por atraso (financeiro) e, ao mesmo
+          tempo, bravo com quedas antigas (técnico + relacional). Trate a parte urgente primeiro, mas reconheça o resto.</div>
+
+        <h3>7.2 Como evitar transferências desnecessárias</h3>
+        <p>Antes de transferir, pergunte a si mesmo: <b>"isso eu consigo resolver aqui?"</b>. Se sim, resolva.
+        Transferir por reflexo faz o cliente rodar entre setores e é uma das maiores causas de irritação.</p>
+        <div class="mirror"><div class="lbl">🪞 Espelho — o cliente jogado de setor em setor</div>
+          <p class="sub">Falas reais de atendentes da GSM que empurram o cliente adiante sem concluir:</p>
+          <span class="rq">Peço que continue no aguardo, vou transferir para o setor especializado.</span>
+          <span class="rq">Um momento, vou te transferindo para o setor responsável. Um momento!</span>
+          <div class="reflect"><span class="rlbl">Pare e pense</span>
+          O problema não é escalar pra quem resolve, é deixar o cliente travado ou rodando. Nos atendimentos da
+          GSM, dois atritos se repetem: o roteamento errado (um pedido de suporte cai no comercial, e o cliente
+          recomeça) e o ping-pong técnico (uma queda passa por vários atendentes, cada um pedindo os mesmos testes,
+          e ninguém conclui). Antes de transferir, pergunte "isso eu resolvo aqui?". Se não, escale pro lugar certo,
+          com resumo, e garanta que alguém conclua.</div>
+        </div>
+
+        <h3>7.3 Explicando os procedimentos em linguagem simples</h3>
+        <div class="table-scroll">
+        <table class="tbl">
+          <thead><tr><th>Procedimento</th><th>Como explicar ao cliente</th></tr></thead>
+          <tbody>
+            <tr><td class="em">Segunda via</td><td>"Vou te reenviar o boleto do mês por aqui, tá bem?"</td></tr>
+            <tr><td class="em">Desbloqueio de confiança</td><td>"Consigo liberar o seu sinal agora, dando um prazo pra você regularizar o pagamento."</td></tr>
+            <tr><td class="em">Diagnóstico técnico</td><td>"Vou fazer alguns testes na sua conexão daqui pra descobrir a causa."</td></tr>
+            <tr><td class="em">Encaminhamento</td><td>"Vou te passar para a equipe que cuida disso, já com o resumo do seu caso."</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>7.4 Mantendo o cliente informado entre setores</h3>
+        <p>Quando o caso passa por mais de um setor, o cliente precisa saber onde ele está. Aqui, silêncio parece
+        abandono. Um simples "seu caso está com a equipe técnica, previsão de retorno ainda hoje" já muda a experiência.</p>
+
+        <h3>7.5 Reduzindo atrito no fluxo WhatsApp/OpaSuite</h3>
+        <div class="box good"><div class="lbl">✓ Boas práticas do fluxo</div><ul>
+          <li>Resolver o que está no seu alcance antes de transferir.</li>
+          <li>Transferir sempre com o resumo do caso (os quatro itens da Unidade 5).</li>
+          <li>Avisar o cliente a cada mudança de setor.</li>
+          <li>Explicar cada procedimento com uma frase simples + o próximo passo.</li>
+        </ul></div>
+        <div class="box attn"><div class="lbl">⚠ Erros comuns</div><ul>
+          <li>Transferir por reflexo, sem tentar resolver o que é seu.</li>
+          <li>Passar o cliente entre setores em círculo.</li>
+          <li>Explicar segunda via ou desbloqueio com termo interno que o cliente não entende.</li>
+          <li>Deixar o cliente sem notícia enquanto o caso anda entre setores.</li>
+        </ul></div>
+
+        <div class="task ex">
+          <div class="head"><span class="ico">✎</span><div><span class="kind">Exercício interativo · clique</span><h4>Financeiro, técnico ou relacional?</h4></div></div>
+          <p class="ix-inst">Toque no tipo de cada situação.</p>
+          <div class="ix" data-ix="quiz">
+            <span class="ix-score"><span class="dot"></span><span data-score></span></span>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">1</span>"Meu sinal caiu e não volta."</p>
+              <div class="ix-opts"><button class="ix-opt">Financeiro</button><button class="ix-opt" data-correct>Técnico</button><button class="ix-opt">Relacional</button></div>
+              <div class="ix-fb"><span class="r">Técnico.</span> Primeiro passo: diagnóstico da conexão.</div>
+            </div>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">2</span>"Quero pagar, mas não recebi o boleto."</p>
+              <div class="ix-opts"><button class="ix-opt" data-correct>Financeiro</button><button class="ix-opt">Técnico</button><button class="ix-opt">Relacional</button></div>
+              <div class="ix-fb"><span class="r">Financeiro.</span> Primeiro passo: enviar a segunda via.</div>
+            </div>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">3</span>"Já pedi ajuda três vezes e ninguém me deu retorno."</p>
+              <div class="ix-opts"><button class="ix-opt">Financeiro</button><button class="ix-opt">Técnico</button><button class="ix-opt" data-correct>Relacional</button></div>
+              <div class="ix-fb"><span class="r">Relacional.</span> Acolher, assumir o caso e recuperar a confiança antes de qualquer coisa.</div>
+            </div>
+            <div class="ix-q">
+              <p class="ix-stem"><span class="qn">4</span>"Fui bloqueado, mas juro que paguei."</p>
+              <div class="ix-opts"><button class="ix-opt" data-correct>Financeiro</button><button class="ix-opt">Técnico</button><button class="ix-opt">Relacional</button></div>
+              <div class="ix-fb"><span class="r">Financeiro</span>, com um lado relacional: o cliente se sente injustiçado. Reconheça isso enquanto verifica o pagamento.</div>
+            </div>
+          </div>
+        </div>
+        <div class="task act">
+          <div class="head"><span class="ico">◎</span><div><span class="kind">Atividade prática · escreva</span><h4>Caso misturado: bloqueio + instabilidade</h4></div></div>
+          <p class="ix-inst">Um cliente chega bloqueado por conta em atraso <b>e</b> reclamando que a internet vivia
+          caindo antes do bloqueio. Descreva como você conduziria: o que trata primeiro, como evita transferência
+          desnecessária e como mantém o cliente informado.</p>
+          <div class="ix ix-write" data-ix="write">
+            <textarea placeholder="Descreva como você conduziria esse atendimento..."></textarea>
+            <div class="ix-crit"><span class="crit-lbl">Confira você mesmo</span>
+              <label><input type="checkbox">Reconheci os dois pontos (bloqueio e quedas)</label>
+              <label><input type="checkbox">Tratei primeiro o urgente que destrava o uso</label>
+              <label><input type="checkbox">Registrei a queixa técnica e encaminhei sem largar o cliente</label>
+              <label><input type="checkbox">Fechei confirmando o próximo passo</label>
+            </div>
+            <div class="ix-actions"><button class="ix-btn ghost" data-reveal-model data-label="Ver um caminho">Ver um caminho</button></div>
+            <div class="ix-model"><div class="ix-model-inner"><span class="ml">Um caminho possível</span>
+              1) Acolher e reconhecer os dois pontos. 2) Tratar primeiro o urgente que destrava o uso: enviar a
+              segunda via e explicar o desbloqueio de confiança, se for cabível. 3) Registrar a queixa técnica e já
+              encaminhar/agendar o diagnóstico das quedas, avisando o cliente do próximo passo. 4) Fechar
+              confirmando: "seu acesso volta com o pagamento, e a parte das quedas já está registrada pra equipe
+              técnica olhar. Te aviso do retorno."</div></div>
+          </div>
+        </div>
+
+        <div class="box ret"><div class="lbl">🎯 Foco Retenção</div>
+          Separar financeiro, técnico e relacional é exatamente o que te ajuda a achar o <b>motivo real</b> do
+          cancelamento. E lembre da regra de ouro do setor: <b>não transferir quem está cancelando</b>. Assuma o
+          caso do começo ao fim.</div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ================= FECHAMENTO ================= -->
+      <section id="fechamento">
+        <div class="eyebrow"><span class="n">✓</span> Fechamento</div>
+        <h2>Checklist geral e autoavaliação</h2>
+        <p class="lead-p">Este checklist é interativo: vá marcando conforme confere. Ele guarda o seu progresso
+        neste navegador, então pode voltar quando quiser.</p>
+        <div class="task" style="border-left:4px solid var(--acc)">
+          <h4 style="color:var(--text);margin-top:0">Antes de encerrar, confira:</h4>
+          <div class="ix" data-ix="checklist" data-key="apostila-fechamento">
+            <ul class="ix-check">
+              <li><span class="cbox">✓</span><div class="ctext">Eu <b>entendi e confirmei</b> o problema real do cliente?</div></li>
+              <li><span class="cbox">✓</span><div class="ctext">Eu <b>resolvi</b> ou deixei um <b>próximo passo claro</b>?</div></li>
+              <li><span class="cbox">✓</span><div class="ctext">Usei <b>linguagem simples</b>, sem termo que confunde?</div></li>
+              <li><span class="cbox">✓</span><div class="ctext"><b>Acolhi</b> antes de explicar regra, sem prometer o impossível?</div></li>
+              <li><span class="cbox">✓</span><div class="ctext"><b>Registrei</b> os quatro itens (pedido, tentativa, combinado, próximo passo)?</div></li>
+              <li><span class="cbox">✓</span><div class="ctext">Se transferi, foi <b>com resumo</b> e <b>avisando</b> o cliente?</div></li>
+              <li><span class="cbox">✓</span><div class="ctext">Se falou em cancelar, <b>entendi o motivo real</b> antes de encerrar?</div></li>
+              <li><span class="cbox">✓</span><div class="ctext">Confirmei com o cliente que ficou <b>resolvido</b>?</div></li>
+            </ul>
+            <div class="ix-progress"><i></i></div>
+            <span class="ix-progress-lbl"></span>
+          </div>
+        </div>
+
+        <h3>Autoavaliação rápida</h3>
+        <p>No fim do dia, responda pra você mesmo:</p>
+        <ul>
+          <li>Em qual atendimento eu <b>acolhi bem</b> hoje? O que fiz de diferente?</li>
+          <li>Em qual eu poderia ter <b>resolvido</b> em vez de só responder?</li>
+          <li>Teve algum cliente com <b>sinal de cancelamento</b> que eu deixei passar?</li>
+        </ul>
+
+        <div class="concept" style="margin-top:24px">
+          <div class="lbl">Mensagem final</div>
+          <p>Você não controla todos os problemas que chegam, mas controla a experiência que o cliente tem com a
+          GSM. Um atendimento com clareza, acolhimento e registro transforma reclamação em confiança e evita um
+          cancelamento. É isso que significa <b>atender para manter</b>.</p>
+        </div>
+      </section>
+
+    </div><!-- /wrap -->
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          <p><b>Atender para Manter</b> — Material de treinamento do time de atendimento da GSM Bahia.</p>
+        </div>
+        <a href="https://www.vestabi.com" target="_blank" rel="noopener" aria-label="Vesta">
+          <img class="only-light" src="/uploads/vesta_logo_light.svg" alt="Vesta">
+          <img class="only-dark" src="/vesta_logo_dark.svg" alt="Vesta">
+        </a>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var root = document.documentElement;
+
+  /* ---- tema claro/escuro (persistido) ---- */
+  try {
+    var saved = localStorage.getItem('vesta-theme');
+    if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+  } catch (e) {}
+  window.toggleTheme = function(){
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('vesta-theme', next); } catch (e) {}
+  };
+
+  /* ---- palavra rotativa do hero ---- */
+  var words = ['manter', 'reter', 'resolver', 'acolher', 'fidelizar'];
+  var wordEl = document.getElementById('vword');
+  var wi = 0;
+  setInterval(function(){
+    wi = (wi + 1) % words.length;
+    wordEl.style.animation = 'none';
+    void wordEl.offsetWidth;
+    wordEl.textContent = words[wi];
+    wordEl.style.animation = 'wordIn .4s ease both';
+  }, 2600);
+
+  /* ---- progresso de leitura + índice ativo ---- */
+  var links = [].slice.call(document.querySelectorAll('#nav a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  var bar = document.getElementById('bar');
+  function onScroll(){
+    var el = document.documentElement;
+    var st = el.scrollTop || document.body.scrollTop;
+    var h = el.scrollHeight - el.clientHeight;
+    bar.style.width = (h > 0 ? (st / h * 100) : 0) + '%';
+    var cur = secs[0];
+    for (var i = 0; i < secs.length; i++){ if (secs[i].getBoundingClientRect().top <= 130) cur = secs[i]; }
+    links.forEach(function(a){ a.classList.toggle('active', cur && a.getAttribute('href') === '#' + cur.id); });
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('load', onScroll);
+  onScroll();
+
+  /* ---- reveal ao rolar ---- */
+  if ('IntersectionObserver' in window) {
+    var revEls = [].slice.call(document.querySelectorAll('.wrap > section > *'));
+    revEls.forEach(function(el){ el.setAttribute('data-reveal',''); el.classList.add('vhide'); });
+    var io = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.remove('vhide'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    revEls.forEach(function(el){ io.observe(el); });
+    setTimeout(function(){
+      [].slice.call(document.querySelectorAll('.vhide')).forEach(function(el){ el.classList.remove('vhide'); });
+    }, 2500);
+  }
+
+  /* ---- glow do hero segue o mouse ---- */
+  var hero = document.getElementById('topo');
+  var glow = document.getElementById('vglow');
+  if (hero && glow) {
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      glow.style.left = (e.clientX - r.left) + 'px';
+      glow.style.top = (e.clientY - r.top) + 'px';
+    });
+  }
+
+  /* ---- navegação mobile ---- */
+  var sb = document.getElementById('sidebar'), bd = document.getElementById('backdrop');
+  window.toggleNav = function(){ sb.classList.toggle('open'); bd.classList.toggle('show'); };
+  links.forEach(function(a){ a.addEventListener('click', function(){ if (sb.classList.contains('open')) toggleNav(); }); });
+
+  /* =====================================================================
+     EXERCÍCIOS INTERATIVOS — clique, arrastar, ordenar, escrever, marcar
+     ===================================================================== */
+  var $$ = function(sel, ctx){ return [].slice.call((ctx||document).querySelectorAll(sel)); };
+
+  /* --- múltipla escolha (clicável) --- */
+  $$('[data-ix="quiz"]').forEach(function(quiz){
+    var qs = $$('.ix-q', quiz), scoreEl = quiz.querySelector('[data-score]'), correct = 0;
+    function upd(){ if (scoreEl) scoreEl.textContent = 'Acertos: ' + correct + ' de ' + qs.length; }
+    upd();
+    qs.forEach(function(q){
+      var opts = $$('.ix-opt', q), fb = q.querySelector('.ix-fb');
+      opts.forEach(function(opt){
+        opt.addEventListener('click', function(){
+          if (q.classList.contains('done')) return;
+          q.classList.add('done');
+          var ok = opt.hasAttribute('data-correct');
+          if (ok) { opt.classList.add('correct'); correct++; }
+          else { opt.classList.add('wrong'); opts.forEach(function(o){ if (o.hasAttribute('data-correct')) o.classList.add('correct'); }); }
+          opts.forEach(function(o){ o.disabled = true; });
+          if (fb) fb.className = 'ix-fb show ' + (ok ? 'ok' : 'no');
+          upd();
+        });
+      });
+    });
+  });
+
+  /* --- escrever + revelar modelo --- */
+  $$('[data-ix="write"]').forEach(function(w){
+    var btn = w.querySelector('[data-reveal-model]'), model = w.querySelector('.ix-model');
+    if (btn && model) btn.addEventListener('click', function(){
+      var open = model.classList.toggle('show');
+      btn.textContent = open ? 'Ocultar modelo' : (btn.getAttribute('data-label') || 'Ver um modelo');
+    });
+  });
+
+  /* --- clicar na bolha certa (spot) --- */
+  $$('[data-ix="spot"]').forEach(function(s){
+    var fb = s.querySelector('.ix-fb'), bubbles = $$('.bubble[data-spot]', s), done = false;
+    bubbles.forEach(function(b){
+      b.addEventListener('click', function(){
+        if (done) return; done = true; s.classList.add('done');
+        var ok = b.hasAttribute('data-correct');
+        b.classList.add(ok ? 'picked-correct' : 'picked-wrong');
+        if (!ok) bubbles.forEach(function(x){ if (x.hasAttribute('data-correct')) x.classList.add('picked-correct'); });
+        if (fb) fb.className = 'ix-fb show ' + (ok ? 'ok' : 'no');
+      });
+    });
+  });
+
+  /* --- checklist interativo (persiste no navegador) --- */
+  $$('[data-ix="checklist"]').forEach(function(c){
+    var items = $$('.ix-check li', c), bar = c.querySelector('.ix-progress > i'),
+        lbl = c.querySelector('.ix-progress-lbl'), key = c.getAttribute('data-key') || 'apostila-check';
+    function save(){ try { localStorage.setItem(key, JSON.stringify(items.map(function(i){ return i.classList.contains('done') ? 1 : 0; }))); } catch (e) {} }
+    function upd(){ var d = items.filter(function(i){ return i.classList.contains('done'); }).length;
+      if (bar) bar.style.width = (d / items.length * 100) + '%';
+      if (lbl) lbl.textContent = d + ' de ' + items.length + ' conferidos'; }
+    try { var st = JSON.parse(localStorage.getItem(key)); if (st) items.forEach(function(i, ix){ if (st[ix]) i.classList.add('done'); }); } catch (e) {}
+    upd();
+    items.forEach(function(i){ i.addEventListener('click', function(){ i.classList.toggle('done'); save(); upd(); }); });
+  });
+
+  /* --- ordenar (arrastar para reordenar) --- */
+  $$('[data-ix="order"]').forEach(function(root){
+    var list = root.querySelector('.ix-order'), checkBtn = root.querySelector('[data-check]'),
+        result = root.querySelector('.ix-result');
+    function items(){ return $$('.ix-order-item', list); }
+    list.addEventListener('pointerdown', function(e){
+      var it = e.target.closest('.ix-order-item');
+      if (!it || e.target.closest('.updown')) return;
+      var dragging = it; it.classList.add('dragging');
+      function move(ev){
+        var after = null;
+        items().forEach(function(x){ if (x === dragging) return;
+          var r = x.getBoundingClientRect(); if (ev.clientY > r.top + r.height / 2) after = x; });
+        if (after) after.after(dragging); else list.prepend(dragging);
+      }
+      function up(){ dragging.classList.remove('dragging');
+        document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', up); }
+      document.addEventListener('pointermove', move); document.addEventListener('pointerup', up);
+    });
+    list.addEventListener('click', function(e){
+      var it = e.target.closest('.ix-order-item'); if (!it) return;
+      if (e.target.closest('[data-up]') && it.previousElementSibling) it.parentNode.insertBefore(it, it.previousElementSibling);
+      if (e.target.closest('[data-down]') && it.nextElementSibling) it.parentNode.insertBefore(it.nextElementSibling, it);
+    });
+    if (checkBtn) checkBtn.addEventListener('click', function(){
+      var ok = true;
+      items().forEach(function(it, ix){ var good = (+it.getAttribute('data-pos')) === ix + 1;
+        it.classList.remove('correct', 'wrong'); it.classList.add(good ? 'correct' : 'wrong'); if (!good) ok = false; });
+      if (result) { result.textContent = ok ? 'Isso! A ordem está certa.' : 'Ainda não fechou. Ajuste e tente de novo.';
+        result.className = 'ix-result ' + (ok ? 'ok' : 'no'); }
+    });
+  });
+
+  /* --- ligar (arrastar chip até o slot, ou tocar-e-soltar) --- */
+  $$('[data-ix="match"]').forEach(function(root){
+    var chips = $$('.ix-chip', root), slots = $$('.ix-slot', root),
+        pool = root.querySelector('.ix-pool'), checkBtn = root.querySelector('[data-check]'),
+        result = root.querySelector('.ix-result'), picked = null;
+    function placeInto(slot, chip){
+      var existing = slot.querySelector('.ix-chip'); if (existing) pool.appendChild(existing);
+      slot.appendChild(chip); slot.classList.remove('correct', 'wrong');
+    }
+    chips.forEach(function(c){
+      c.addEventListener('click', function(){
+        if (c._dragged) { c._dragged = false; return; }
+        if (picked === c) { c.classList.remove('picked'); picked = null; return; }
+        chips.forEach(function(x){ x.classList.remove('picked'); });
+        picked = c; c.classList.add('picked');
+      });
+    });
+    slots.forEach(function(s){
+      s.addEventListener('click', function(){ if (picked) { placeInto(s, picked); picked.classList.remove('picked'); picked = null; } });
+    });
+    root.addEventListener('pointerdown', function(e){
+      var chip = e.target.closest('.ix-chip'); if (!chip) return;
+      var moved = false, sx = e.clientX, sy = e.clientY, ghost = null;
+      function move(ev){
+        if (!moved && (Math.abs(ev.clientX - sx) > 4 || Math.abs(ev.clientY - sy) > 4)) {
+          moved = true; chip.classList.add('dragging');
+          ghost = chip.cloneNode(true); ghost.classList.add('ix-drag-ghost');
+          ghost.style.width = chip.offsetWidth + 'px'; document.body.appendChild(ghost);
+        }
+        if (moved) {
+          ghost.style.left = (ev.clientX - chip.offsetWidth / 2) + 'px';
+          ghost.style.top = (ev.clientY - 20) + 'px';
+          slots.forEach(function(s){ var r = s.getBoundingClientRect();
+            s.classList.toggle('over', ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom); });
+        }
+      }
+      function up(ev){
+        document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', up);
+        if (!moved) return;
+        chip.classList.remove('dragging'); if (ghost) ghost.remove();
+        var target = slots.filter(function(s){ return s.classList.contains('over'); })[0];
+        slots.forEach(function(s){ s.classList.remove('over'); });
+        if (target) placeInto(target, chip);
+        chip._dragged = true; setTimeout(function(){ chip._dragged = false; }, 60);
+      }
+      document.addEventListener('pointermove', move); document.addEventListener('pointerup', up);
+    });
+    if (checkBtn) checkBtn.addEventListener('click', function(){
+      var ok = true, filled = 0;
+      slots.forEach(function(s){ var chip = s.querySelector('.ix-chip'); s.classList.remove('correct', 'wrong');
+        if (!chip) { ok = false; return; } filled++;
+        var good = chip.getAttribute('data-key') === s.getAttribute('data-accept');
+        s.classList.add(good ? 'correct' : 'wrong'); if (!good) ok = false; });
+      if (result) {
+        if (filled < slots.length) { result.textContent = 'Ligue todos os itens antes de conferir.'; result.className = 'ix-result no'; }
+        else { result.textContent = ok ? 'Boa! Todas as ligações certas.' : 'Quase. Veja as marcadas em vermelho e troque.'; result.className = 'ix-result ' + (ok ? 'ok' : 'no'); }
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
