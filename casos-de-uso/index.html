@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casos de Uso — Vesta</title>
+<meta name="description" content="Como a Vesta atua na prática: atendimento, relatórios, protocolos e financeiro. Veja as quatro frentes onde a automação assistida reduz retrabalho.">
+<link rel="canonical" href="https://www.vestabi.com/casos-de-uso/">
+<meta name="theme-color" content="#F1F5F8">
+<meta property="og:title" content="Casos de Uso — Vesta">
+<meta property="og:description" content="Como a Vesta atua na prática: atendimento, relatórios, protocolos e financeiro.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Vesta">
+<meta property="og:url" content="https://www.vestabi.com/casos-de-uso/">
+<meta property="og:image" content="https://www.vestabi.com/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Casos de Uso — Vesta">
+<meta name="twitter:description" content="Como a Vesta atua na prática: atendimento, relatórios, protocolos e financeiro.">
+<meta name="twitter:image" content="https://www.vestabi.com/og.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Vesta", "item": "https://www.vestabi.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Casos de uso", "item": "https://www.vestabi.com/casos-de-uso/" }
+  ]
+}
+</script>
+<style>
+  @font-face{font-family:'Space Grotesk';font-weight:500 700;font-display:swap;src:url(/fonts/space-grotesk.woff2) format('woff2')}
+  @font-face{font-family:'Plus Jakarta Sans';font-weight:400 700;font-display:swap;src:url(/fonts/plus-jakarta-sans.woff2) format('woff2')}
+  :root{--bg:#F1F5F8;--panel:#fff;--card:rgba(0,47,73,.035);--text:#002F49;--muted:#5B6A82;--acc:#A45F2C;--acc-hi:#8A4E22;--acc-12:rgba(164,95,44,.12);--line:rgba(0,47,73,.12)}
+  @media (prefers-color-scheme:dark){:root{--bg:#001B2A;--panel:#04283C;--card:rgba(234,243,248,.045);--text:#EAF3F8;--muted:#9DB2C2;--acc:#C88A52;--acc-hi:#E0A970;--acc-12:rgba(200,138,82,.16);--line:rgba(234,243,248,.14)}}
+  :root[data-theme="dark"]{--bg:#001B2A;--panel:#04283C;--card:rgba(234,243,248,.045);--text:#EAF3F8;--muted:#9DB2C2;--acc:#C88A52;--acc-hi:#E0A970;--acc-12:rgba(200,138,82,.16);--line:rgba(234,243,248,.14)}
+  :root[data-theme="light"]{--bg:#F1F5F8;--panel:#fff;--card:rgba(0,47,73,.035);--text:#002F49;--muted:#5B6A82;--acc:#A45F2C;--acc-hi:#8A4E22;--acc-12:rgba(164,95,44,.12);--line:rgba(0,47,73,.12)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;line-height:1.65;-webkit-text-size-adjust:100%;padding:0 24px 80px}
+  .wrap{max-width:920px;margin:0 auto}
+  header{padding:40px 0 28px;border-bottom:1px solid var(--line);margin-bottom:36px}
+  a.back{color:var(--acc);text-decoration:none;font-weight:600;font-size:14px}
+  a.back:hover{color:var(--acc-hi)}
+  h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,6vw,44px);letter-spacing:-1.2px;margin:20px 0 10px}
+  .lede{color:var(--muted);font-size:16px;max-width:600px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:36px 0 48px}
+  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 24px 28px;text-decoration:none;color:var(--text);display:block;transition:border-color .2s}
+  .card:hover{border-color:var(--acc)}
+  .tag{display:inline-flex;padding:6px 13px;border-radius:999px;background:var(--acc-12);color:var(--acc);font-size:11.5px;font-weight:700;letter-spacing:1px}
+  .card h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;margin:14px 0 8px;letter-spacing:-.3px}
+  .card p{margin:0;font-size:14px;color:var(--muted)}
+  .card span.arrow{display:inline-block;margin-top:14px;font-weight:600;font-size:13.5px;color:var(--acc)}
+  .cta-box{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:var(--acc-12);border:1px solid var(--line);border-radius:20px;padding:22px 26px}
+  .cta-box p{margin:0;font-size:15px}
+  .cta-box a{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;font-size:14px;white-space:nowrap}
+  .cta-box a:hover{background:var(--acc-hi)}
+  footer{margin-top:48px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  footer a{color:var(--acc);text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/">← Voltar para a Vesta</a>
+    <h1>Casos de uso</h1>
+    <p class="lede">Hoje validamos rotinas de protocolo clínico e conciliação em clínicas e prestadoras de serviço. O método se aplica a estas quatro frentes.</p>
+  </header>
+
+  <div class="grid">
+    <a class="card" href="/casos-de-uso/atendimento.html">
+      <span class="tag">ATENDIMENTO</span>
+      <h2>Triagem e resposta assistida</h2>
+      <p>Classificamos e respondemos demandas repetitivas com apoio de rotina. Sua equipe assume só o que exige julgamento.</p>
+      <span class="arrow">Ver caso de uso →</span>
+    </a>
+    <a class="card" href="/casos-de-uso/relatorios.html">
+      <span class="tag">RELATÓRIOS</span>
+      <h2>Consolidação automática</h2>
+      <p>Entregamos pronto, no mesmo horário, o relatório que hoje é montado à mão toda semana.</p>
+      <span class="arrow">Ver caso de uso →</span>
+    </a>
+    <a class="card" href="/casos-de-uso/protocolos.html">
+      <span class="tag">PROTOCOLOS</span>
+      <h2>Conferência auditável</h2>
+      <p>Conferimos protocolos e lotes por rotina, com trilha de auditoria em cada etapa do processo.</p>
+      <span class="arrow">Ver caso de uso →</span>
+    </a>
+    <a class="card" href="/casos-de-uso/financeiro.html">
+      <span class="tag">FINANCEIRO</span>
+      <h2>Conciliação e alertas</h2>
+      <p>Cruzamos guias, repasses e divergências automaticamente e avisamos quando algo não fecha.</p>
+      <span class="arrow">Ver caso de uso →</span>
+    </a>
+  </div>
+
+  <div class="cta-box">
+    <p><strong>Reconheceu sua operação?</strong> Uma conversa basta para mapear a frente de maior ganho.</p>
+    <a href="https://api.whatsapp.com/send/?phone=5571981995565&amp;text=Ol%C3%A1%2C%20quero%20entender%20como%20a%20Vesta%20pode%20ajudar%20minha%20empresa%20a%20organizar%20dados%2C%20reduzir%20retrabalho%20e%20melhorar%20processos%20operacionais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">Mapear meus gargalos</a>
+  </div>
+
+  <footer>© 2026 Vesta · Salvador, Bahia · <a href="mailto:contato@vestabi.com">contato@vestabi.com</a></footer>
+</div>
+</body>
+</html>

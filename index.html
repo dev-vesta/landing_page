@@ -169,6 +169,14 @@
   .nlink:hover{color:var(--text)}
   .flink{color:var(--ink-65)}
   .flink:hover{color:var(--acc)}
+  #vburger{display:none;flex-shrink:0}
+  #vburger:hover{border-color:var(--acc)}
+  #vburger .ico-close{display:none}
+  #vburger[aria-expanded="true"] .ico-open{display:none!important}
+  #vburger[aria-expanded="true"] .ico-close{display:flex!important}
+  #vmobile-menu{display:flex;flex-direction:column;max-height:0;opacity:0;overflow:hidden;transition:max-height .3s cubic-bezier(.22,1,.36,1),opacity .25s ease}
+  #vmobile-menu.open{max-height:420px;opacity:1}
+  #vmobile-menu .nlink{padding:13px 4px;font-size:15px;border-radius:0}
   .cta{background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk',sans-serif;font-weight:700;border-radius:999px;transition:transform .14s,box-shadow .2s}
   .cta:hover{color:var(--on-acc)}
   .cta-s:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--acc-35)}
@@ -206,7 +214,7 @@
   .pcard.hot .tag-off{display:none}
 
   /* ============ FRENTES ============ */
-  .frente{border:1px solid var(--ink-08);transition:border-color .3s,transform .25s;cursor:default}
+  .frente{border:1px solid var(--ink-08);transition:border-color .3s,transform .25s;cursor:pointer;text-decoration:none;color:inherit}
   .frente:hover{border-color:var(--acc-45);transform:translateY(-4px)}
   .frente .fgain{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s cubic-bezier(.22,1,.36,1),opacity .3s}
   .frente:hover .fgain{max-height:110px;opacity:1}
@@ -248,9 +256,12 @@
   @media (max-width:1180px){
     #vstepper{display:none!important}
   }
-  @media (max-width:920px){
+  @media (max-width:1350px){
     #vnav{display:none!important}
     #vtag{display:none!important}
+    #vburger{display:flex!important}
+  }
+  @media (max-width:920px){
     #vclientarea{display:none!important}
     #vmobile-cta{display:block!important}
     footer>div:last-child{padding-bottom:104px!important}
@@ -323,15 +334,28 @@
       <nav id="vnav" style="display:flex;align-items:center;gap:2px;">
         <a class="nlink" href="#problema" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;">O problema</a>
         <a class="nlink" href="#metodo" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;">Método</a>
+        <a class="nlink" href="/casos-de-uso/" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;">Casos de uso</a>
         <a class="nlink" href="#faq" style="padding:9px 15px;border-radius:999px;font-size:14px;font-weight:600;">Perguntas</a>
       </nav>
       <div style="display:flex;align-items:center;gap:10px;">
+        <button id="vburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="vmobile-menu" style="align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--ink-22);background:transparent;color:var(--text);cursor:pointer;transition:border-color .2s;">
+          <span class="ico-open" style="display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
+          <span class="ico-close" style="align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+        </button>
         <button id="vtheme" title="Alternar tema claro/escuro" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--ink-22);background:transparent;color:var(--text);cursor:pointer;transition:border-color .2s;">
           <span class="ico-sun" style="align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg></span>
           <span class="ico-moon" style="align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg></span>
         </button>
-        <a id="vclientarea" class="obtn" href="https://vesta-py.onrender.com/dashboard" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-weight:700;font-size:14px;">Área do cliente</a>
-        <a class="cta cta-s" href="https://api.whatsapp.com/send/?phone=5571981995565&amp;text=Ol%C3%A1%2C%20quero%20entender%20como%20a%20Vesta%20pode%20ajudar%20minha%20empresa%20a%20organizar%20dados%2C%20reduzir%20retrabalho%20e%20melhorar%20processos%20operacionais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;font-size:14px;"><span data-long>Falar com a Vesta</span><span data-short style="display:none;">WhatsApp</span></a>
+        <a id="vclientarea" class="obtn" href="https://vesta-py.onrender.com/dashboard" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap;">Área do cliente</a>
+        <a class="cta cta-s" href="https://api.whatsapp.com/send/?phone=5571981995565&amp;text=Ol%C3%A1%2C%20quero%20entender%20como%20a%20Vesta%20pode%20ajudar%20minha%20empresa%20a%20organizar%20dados%2C%20reduzir%20retrabalho%20e%20melhorar%20processos%20operacionais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;font-size:14px;white-space:nowrap;"><span data-long>Falar com a Vesta</span><span data-short style="display:none;">WhatsApp</span></a>
+      </div>
+    </div>
+    <div id="vmobile-menu">
+      <div style="max-width:1200px;width:100%;box-sizing:border-box;padding:4px 24px 20px;display:flex;flex-direction:column;">
+        <a class="nlink" href="#problema">O problema</a>
+        <a class="nlink" href="#metodo">Método</a>
+        <a class="nlink" href="/casos-de-uso/">Casos de uso</a>
+        <a class="nlink" href="#faq">Perguntas</a>
       </div>
     </div>
   </header>
@@ -492,7 +516,7 @@
       <p style="max-width:380px;font-size:16px;line-height:1.65;color:var(--ink-6);margin:0;">Hoje validamos rotinas de protocolo clínico e conciliação em clínicas e prestadoras de serviço. O método se aplica a estas quatro frentes.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:48px;">
-      <div class="frente" style="position:relative;overflow:hidden;background:var(--ink-035);border-radius:24px;padding:28px 26px 30px;">
+      <a class="frente" href="/casos-de-uso/atendimento.html" style="position:relative;overflow:hidden;background:var(--ink-035);border-radius:24px;padding:28px 26px 30px;">
         <span style="display:inline-flex;padding:6px 13px;border-radius:999px;background:var(--acc-12);color:var(--acc);font-size:11.5px;font-weight:700;letter-spacing:1px;">ATENDIMENTO</span>
         <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;margin-top:16px;">Triagem e resposta assistida</div>
         <div style="font-size:14px;line-height:1.6;color:var(--ink-6);margin-top:8px;">Classificamos e respondemos demandas repetitivas com apoio de rotina. Sua equipe assume só o que exige julgamento.</div>
@@ -500,8 +524,8 @@
           <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--acc-35);font-size:13.5px;color:var(--acc);font-weight:600;">Ganho típico: fila menor e resposta mais rápida</div><div style="margin-top:8px;font-size:13px;line-height:1.5;color:var(--ink-55);">Ex.: análise de atendimentos para identificar demandas recorrentes.</div>
         </div>
         <span class="farrow" style="position:absolute;right:20px;bottom:16px;color:var(--acc);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-      </div>
-      <div class="frente" style="position:relative;overflow:hidden;background:var(--ink-035);border-radius:24px;padding:28px 26px 30px;">
+      </a>
+      <a class="frente" href="/casos-de-uso/relatorios.html" style="position:relative;overflow:hidden;background:var(--ink-035);border-radius:24px;padding:28px 26px 30px;">
         <span style="display:inline-flex;padding:6px 13px;border-radius:999px;background:var(--acc-12);color:var(--acc);font-size:11.5px;font-weight:700;letter-spacing:1px;">RELATÓRIOS</span>
         <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;margin-top:16px;">Consolidação automática</div>
         <div style="font-size:14px;line-height:1.6;color:var(--ink-6);margin-top:8px;">Entregamos pronto, no mesmo horário, o relatório que hoje é montado à mão toda semana.</div>
@@ -509,8 +533,8 @@
           <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--acc-35);font-size:13.5px;color:var(--acc);font-weight:600;">Ganho típico: horas devolvidas toda semana</div><div style="margin-top:8px;font-size:13px;line-height:1.5;color:var(--ink-55);">Ex.: resumo executivo semanal entregue pronto para a gestão.</div>
         </div>
         <span class="farrow" style="position:absolute;right:20px;bottom:16px;color:var(--acc);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-      </div>
-      <div class="frente" style="position:relative;overflow:hidden;background:var(--ink-035);border-radius:24px;padding:28px 26px 30px;">
+      </a>
+      <a class="frente" href="/casos-de-uso/protocolos.html" style="position:relative;overflow:hidden;background:var(--ink-035);border-radius:24px;padding:28px 26px 30px;">
         <span style="display:inline-flex;padding:6px 13px;border-radius:999px;background:var(--acc-12);color:var(--acc);font-size:11.5px;font-weight:700;letter-spacing:1px;">PROTOCOLOS</span>
         <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;margin-top:16px;">Conferência auditável</div>
         <div style="font-size:14px;line-height:1.6;color:var(--ink-6);margin-top:8px;">Conferimos protocolos e lotes por rotina, com trilha de auditoria em cada etapa do processo.</div>
@@ -518,8 +542,8 @@
           <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--acc-35);font-size:13.5px;color:var(--acc);font-weight:600;">Ganho típico: menos erro, menos retrabalho</div><div style="margin-top:8px;font-size:13px;line-height:1.5;color:var(--ink-55);">Ex.: conferência de protocolos clínicos com trilha de auditoria.</div>
         </div>
         <span class="farrow" style="position:absolute;right:20px;bottom:16px;color:var(--acc);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-      </div>
-      <div class="frente" style="position:relative;overflow:hidden;background:var(--ink-035);border-radius:24px;padding:28px 26px 30px;">
+      </a>
+      <a class="frente" href="/casos-de-uso/financeiro.html" style="position:relative;overflow:hidden;background:var(--ink-035);border-radius:24px;padding:28px 26px 30px;">
         <span style="display:inline-flex;padding:6px 13px;border-radius:999px;background:var(--acc-12);color:var(--acc);font-size:11.5px;font-weight:700;letter-spacing:1px;">FINANCEIRO</span>
         <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;margin-top:16px;">Conciliação e alertas</div>
         <div style="font-size:14px;line-height:1.6;color:var(--ink-6);margin-top:8px;">Cruzamos guias, repasses e divergências automaticamente e avisamos quando algo não fecha.</div>
@@ -527,7 +551,7 @@
           <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--acc-35);font-size:13.5px;color:var(--acc);font-weight:600;">Ganho típico: divergências vistas a tempo</div><div style="margin-top:8px;font-size:13px;line-height:1.5;color:var(--ink-55);">Ex.: alerta automático quando guia e repasse não fecham.</div>
         </div>
         <span class="farrow" style="position:absolute;right:20px;bottom:16px;color:var(--acc);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-      </div>
+      </a>
     </div>
     <div data-reveal style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:var(--acc-08);border:1px solid var(--acc-25);border-radius:24px;padding:22px 28px;margin-top:44px;">
       <div style="font-size:15.5px;line-height:1.55;"><strong>Reconheceu sua operação?</strong> Uma conversa basta para mapear a frente de maior ganho.</div>
@@ -801,10 +825,10 @@
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:1.5px;color:var(--ink-4);">FRENTES</span>
-        <a class="flink" href="#frentes" style="font-size:14px;font-weight:600;">Atendimento</a>
-        <a class="flink" href="#frentes" style="font-size:14px;font-weight:600;">Relatórios</a>
-        <a class="flink" href="#frentes" style="font-size:14px;font-weight:600;">Protocolos</a>
-        <a class="flink" href="#frentes" style="font-size:14px;font-weight:600;">Financeiro</a>
+        <a class="flink" href="/casos-de-uso/atendimento.html" style="font-size:14px;font-weight:600;">Atendimento</a>
+        <a class="flink" href="/casos-de-uso/relatorios.html" style="font-size:14px;font-weight:600;">Relatórios</a>
+        <a class="flink" href="/casos-de-uso/protocolos.html" style="font-size:14px;font-weight:600;">Protocolos</a>
+        <a class="flink" href="/casos-de-uso/financeiro.html" style="font-size:14px;font-weight:600;">Financeiro</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:1.5px;color:var(--ink-4);">CONTATO</span>
@@ -836,6 +860,28 @@
     var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     try { localStorage.setItem('vesta-theme', next); } catch (e) {}
+  });
+
+  /* ---- menu hamburguer ---- */
+  var burgerBtn = document.getElementById('vburger');
+  var mobileMenu = document.getElementById('vmobile-menu');
+  function closeMenu(){
+    mobileMenu.classList.remove('open');
+    burgerBtn.setAttribute('aria-expanded', 'false');
+  }
+  function toggleMenu(){
+    var open = mobileMenu.classList.toggle('open');
+    burgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burgerBtn.addEventListener('click', toggleMenu);
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeMenu();
+  });
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 1350) closeMenu();
   });
 
   /* ---- palavra rotativa do hero ---- */

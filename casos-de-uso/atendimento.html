@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atendimento: triagem e resposta assistida — Casos de uso Vesta</title>
+<meta name="description" content="Como a Vesta classifica e responde demandas repetitivas de atendimento, reduzindo a fila e o tempo de resposta, com a equipe assumindo só o que exige julgamento.">
+<link rel="canonical" href="https://www.vestabi.com/casos-de-uso/atendimento.html">
+<meta name="theme-color" content="#F1F5F8">
+<meta property="og:title" content="Atendimento: triagem e resposta assistida — Vesta">
+<meta property="og:description" content="Como a Vesta classifica e responde demandas repetitivas de atendimento, reduzindo a fila e o tempo de resposta.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Vesta">
+<meta property="og:url" content="https://www.vestabi.com/casos-de-uso/atendimento.html">
+<meta property="og:image" content="https://www.vestabi.com/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Atendimento: triagem e resposta assistida — Vesta">
+<meta name="twitter:description" content="Como a Vesta classifica e responde demandas repetitivas de atendimento.">
+<meta name="twitter:image" content="https://www.vestabi.com/og.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Vesta", "item": "https://www.vestabi.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Casos de uso", "item": "https://www.vestabi.com/casos-de-uso/" },
+        { "@type": "ListItem", "position": 3, "name": "Atendimento", "item": "https://www.vestabi.com/casos-de-uso/atendimento.html" }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Triagem e resposta assistida",
+      "serviceType": "Automação de atendimento",
+      "provider": { "@type": "Organization", "name": "Vesta", "url": "https://www.vestabi.com/" },
+      "areaServed": "BR",
+      "description": "Classificação e resposta assistida de demandas repetitivas de atendimento, reduzindo fila e tempo de resposta."
+    }
+  ]
+}
+</script>
+<style>
+  @font-face{font-family:'Space Grotesk';font-weight:500 700;font-display:swap;src:url(/fonts/space-grotesk.woff2) format('woff2')}
+  @font-face{font-family:'Plus Jakarta Sans';font-weight:400 700;font-display:swap;src:url(/fonts/plus-jakarta-sans.woff2) format('woff2')}
+  :root{--bg:#F1F5F8;--panel:#fff;--text:#002F49;--muted:#5B6A82;--acc:#A45F2C;--acc-hi:#8A4E22;--acc-12:rgba(164,95,44,.12);--line:rgba(0,47,73,.12)}
+  @media (prefers-color-scheme:dark){:root{--bg:#001B2A;--panel:#04283C;--text:#EAF3F8;--muted:#9DB2C2;--acc:#C88A52;--acc-hi:#E0A970;--acc-12:rgba(200,138,82,.16);--line:rgba(234,243,248,.14)}}
+  :root[data-theme="dark"]{--bg:#001B2A;--panel:#04283C;--text:#EAF3F8;--muted:#9DB2C2;--acc:#C88A52;--acc-hi:#E0A970;--acc-12:rgba(200,138,82,.16);--line:rgba(234,243,248,.14)}
+  :root[data-theme="light"]{--bg:#F1F5F8;--panel:#fff;--text:#002F49;--muted:#5B6A82;--acc:#A45F2C;--acc-hi:#8A4E22;--acc-12:rgba(164,95,44,.12);--line:rgba(0,47,73,.12)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;line-height:1.65;-webkit-text-size-adjust:100%;padding:0 24px 80px}
+  .wrap{max-width:720px;margin:0 auto}
+  header{padding:40px 0 28px;border-bottom:1px solid var(--line);margin-bottom:36px}
+  a.back{color:var(--acc);text-decoration:none;font-weight:600;font-size:14px}
+  a.back:hover{color:var(--acc-hi)}
+  .tag{display:inline-flex;margin-top:20px;padding:6px 13px;border-radius:999px;background:var(--acc-12);color:var(--acc);font-size:11.5px;font-weight:700;letter-spacing:1px}
+  h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,6vw,40px);letter-spacing:-1px;margin:16px 0 6px}
+  .lede{color:var(--muted);font-size:16px}
+  h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.3px;margin:38px 0 10px}
+  p,li{color:var(--text);font-size:15.5px}
+  p{margin:0 0 14px}
+  .gain{background:var(--acc-12);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin:12px 0 0}
+  .gain strong{color:var(--acc)}
+  .cta{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:14px 26px;border-radius:999px;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;font-size:15px}
+  .cta:hover{background:var(--acc-hi)}
+  .other{margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+  a{color:var(--acc);text-decoration:none;font-weight:600}
+  a:hover{color:var(--acc-hi)}
+  a:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
+  footer{margin-top:48px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/casos-de-uso/">← Todos os casos de uso</a>
+    <span class="tag">ATENDIMENTO</span>
+    <h1>Triagem e resposta assistida</h1>
+    <p class="lede">Classificamos e respondemos demandas repetitivas com apoio de rotina. Sua equipe assume só o que exige julgamento.</p>
+  </header>
+
+  <h2>O problema</h2>
+  <p>Todo dia chega muita coisa repetida no atendimento: a mesma dúvida, o mesmo pedido de status, a mesma confirmação de sempre. Enquanto alguém da equipe responde isso pela quinta vez, o caso que realmente precisa de atenção humana fica esperando na fila.</p>
+
+  <h2>Como a Vesta atua</h2>
+  <p>Olhamos o histórico de atendimentos, separamos o que se repete do que exige julgamento e montamos uma rotina que já resolve a parte repetitiva sozinha. O resto continua com a sua equipe, com validação em cada resposta.</p>
+
+  <h2>Ganho típico</h2>
+  <div class="gain"><strong>Fila menor e resposta mais rápida.</strong> Ex.: análise de atendimentos para identificar demandas recorrentes e reduzir o tempo de resposta.</div>
+
+  <p style="margin-top:32px;"><a class="cta" href="https://api.whatsapp.com/send/?phone=5571981995565&amp;text=Ol%C3%A1%2C%20quero%20entender%20como%20a%20Vesta%20pode%20ajudar%20minha%20empresa%20a%20organizar%20dados%2C%20reduzir%20retrabalho%20e%20melhorar%20processos%20operacionais.&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">Falar com a Vesta sobre atendimento</a></p>
+
+  <div class="other">
+    <p class="lede" style="margin:0 0 8px;">Outras frentes:</p>
+    <p style="margin:0;"><a href="/casos-de-uso/relatorios.html">Relatórios</a> · <a href="/casos-de-uso/protocolos.html">Protocolos</a> · <a href="/casos-de-uso/financeiro.html">Financeiro</a></p>
+  </div>
+
+  <footer>© 2026 Vesta · Salvador, Bahia · <a href="mailto:contato@vestabi.com">contato@vestabi.com</a></footer>
+</div>
+</body>
+</html>
