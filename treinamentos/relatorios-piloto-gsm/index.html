@@ -1,39 +1,31 @@
 <!doctype html>
 <!--
-  ARQUIVO AUTOCONTIDO — WIKI DE LEITURA DOS RELATÓRIOS DO PILOTO GSM
+  PROTÓTIPO LOCAL — WIKI GSM: COMO LER O RADAR
 
-  Este arquivo incorpora fontes, logos, favicon, CSS e JavaScript. Pode ser
-  enviado e aberto isoladamente em um navegador moderno.
+  Escopo validado
+  - A GSM recebe o mesmo Radar em dois horários: 08h e 14h.
+  - A estrutura e a forma de leitura são as mesmas nos dois envios.
+  - Esta versão explica somente o Radar e seus indicadores.
+  - Todo protocolo, texto e valor exibido abaixo é fictício e serve apenas para treinamento.
 
-  Viabilidade
-  - É viável publicar esta experiência como uma página estática no site Vesta:
-    navegação, FAQ, tema e embeds funcionam sem framework ou etapa de build.
-  - Referência visual conferida em 04/08/2026: dev-vesta/landing_page, main,
-    commit 501be64af1608571513d172b0119428768251ef1. Este worktree é o repositório
-    corporativo Vesta, não um checkout da landing. Seu snapshot documentado é
-    4d1cc316aad0bafc6dadfdf802e2658a38254ef6; fontes, logos e tokens centrais
-    foram comparados com a main atual e permanecem correspondentes.
-  - Antes de publicar, validar com a GSM: corte operacional exato das janelas
-    08h/14h, nomes oficiais das colunas do tracker, taxonomia de status do OPA
-    e limiares do termômetro. O protótipo sinaliza essas premissas na interface.
+  Mídia
+  - Os vídeos de visão geral e leitura completa do card estão incorporados diretamente neste HTML.
+  - Ambos incluem legenda em português e funcionam sem conexão externa.
 
-  Como conectar mídia
-  - YouTube não listado: substitua SUBSTITUA_PELO_ID_DO_VIDEO no atributo
-    data-youtube-id pelo ID do vídeo. O JavaScript monta automaticamente um
-    iframe em youtube-nocookie.com. O proprietário deve permitir incorporação.
-  - Imagem ou GIF: substitua SUBSTITUA_PELO_CAMINHO_DA_IMAGEM_OU_GIF no
-    atributo data-media-src e ajuste data-media-alt. Caminhos locais e URLs
-    HTTPS são aceitos.
+  Design system e viabilidade
+  - Tokens, componentes, fontes e assets seguem a main de dev-vesta/landing_page.
+  - As fontes e logos oficiais foram incorporados como data URIs a partir dos arquivos
+    canônicos locais, verificados como idênticos aos blobs atuais do repositório de referência.
+  - A Wiki é um único arquivo autocontido: funciona sem build, servidor, internet ou biblioteca externa.
 -->
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Guia dos relatórios do piloto de retenção · GSM — Vesta</title>
-  <meta name="description" content="Wiki prática para a GSM ler o Radar 08h, o Radar 14h e o Relatório Diário do piloto de retenção.">
+  <title>Como ler o Radar · Wiki GSM — Vesta</title>
+  <meta name="description" content="Guia prático e acessível para a GSM entender o Radar e seus indicadores nos envios das 08h e das 14h.">
   <meta name="robots" content="noindex,nofollow">
   <link rel="canonical" href="https://www.vestabi.com/treinamentos/relatorios-piloto-gsm/">
-  <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#F1F5F8">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -41,625 +33,599 @@
   <link rel="preload" href="/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500 700;font-display:swap;src:url('/fonts/space-grotesk.woff2') format('woff2')}
-    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/fonts/plus-jakarta-sans.woff2') format('woff2')}
-    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 600;font-display:swap;src:url('/fonts/jetbrains-mono.woff2') format('woff2')}
+    /* Fontes canônicas da landing_page: mesmo arquivo variável, peso por declaração. */
+    @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/space-grotesk.woff2') format('woff2')}
+    @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/space-grotesk.woff2') format('woff2')}
+    @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/space-grotesk.woff2') format('woff2')}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/plus-jakarta-sans.woff2') format('woff2')}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/plus-jakarta-sans.woff2') format('woff2')}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/plus-jakarta-sans.woff2') format('woff2')}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/plus-jakarta-sans.woff2') format('woff2')}
+    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/jetbrains-mono.woff2') format('woff2')}
+    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/jetbrains-mono.woff2') format('woff2')}
 
+    /* Tokens canônicos, mantidos com os mesmos nomes e valores da landing_page. */
     [data-theme="dark"]{
-      --bg:#001B2A;--text:#EAF3F8;--panel:#04283C;--panel-2:#02202F;--panel-soft:rgba(234,243,248,.045);
-      --header:rgba(0,27,42,.88);--accent:#B36F3A;--accent-hi:#CE8A50;--on-accent:#fff;
-      --good:#4CC593;--good-soft:rgba(76,197,147,.12);--good-line:rgba(76,197,147,.32);
-      --warn:#E3B341;--warn-soft:rgba(227,179,65,.12);--warn-line:rgba(227,179,65,.32);
-      --bad:#E8776B;--bad-soft:rgba(232,119,107,.12);--bad-line:rgba(232,119,107,.32);
-      --muted:#9FAEB6;--line:#334B57;--ink-04:rgba(234,243,248,.04);--ink-07:rgba(234,243,248,.07);
-      --ink-10:rgba(234,243,248,.10);--ink-16:rgba(234,243,248,.16);--ink-24:rgba(234,243,248,.24);
-      --accent-08:rgba(179,111,58,.08);--accent-14:rgba(179,111,58,.14);--accent-32:rgba(179,111,58,.32);
-      --shadow:0 20px 55px rgba(0,0,0,.16);
+      --bg:#001B2A;--text:#EAF3F8;--panel1:#04283C;--panel2:#02202F;--panel-inner:rgba(0,27,42,.6);
+      --header-bg:rgba(0,27,42,.78);--acc:#B36F3A;--acc-hi:#CE8A50;--good:#4CC593;--good-soft:rgba(30,158,106,.14);
+      --on-acc:#FFFFFF;--glow:rgba(179,111,58,.13);
+      --ink-02:rgba(234,243,248,.02);--ink-035:rgba(234,243,248,.035);--ink-045:rgba(234,243,248,.045);
+      --ink-06:rgba(234,243,248,.06);--ink-07:rgba(234,243,248,.07);--ink-08:rgba(234,243,248,.08);
+      --ink-09:rgba(234,243,248,.09);--ink-1:rgba(234,243,248,.1);--ink-2:rgba(234,243,248,.2);
+      --ink-22:rgba(234,243,248,.22);--ink-25:rgba(234,243,248,.25);--ink-4:rgba(234,243,248,.4);
+      --ink-45:rgba(234,243,248,.45);--ink-5:rgba(234,243,248,.5);--ink-55:rgba(234,243,248,.55);
+      --ink-6:rgba(234,243,248,.6);--ink-62:rgba(234,243,248,.62);--ink-65:rgba(234,243,248,.65);
+      --ink-68:rgba(234,243,248,.68);--ink-85:rgba(234,243,248,.85);
+      --acc-05:rgba(179,111,58,.05);--acc-07:rgba(179,111,58,.07);--acc-08:rgba(179,111,58,.08);
+      --acc-09:rgba(179,111,58,.09);--acc-12:rgba(179,111,58,.12);--acc-13:rgba(179,111,58,.13);
+      --acc-14:rgba(179,111,58,.14);--acc-15:rgba(179,111,58,.15);--acc-16:rgba(179,111,58,.16);
+      --acc-25:rgba(179,111,58,.25);--acc-3:rgba(179,111,58,.3);--acc-35:rgba(179,111,58,.35);
+      --acc-4:rgba(179,111,58,.4);--acc-42:rgba(179,111,58,.42);--acc-45:rgba(179,111,58,.45);
+      --acc-5:rgba(179,111,58,.5);--acc-55:rgba(179,111,58,.55);
     }
     [data-theme="light"]{
-      --bg:#F1F5F8;--text:#002F49;--panel:#FFFFFF;--panel-2:#E9F0F5;--panel-soft:rgba(255,255,255,.78);
-      --header:rgba(241,245,248,.9);--accent:#A45F2C;--accent-hi:#8A4E22;--on-accent:#fff;
-      --good:#1A8C5E;--good-soft:rgba(26,140,94,.10);--good-line:rgba(26,140,94,.28);
-      --warn:#9B6508;--warn-soft:rgba(227,179,65,.13);--warn-line:rgba(181,115,10,.28);
-      --bad:#A65345;--bad-soft:rgba(166,83,69,.09);--bad-line:rgba(166,83,69,.26);
-      --muted:#4D6E81;--line:#BCC9D2;--ink-04:rgba(0,47,73,.04);--ink-07:rgba(0,47,73,.07);
-      --ink-10:rgba(0,47,73,.10);--ink-16:rgba(0,47,73,.16);--ink-24:rgba(0,47,73,.24);
-      --accent-08:rgba(164,95,44,.08);--accent-14:rgba(164,95,44,.14);--accent-32:rgba(164,95,44,.32);
-      --shadow:0 20px 55px rgba(0,47,73,.10);
+      --bg:#F1F5F8;--text:#002F49;--panel1:#FFFFFF;--panel2:#E9F0F5;--panel-inner:rgba(255,255,255,.8);
+      --header-bg:rgba(241,245,248,.85);--acc:#A45F2C;--acc-hi:#8A4E22;--good:#1A8C5E;--good-soft:rgba(26,140,94,.12);
+      --on-acc:#FFFFFF;--glow:rgba(164,95,44,.09);
+      --ink-02:rgba(0,47,73,.02);--ink-035:rgba(0,47,73,.035);--ink-045:rgba(0,47,73,.045);
+      --ink-06:rgba(0,47,73,.06);--ink-07:rgba(0,47,73,.07);--ink-08:rgba(0,47,73,.08);
+      --ink-09:rgba(0,47,73,.09);--ink-1:rgba(0,47,73,.1);--ink-2:rgba(0,47,73,.2);
+      --ink-22:rgba(0,47,73,.22);--ink-25:rgba(0,47,73,.25);--ink-4:rgba(0,47,73,.4);
+      --ink-45:rgba(0,47,73,.45);--ink-5:rgba(0,47,73,.5);--ink-55:rgba(0,47,73,.55);
+      --ink-6:rgba(0,47,73,.6);--ink-62:rgba(0,47,73,.62);--ink-65:rgba(0,47,73,.65);
+      --ink-68:rgba(0,47,73,.68);--ink-85:rgba(0,47,73,.85);
+      --acc-05:rgba(164,95,44,.05);--acc-07:rgba(164,95,44,.07);--acc-08:rgba(164,95,44,.08);
+      --acc-09:rgba(164,95,44,.09);--acc-12:rgba(164,95,44,.12);--acc-13:rgba(164,95,44,.13);
+      --acc-14:rgba(164,95,44,.14);--acc-15:rgba(164,95,44,.15);--acc-16:rgba(164,95,44,.16);
+      --acc-25:rgba(164,95,44,.25);--acc-3:rgba(164,95,44,.3);--acc-35:rgba(164,95,44,.35);
+      --acc-4:rgba(164,95,44,.4);--acc-42:rgba(164,95,44,.42);--acc-45:rgba(164,95,44,.45);
+      --acc-5:rgba(164,95,44,.5);--acc-55:rgba(164,95,44,.55);
     }
-
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;line-height:1.62;-webkit-font-smoothing:antialiased;transition:background .4s ease,color .4s ease}
     body.menu-open{overflow:hidden}
-    img{max-width:100%;display:block}
     button,a{font:inherit}
-    a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
-    a:hover{color:var(--accent-hi)}
-    a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:10px}
-    ::selection{background:var(--accent-32)}
-    .skip{position:fixed;left:16px;top:-60px;z-index:100;background:var(--text);color:var(--bg);padding:10px 16px;border-radius:0 0 10px 10px;font-weight:700}
-    .skip:focus{top:0}
-    .progress{position:fixed;z-index:80;left:0;right:0;top:0;height:3px;background:var(--ink-07)}
-    .progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-hi))}
-
-    .wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}
-    .narrow{width:min(900px,100%);margin-inline:auto}
+    a{color:var(--acc);text-decoration:none}
+    a:hover{color:var(--acc-hi)}
+    a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+    ::selection{background:var(--acc-25)}
+    .skip-link{position:absolute;left:12px;top:-60px;z-index:100;background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;text-decoration:none;transition:top .2s ease}
+    .skip-link:focus{top:12px;color:var(--on-acc)}
+    .progress{position:fixed;z-index:90;top:0;left:0;right:0;height:3px;background:var(--ink-06)}
+    .progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc-hi));border-radius:0 999px 999px 0}
+    .wrap{width:min(1200px,calc(100% - 48px));margin-inline:auto}
+    .narrow{width:min(850px,100%);margin-inline:auto}
     .mono{font-family:'JetBrains Mono',monospace}
-    .eyebrow{display:flex;align-items:center;gap:10px;color:var(--accent);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;margin:0 0 14px}
-    .eyebrow:before{content:"";width:28px;height:2px;background:var(--accent)}
-    .section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4.5vw,52px);line-height:1.06;letter-spacing:-1.6px;margin:0;max-width:16ch;text-wrap:balance}
-    .section-lead{font-size:18px;color:var(--muted);max-width:760px;margin:18px 0 0}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 12px;color:var(--acc);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}
+    .eyebrow:before{content:"";width:28px;height:2px;background:currentColor}
+    .section-title{max-width:17ch;margin:0;font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4.7vw,52px);line-height:1.06;letter-spacing:-1.6px;text-wrap:balance}
+    .section-lead{max-width:790px;margin:17px 0 0;color:var(--ink-65);font-size:18px}
     .section-head{margin-bottom:34px}
-    section{scroll-margin-top:86px;padding:92px 0}
-    .soft-section{background:var(--ink-04);border-block:1px solid var(--ink-07)}
-    .small-note{font-size:12.5px;color:var(--muted)}
-    .pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--accent-32);background:var(--accent-08);color:var(--accent);border-radius:999px;padding:6px 11px;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
-    .pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
-    .pill.good{color:var(--good);border-color:var(--good-line);background:var(--good-soft)}
-    .pill.warn{color:var(--warn);border-color:var(--warn-line);background:var(--warn-soft)}
-    .pill.bad{color:var(--bad);border-color:var(--bad-line);background:var(--bad-soft)}
+    section{padding:88px 0;scroll-margin-top:88px}
+    .soft-section{background:var(--ink-02);border-block:1px solid var(--ink-08)}
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border:1px solid var(--acc-35);border-radius:999px;background:var(--acc-08);color:var(--acc);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase}
+    .pill:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+    .plain-pill:before{display:none}
+    .small{font-size:12px;color:var(--ink-65)}
+    [data-reveal]{transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+    [data-reveal].vhide{opacity:0;transform:translateY(46px)}
+    ::-webkit-scrollbar{width:10px}
+    ::-webkit-scrollbar-thumb{background:var(--acc-3);border-radius:999px;border:2px solid transparent;background-clip:padding-box}
 
-    header{position:sticky;top:0;z-index:60;background:var(--header);backdrop-filter:blur(15px);border-bottom:1px solid var(--ink-07)}
-    .header-inner{height:74px;display:flex;align-items:center;gap:28px}
-    .brand{display:flex;align-items:center;gap:12px;flex:none;text-decoration:none;color:var(--text)}
-    .brand img{width:122px;height:auto}
-    .brand .logo-dark{display:none}
-    [data-theme="dark"] .brand .logo-dark{display:block}
-    [data-theme="dark"] .brand .logo-light{display:none}
-    .brand-tag{border-left:1px solid var(--ink-16);padding-left:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9.5px;line-height:1.35;letter-spacing:.7px;text-transform:uppercase;max-width:100px}
-    .desktop-nav{display:flex;align-items:center;justify-content:center;gap:2px;margin-left:auto}
-    .desktop-nav a,.mobile-nav a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;padding:9px 12px;border-radius:999px}
-    .desktop-nav a:hover,.desktop-nav a.active,.mobile-nav a:hover,.mobile-nav a.active{background:var(--accent-08);color:var(--text)}
-    .header-actions{display:flex;gap:8px}
-    .icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--ink-16);background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer;font-family:'Space Grotesk';font-weight:700}
-    .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
-    .menu-btn{display:none;width:auto;padding:0 14px;border-radius:999px;gap:8px}
-    .mobile-panel{display:none}
+    .cta{background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk',sans-serif;font-weight:700;border-radius:999px;transition:transform .14s,box-shadow .2s}
+    .cta:hover{color:var(--on-acc);transform:translateY(-3px);box-shadow:0 12px 32px var(--acc-4)}
+    .obtn{border:1px solid var(--ink-2);color:var(--text);transition:border-color .2s,transform .14s}
+    .obtn:hover{transform:translateY(-3px);color:var(--text);border-color:var(--ink-45)}
+    .pcard{background:var(--ink-035);border:1px solid var(--ink-08);transition:border-color .25s,transform .2s,background .25s}
+    .pcard:hover{border-color:var(--acc-45);transform:translateY(-4px);background:var(--acc-05)}
+    .vstep .slabel{font-size:11px;font-weight:700;letter-spacing:1px;transition:opacity .25s;opacity:0;color:var(--acc)}
+    .vstep .sdot{width:8px;height:8px;border-radius:999px;transition:all .3s;background:var(--ink-25)}
+    .vstep.on .slabel{opacity:1}.vstep.on .sdot{width:26px;background:var(--acc)}
 
-    .hero{position:relative;overflow:hidden;padding:88px 0 72px;border-bottom:1px solid var(--ink-07)}
-    .hero:before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--ink-04) 1px,transparent 1px),linear-gradient(90deg,var(--ink-04) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 70% 75% at 18% 18%,black 20%,transparent 78%)}
-    .hero:after{content:"";position:absolute;width:540px;height:540px;border-radius:50%;right:-180px;top:-220px;background:radial-gradient(circle,var(--accent-14),transparent 68%);pointer-events:none}
-    .hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(330px,.75fr);gap:70px;align-items:center}
-    .hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(44px,6.5vw,78px);line-height:.99;letter-spacing:-2.8px;margin:24px 0 0;max-width:13ch;text-wrap:balance}
-    .hero h1 span{color:var(--accent)}
-    .hero-lead{font-size:19px;color:var(--muted);max-width:670px;margin:24px 0 0}
-    .hero-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:32px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:999px;border:1px solid transparent;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:transform .16s,border-color .16s,box-shadow .16s}
+    .only-dark{display:none}.only-light{display:block}
+    [data-theme="dark"] .only-dark{display:block}[data-theme="dark"] .only-light{display:none}
+    header{position:sticky;z-index:70;top:0;border-bottom:1px solid var(--ink-07);background:var(--header-bg);backdrop-filter:blur(14px)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px}
+    .brand{display:flex;align-items:center;gap:14px;color:var(--text);text-decoration:none;flex:none}
+    .brand img{height:36px;width:auto}
+    .brand-tag{font-family:'JetBrains Mono',monospace;color:var(--ink-45);font-size:11px;font-weight:400;line-height:1.35;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+    .desktop-nav{display:flex;align-items:center;gap:1px;margin-left:auto}
+    .desktop-nav a,.mobile-nav a{padding:9px 15px;border-radius:999px;color:var(--ink-65);font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap}
+    .desktop-nav a:hover,.desktop-nav a.active,.mobile-nav a:hover,.mobile-nav a.active{color:var(--text)}
+    .header-actions{display:flex;align-items:center;gap:10px}
+    .icon-button{display:flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:1px solid var(--ink-22);border-radius:999px;background:transparent;color:var(--text);cursor:pointer;transition:border-color .2s;flex-shrink:0}
+    .icon-button:hover{border-color:var(--acc);color:var(--acc)}
+    .ico-open,.ico-close,.ico-sun,.ico-moon{display:flex;align-items:center;justify-content:center}
+    #themeButton .ico-sun{display:none}#themeButton .ico-moon{display:flex}
+    [data-theme="dark"] #themeButton .ico-sun{display:flex}[data-theme="dark"] #themeButton .ico-moon{display:none}
+    .menu-button{display:none}
+    .menu-button .ico-close{display:none}.menu-button[aria-expanded="true"] .ico-open{display:none}.menu-button[aria-expanded="true"] .ico-close{display:flex}
+    .mobile-panel{display:flex;flex-direction:column;max-height:0;opacity:0;overflow:hidden;transition:max-height .3s cubic-bezier(.22,1,.36,1),opacity .25s ease}
+    .mobile-panel.open{max-height:460px;opacity:1}
+    .mobile-nav{display:flex;flex-direction:column;max-width:1200px;width:calc(100% - 48px);margin-inline:auto;padding:4px 0 20px}
+    .mobile-nav a{padding:13px 4px;border-radius:0}
+
+    .hero{position:relative;overflow:hidden;padding:104px 0 80px;border-bottom:1px solid var(--ink-08)}
+    .hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--ink-045) 1px,transparent 1px),linear-gradient(90deg,var(--ink-045) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 80% at 50% 20%,black 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 20%,black 30%,transparent 75%);pointer-events:none}
+    .hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);gap:68px;align-items:center}
+    .hero h1{max-width:13ch;margin:23px 0 0;font-family:'Space Grotesk',sans-serif;font-size:clamp(46px,6.5vw,78px);line-height:.98;letter-spacing:-3px;text-wrap:balance}
+    .hero h1 span{color:var(--acc)}
+    .hero-lead{max-width:680px;margin:24px 0 0;color:var(--ink-65);font-size:19px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:31px}
+    .btn{display:inline-flex;min-height:48px;align-items:center;justify-content:center;gap:8px;padding:12px 21px;border:1px solid transparent;border-radius:999px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:transform .15s,box-shadow .15s,border-color .15s}
     .btn:hover{transform:translateY(-2px)}
-    .btn-primary{background:var(--accent);color:var(--on-accent);box-shadow:0 10px 26px var(--accent-14)}
-    .btn-primary:hover{color:var(--on-accent);box-shadow:0 14px 32px var(--accent-32)}
-    .btn-secondary{border-color:var(--ink-24);color:var(--text);background:var(--panel-soft)}
-    .btn-secondary:hover{color:var(--text);border-color:var(--accent)}
-    .assurance{display:flex;gap:18px;flex-wrap:wrap;margin-top:30px;color:var(--muted);font-size:12.5px}
-    .assurance span{display:flex;align-items:center;gap:7px}
-    .assurance i{width:6px;height:6px;border-radius:50%;background:var(--good)}
+    .btn-primary{box-shadow:0 10px 25px var(--acc-25)}
+    .btn-secondary{background:transparent}
+    .truth-strip{display:flex;gap:18px;flex-wrap:wrap;margin-top:27px;color:var(--ink-65);font-size:12.5px;font-weight:700}
+    .truth-strip span{display:flex;align-items:center;gap:7px}
+    .truth-strip i{width:6px;height:6px;border-radius:50%;background:var(--good)}
 
-    .decision-card{position:relative;background:linear-gradient(155deg,var(--panel),var(--panel-2));border:1px solid var(--ink-10);border-radius:28px;padding:26px;box-shadow:var(--shadow);overflow:hidden}
-    .decision-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
-    .decision-card h2{font-family:'Space Grotesk';font-size:23px;letter-spacing:-.5px;margin:16px 0 6px}
-    .decision-card>p{font-size:13.5px;color:var(--muted);margin:0 0 18px}
-    .mini-flow{display:grid;gap:8px}
-    .mini-step{display:grid;grid-template-columns:34px 1fr;gap:11px;align-items:center;border:1px solid var(--ink-07);background:var(--panel-soft);border-radius:14px;padding:10px 12px}
-    .mini-step b{width:34px;height:34px;border-radius:11px;background:var(--accent-08);color:var(--accent);display:grid;place-items:center;font-family:'Space Grotesk'}
-    .mini-step span{font-size:13.5px;font-weight:600}
-    .decision-footer{margin-top:16px;padding-top:14px;border-top:1px solid var(--ink-10);font-size:12px;color:var(--muted)}
+    .radar-illustration{position:relative;min-height:440px;display:grid;place-items:center}
+    .radar-glow{position:absolute;width:410px;height:410px;border-radius:50%;background:radial-gradient(circle,var(--acc-25),transparent 67%)}
+    .radar-sheet{position:relative;width:min(370px,100%);border:1px solid var(--ink-09);border-radius:27px;background:var(--panel1);box-shadow:0 18px 52px var(--ink-1);overflow:hidden;transform:rotate(1.2deg)}
+    .sheet-head{display:flex;align-items:center;justify-content:space-between;padding:22px;border-bottom:1px solid var(--ink-08);background:linear-gradient(135deg,var(--panel1),var(--panel2));color:var(--text)}
+    .sheet-head strong{font-family:'Space Grotesk',sans-serif;font-size:18px}
+    .sheet-head span{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-45)}
+    .sheet-body{padding:18px;display:grid;gap:11px}
+    .sheet-row{display:grid;grid-template-columns:44px 1fr auto;gap:11px;align-items:center;padding:12px;border:1px solid var(--ink-09);border-radius:14px;background:color-mix(in srgb,var(--panel2) 44%,transparent)}
+    .sheet-risk{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--acc-13);color:var(--acc);font-family:'Space Grotesk',sans-serif;font-weight:700}
+    .sheet-lines{display:grid;gap:6px}.sheet-lines i{display:block;height:6px;border-radius:8px;background:var(--ink-09)}.sheet-lines i:first-child{width:76%;background:var(--ink-65)}
+    .sheet-tag{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-65)}
+    .sheet-note{display:flex;justify-content:space-between;align-items:center;padding:0 4px 3px;color:var(--ink-65);font-size:10px}
+    .mask-badge{position:absolute;right:-9px;bottom:20px;padding:10px 13px;border-radius:12px;background:var(--good);color:var(--on-acc);box-shadow:0 12px 26px var(--ink-2);font-size:11px;font-weight:700;transform:rotate(-2deg)}
 
-    .start-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink-10);border-radius:24px;overflow:hidden;background:var(--panel)}
-    .start-step{padding:25px 22px;position:relative;min-height:178px;border-right:1px solid var(--ink-10)}
-    .start-step:last-child{border-right:none}
-    .start-step .num{font-family:'Space Grotesk';font-size:36px;line-height:1;color:var(--accent)}
-    .start-step h3{font-family:'Space Grotesk';font-size:17px;margin:17px 0 7px;letter-spacing:-.2px}
-    .start-step p{font-size:13.5px;color:var(--muted);margin:0}
-    .guardrail{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;margin-top:22px;padding:18px 20px;border:1px solid var(--warn-line);background:var(--warn-soft);border-radius:16px}
-    .guardrail b{color:var(--warn)}
-    .guardrail p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+    .definition-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .definition-card{padding:24px;border:1px solid var(--ink-09);border-radius:21px;background:var(--panel1)}
+    .definition-card .num{width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:var(--acc-12);color:var(--acc);font-family:'Space Grotesk',sans-serif;font-weight:700}
+    .definition-card h3{margin:17px 0 7px;font-family:'Space Grotesk',sans-serif;font-size:19px}
+    .definition-card p{margin:0;color:var(--ink-65);font-size:14px}
+    .notice{display:grid;grid-template-columns:auto 1fr;gap:15px;align-items:start;margin-top:22px;padding:18px 20px;border:1px solid var(--acc-3);border-radius:17px;background:var(--acc-08)}
+    .notice strong{color:var(--acc)}.notice p{margin:2px 0 0;color:var(--ink-65);font-size:14px}
 
-    .report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .report-card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--ink-10);border-radius:24px;padding:25px;min-height:420px;position:relative;overflow:hidden;transition:transform .18s,border-color .18s,box-shadow .18s}
-    .report-card:hover{transform:translateY(-4px);border-color:var(--accent-32);box-shadow:var(--shadow)}
-    .report-card:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--accent)}
-    .report-time{font-family:'Space Grotesk';font-size:42px;line-height:1;color:var(--text);margin:20px 0 10px}
-    .report-time small{font-size:16px;color:var(--muted);font-weight:500}
-    .report-card h3{font-family:'Space Grotesk';font-size:22px;letter-spacing:-.4px;margin:0 0 10px}
-    .report-card>p{color:var(--muted);font-size:14px;margin:0 0 18px}
-    .card-list{display:grid;gap:12px;margin-top:auto}
-    .card-list div{border-top:1px solid var(--ink-10);padding-top:12px}
-    .card-list small{display:block;color:var(--accent);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
-    .card-list span{font-size:13.5px;font-weight:600}
-    .prototype-flag{margin-top:24px;border:1px dashed var(--accent-32);border-radius:14px;padding:13px 15px;color:var(--muted);font-size:12.5px;background:var(--accent-08)}
+    .moments{display:grid;grid-template-columns:1fr 100px 1fr;align-items:stretch}
+    .moment-card{position:relative;padding:28px;border:1px solid var(--ink-09);border-radius:24px;background:var(--panel1)}
+    .moment-time{font-family:'Space Grotesk',sans-serif;font-size:52px;line-height:1;color:var(--acc);letter-spacing:-2px}
+    .moment-card h3{margin:16px 0 8px;font-family:'Space Grotesk',sans-serif;font-size:23px}
+    .moment-card p{margin:0;color:var(--ink-65);font-size:14px}
+    .moment-list{display:grid;gap:9px;margin-top:20px}
+    .moment-list div{display:flex;gap:9px;align-items:flex-start;padding-top:10px;border-top:1px solid var(--ink-09);font-size:13px;font-weight:700}
+    .moment-list i{width:7px;height:7px;margin-top:7px;border-radius:50%;background:var(--acc);flex:none}
+    .same-bridge{display:grid;place-items:center;position:relative}
+    .same-bridge:before{content:"";position:absolute;left:0;right:0;height:2px;background:var(--acc)}
+    .same-bridge span{position:relative;z-index:1;width:78px;height:78px;display:grid;place-items:center;border:2px solid var(--acc);border-radius:50%;background:var(--bg);color:var(--acc);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;text-align:center;line-height:1.15;text-transform:uppercase}
+    .same-summary{margin-top:24px;padding:22px 24px;border:1px solid var(--acc-35);border-radius:20px;background:var(--acc-08);color:var(--text);text-align:center}
+    .same-summary strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:22px}.same-summary span{display:block;margin-top:5px;color:var(--ink-65);font-size:14px}
 
-    .compare{margin-top:28px;border:1px solid var(--ink-10);border-radius:22px;overflow:auto;background:var(--panel)}
-    .compare table{border-collapse:collapse;width:100%;min-width:760px}
-    .compare th,.compare td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--ink-10);font-size:13.5px;vertical-align:top}
-    .compare tr:last-child td{border-bottom:none}
-    .compare th{color:var(--muted);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;background:var(--ink-04)}
-    .compare td:first-child{font-family:'Space Grotesk';font-weight:700;color:var(--accent)}
+    .reading-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:25px;align-items:start}
+    .reading-steps{display:grid;gap:12px}
+    .reading-step{display:grid;grid-template-columns:46px 1fr;gap:14px;padding:18px;border:1px solid var(--ink-09);border-radius:18px;background:var(--panel1)}
+    .reading-step b{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:var(--acc-12);color:var(--acc);font-family:'Space Grotesk',sans-serif;font-size:19px}
+    .reading-step h3{margin:1px 0 5px;font-family:'Space Grotesk',sans-serif;font-size:17px}
+    .reading-step p{margin:0;color:var(--ink-65);font-size:13.5px}
+    .reading-aside{position:sticky;top:98px;padding:27px;border:1px solid var(--ink-08);border-radius:24px;background:linear-gradient(150deg,var(--panel1),var(--panel2));color:var(--text);box-shadow:0 18px 52px var(--ink-1)}
+    .reading-aside h3{margin:20px 0 11px;font-family:'Space Grotesk',sans-serif;font-size:28px;line-height:1.1}
+    .reading-aside p{margin:0;color:var(--ink-65);font-size:14px}
+    .reading-aside ol{margin:20px 0 0;padding:18px 0 0 20px;border-top:1px solid var(--ink-2)}
+    .reading-aside li{padding:5px 0;color:var(--text);font-size:13.5px;font-weight:700}
 
-    .guide-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);gap:24px;align-items:start}
-    .alert-demo{background:var(--panel);border:1px solid var(--ink-10);border-radius:24px;overflow:hidden}
-    .alert-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border-bottom:1px solid var(--ink-10)}
-    .protocol{font-family:'JetBrains Mono';font-size:12.5px;font-weight:600}
-    .alert-body{padding:22px;display:grid;gap:12px}
-    .signal-row{border:1px solid var(--ink-10);border-radius:15px;padding:15px 16px;cursor:pointer;background:var(--panel-soft);transition:border-color .15s,background .15s}
-    .signal-row:hover,.signal-row.active{border-color:var(--accent-32);background:var(--accent-08)}
-    .signal-row button{all:unset;display:block;width:100%;cursor:pointer}
-    .signal-row small{display:block;color:var(--accent);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-    .signal-row span{font-size:14px;font-weight:600}
-    .alert-meta{display:flex;gap:8px;flex-wrap:wrap;padding:0 22px 22px}
-    .meta-chip{border:1px solid var(--ink-10);background:var(--ink-04);border-radius:999px;padding:6px 10px;font-size:11.5px;color:var(--muted)}
-    .guide-panel{position:sticky;top:100px;border-radius:24px;background:linear-gradient(155deg,#04283C,#02202F);color:#EAF3F8;border:1px solid rgba(206,138,80,.32);padding:26px;min-height:390px}
-    .guide-panel .pill{color:#CE8A50;border-color:rgba(206,138,80,.32);background:rgba(179,111,58,.12)}
-    .guide-panel h3{font-family:'Space Grotesk';font-size:28px;line-height:1.12;letter-spacing:-.7px;margin:22px 0 12px;color:#EAF3F8}
-    .guide-panel p{color:#B9CBD5;font-size:14.5px;margin:0 0 20px}
-    .guide-rule{border-top:1px solid rgba(234,243,248,.12);padding-top:17px;margin-top:18px;color:#EAF3F8;font-size:14px;font-weight:600}
-    .guide-buttons{display:flex;gap:7px;flex-wrap:wrap;margin-top:24px}
-    .guide-buttons button{width:34px;height:34px;border-radius:50%;border:1px solid rgba(234,243,248,.22);background:transparent;color:#B9CBD5;cursor:pointer;font-family:'Space Grotesk';font-weight:700}
-    .guide-buttons button.active{background:#B36F3A;border-color:#B36F3A;color:white}
-    .privacy-note{margin-top:18px;padding:14px 16px;background:var(--good-soft);border:1px solid var(--good-line);border-radius:14px;font-size:13px;color:var(--muted)}
-    .privacy-note b{color:var(--good)}
+    .indicator-map{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .indicator-group{padding:23px;border:1px solid var(--ink-09);border-radius:21px;background:var(--panel1)}
+    .indicator-group:nth-child(2){border-top:4px solid var(--good)}
+    .indicator-group:nth-child(3){border-top:4px solid var(--acc)}
+    .indicator-group h3{margin:15px 0 7px;font-family:'Space Grotesk',sans-serif;font-size:20px}
+    .indicator-group p{margin:0;color:var(--ink-65);font-size:13.5px}
+    .indicator-group ul{display:grid;gap:8px;margin:17px 0 0;padding:0;list-style:none}
+    .indicator-group li{padding:10px 11px;border-radius:11px;background:var(--panel2);font-size:13px;font-weight:700}
+    .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+    .legend span{padding:8px 11px;border:1px solid var(--ink-09);border-radius:999px;background:var(--panel1);font-size:12px;font-weight:700}
+    .legend b{margin-right:5px}.legend .fact{color:var(--good)}.legend .ai{color:var(--acc)}
 
-    .ai-banner{display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;border:1px solid var(--accent-32);background:var(--accent-08);border-radius:24px;padding:28px 30px;margin-bottom:28px}
-    .ai-banner h3{font-family:'Space Grotesk';font-size:25px;letter-spacing:-.5px;margin:0 0 7px}
-    .ai-banner p{margin:0;color:var(--muted);font-size:14.5px;max-width:770px}
-    .ai-stamp{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--accent-32);color:var(--accent);font-family:'Space Grotesk';font-weight:700;text-align:center;font-size:12px;line-height:1.25;background:var(--panel)}
-    .impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .impact-card{background:var(--panel);border:1px solid var(--ink-10);border-radius:20px;padding:22px}
-    .impact-card h3{font-family:'Space Grotesk';font-size:20px;margin:16px 0 8px}
-    .impact-card p{color:var(--muted);font-size:13.5px;margin:0 0 15px}
-    .impact-card strong{display:block;border-top:1px solid var(--ink-10);padding-top:14px;font-size:13px}
-    .impact-card.low{border-top:4px solid var(--good)}
-    .impact-card.medium{border-top:4px solid var(--warn)}
-    .impact-card.high{border-top:4px solid var(--bad)}
+    .case-shell{overflow:hidden;border:1px solid var(--ink-09);border-radius:26px;background:var(--panel1);box-shadow:0 18px 52px var(--ink-1)}
+    .case-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding:25px;background:linear-gradient(145deg,var(--panel1),var(--panel2));color:var(--text)}
+    .case-head small{display:block;color:var(--ink-45);font-size:11px;text-transform:uppercase;letter-spacing:1px}
+    .case-head h3{margin:5px 0 0;font-family:'JetBrains Mono',monospace;font-size:19px}
+    .case-head p{max-width:510px;margin:8px 0 0;color:var(--ink-65);font-size:13px}
+    .case-head .pill{white-space:nowrap}
+    .case-privacy{display:flex;gap:9px;align-items:center;padding:13px 24px;border-bottom:1px solid var(--ink-09);background:var(--good-soft);color:var(--good);font-size:12px;font-weight:700}
+    .indicator-list{padding:8px 24px 24px}
+    .indicator-card{padding:24px 0;border-bottom:1px solid var(--ink-09)}
+    .indicator-card:last-child{border-bottom:none;padding-bottom:4px}
+    .indicator-title{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:13px;align-items:center;margin-bottom:15px}
+    .indicator-title .index{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:var(--acc-12);color:var(--acc);font-family:'Space Grotesk',sans-serif;font-weight:700}
+    .indicator-title h4{margin:0;font-family:'Space Grotesk',sans-serif;font-size:18px}.indicator-title p{margin:2px 0 0;color:var(--ink-65);font-size:12px}
+    .value{max-width:290px;padding:7px 10px;border-radius:9px;background:var(--panel2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;text-align:right}
+    .three-views{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-left:55px}
+    .view-box{min-height:125px;padding:15px;border:1px solid var(--ink-09);border-radius:14px;background:color-mix(in srgb,var(--panel2) 32%,transparent)}
+    .view-box small{display:flex;align-items:center;gap:7px;margin-bottom:7px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+    .view-box small:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+    .view-box.fact small{color:var(--good)}.view-box.ai small{color:var(--acc)}.view-box.action small{color:var(--text)}
+    [data-theme="dark"] .view-box.action small{color:var(--text)}
+    .view-box p{margin:0;color:var(--ink-65);font-size:12.5px}
+    .human-rule{margin-top:25px;padding:21px 23px;border:1px solid var(--acc-3);border-radius:18px;background:var(--acc-08)}
+    .human-rule strong{display:block;color:var(--acc);font-family:'Space Grotesk',sans-serif;font-size:18px}.human-rule p{margin:5px 0 0;color:var(--ink-65);font-size:13.5px}
 
-    .tracker-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px}
-    .tracker-steps{display:grid;gap:12px}
-    .tracker-step{display:grid;grid-template-columns:42px 1fr;gap:13px;padding:17px;background:var(--panel);border:1px solid var(--ink-10);border-radius:17px}
-    .tracker-step .num{width:42px;height:42px;border-radius:13px;background:var(--accent-08);color:var(--accent);display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700}
-    .tracker-step h3{font-family:'Space Grotesk';font-size:16px;margin:1px 0 5px}
-    .tracker-step p{color:var(--muted);font-size:13px;margin:0}
-    .tracker-card{background:var(--panel);border:1px solid var(--ink-10);border-radius:24px;overflow:hidden}
-    .tracker-card-head{padding:18px 20px;border-bottom:1px solid var(--ink-10);display:flex;justify-content:space-between;gap:14px;align-items:center}
-    .tracker-card-head h3{font-family:'Space Grotesk';font-size:18px;margin:0}
-    .tracker-card-body{padding:20px}
-    .field-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .fake-field{border:1px solid var(--ink-10);background:var(--ink-04);border-radius:13px;padding:11px 12px;min-height:67px}
-    .fake-field.full{grid-column:1/-1}
-    .fake-field small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
-    .fake-field span{font-size:12.5px;font-weight:600}
-    .tracker-check{margin-top:18px;border-top:1px solid var(--ink-10);padding-top:16px}
-    .tracker-check-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:10px}
-    .tracker-check-head b{font-family:'Space Grotesk';font-size:14px}
-    .check-count{font-family:'JetBrains Mono';font-size:11px;color:var(--accent)}
-    .check-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-    .check-buttons button{display:flex;gap:9px;align-items:center;text-align:left;border:1px solid var(--ink-10);background:transparent;color:var(--muted);border-radius:12px;padding:10px 11px;cursor:pointer;font-size:11.5px}
-    .check-buttons button:before{content:"";width:16px;height:16px;flex:none;border:1px solid var(--ink-24);border-radius:5px}
-    .check-buttons button.done{color:var(--text);background:var(--good-soft);border-color:var(--good-line)}
-    .check-buttons button.done:before{content:"✓";display:grid;place-items:center;background:var(--good);border-color:var(--good);color:white;font-size:10px;font-weight:800}
+    .radar-example-figure{margin:0;overflow:hidden;border:1px solid var(--ink-09);border-radius:24px;background:var(--panel1);box-shadow:0 18px 52px var(--ink-1)}
+    .radar-example-figure>img{display:none}
+    .example-card-svg{display:block;width:100%;height:auto;background:#fff}
+    .example-svg-stage{box-sizing:border-box;width:1500px;height:563px;padding:24px;background:#fff;font-family:Arial,sans-serif;color:#17243f}
+    .ex-card{position:relative;box-sizing:border-box;width:1452px;border:1px solid #dbe3ef;border-left:12px solid #e9352d;border-radius:24px;background:#fbfcfe;padding:48px 24px 18px;box-shadow:0 6px 24px rgba(25,54,100,.06)}
+    .ex-demo{position:absolute;right:24px;top:7px;padding:7px 14px;border-radius:999px;background:#17243f;color:#fff;font:700 12px/1 Arial;letter-spacing:1.3px;text-transform:uppercase}
+    .ex-top{display:grid;grid-template-columns:280px 1fr auto;align-items:center;gap:18px;margin-bottom:18px}.ex-protocol small,.ex-box-title{display:block;color:#697892;font:700 12px/1.2 monospace;letter-spacing:1.7px;text-transform:uppercase}.ex-protocol strong{display:block;margin-top:7px;color:#2145a5;font-size:28px;line-height:1}.ex-meta{display:flex;gap:10px;flex-wrap:wrap}.ex-pill{padding:10px 15px;border-radius:999px;background:#f4f6fb;color:#586680;font-size:15px}.ex-pill b{color:#17243f;margin-left:5px}.ex-priority{display:flex;align-items:center;gap:13px;color:#bd261f;font-weight:700;font-size:16px;white-space:nowrap}.ex-priority b{padding:11px 19px;border-radius:999px;background:#e9352d;color:#fff;font:700 13px/1 monospace;letter-spacing:1.6px}
+    .ex-signals{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}.ex-signal{box-sizing:border-box;min-height:98px;border:1px solid #dbe3ef;border-radius:18px;background:#fff;padding:14px 15px 12px}.ex-sig-head{display:flex;justify-content:space-between;gap:12px;font-weight:700;font-size:15px}.ex-value.bad{color:#c52c25}.ex-value.warn{color:#a85a00}.ex-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:7px 0 6px}.ex-bar i{height:7px;border-radius:999px;background:#e3e8f1}.ex-bar.bad i:first-child{background:#e9352d}.ex-bar.warn i:nth-child(2){background:#ed8a16}.ex-signal p{margin:0;color:#697892;font-size:12.5px;line-height:1.3}
+    .ex-actions{display:grid;grid-template-columns:1.05fr 1fr;gap:14px}.ex-reason,.ex-next{box-sizing:border-box;min-height:99px;border-radius:18px;padding:15px 17px}.ex-reason{border:1px solid #f0cbc7;background:#fff9f8}.ex-next{border:1px solid #cbd9f5;background:#f5f8ff}.ex-reason .ex-box-title{color:#9c2b25}.ex-next .ex-box-title{color:#2145a5}.ex-reason p{margin:7px 0 0;font-size:15px;line-height:1.35}.ex-step{display:flex;align-items:flex-start;gap:10px;margin-top:7px;font-size:14px}.ex-step b{display:grid;place-items:center;flex:0 0 25px;height:25px;border-radius:50%;background:#2145a5;color:#fff}.ex-footer{display:flex;align-items:center;gap:12px;margin-top:13px}.ex-footer .ex-pill{padding:8px 14px}.ex-privacy{margin-left:auto;color:#697892;font:700 11px/1.2 monospace;letter-spacing:1.2px;text-transform:uppercase}
+    .radar-example-figure figcaption{padding:14px 18px;border-top:1px solid var(--ink-09);color:var(--ink-65);font-size:12.5px}
+    .radar-example-figure figcaption strong{color:var(--good)}
+    .mobile-scroll-hint{display:none}
+    .read-order{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 28px}
+    .read-order div{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1px solid var(--ink-09);border-radius:14px;background:var(--panel1);color:var(--ink-65);font-size:12px}
+    .read-order b{width:26px;height:26px;display:grid;place-items:center;flex:none;border-radius:9px;background:var(--acc-12);color:var(--acc);font-family:'Space Grotesk',sans-serif}
+    .indicator-guide-title{margin:0 0 15px;font-family:'Space Grotesk',sans-serif;font-size:27px;letter-spacing:-.5px}
+    .indicator-guide-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .guide-card{padding:21px;border:1px solid var(--ink-09);border-radius:18px;background:var(--panel1)}
+    .guide-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+    .guide-card h3{margin:0;font-family:'Space Grotesk',sans-serif;font-size:19px}
+    .guide-card p{margin:10px 0 0;color:var(--ink-65);font-size:13px}
+    .guide-source{padding:5px 8px;border-radius:999px;background:var(--acc-09);color:var(--acc);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
+    .guide-source.fact{background:var(--good-soft);color:var(--good)}
+    .band-list{display:grid;gap:6px;margin:14px 0 0;padding:13px 0 0;border-top:1px solid var(--ink-09);list-style:none}
+    .band-list li{color:var(--ink-65);font-size:12px}.band-list b{color:var(--text)}
+    .priority-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+    .priority-card{padding:18px;border:1px solid var(--ink-09);border-radius:17px;background:var(--panel1)}
+    .priority-card h3{margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-size:16px}.priority-card p{margin:0;color:var(--ink-65);font-size:12.5px}
 
-    .thermo-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,.65fr);gap:24px;align-items:start}
-    .meter-card{background:var(--panel);border:1px solid var(--ink-10);border-radius:24px;padding:24px}
-    .meter-card h3{font-family:'Space Grotesk';font-size:21px;margin:0 0 18px}
-    .meter-list{display:grid;gap:17px}
-    .meter-item{display:grid;grid-template-columns:150px 1fr auto;align-items:center;gap:12px}
-    .meter-item b{font-size:12.5px}
-    .meter-rail{height:10px;border-radius:999px;background:var(--ink-10);overflow:hidden}
-    .meter-rail span{display:block;height:100%;border-radius:inherit;background:var(--accent)}
-    .meter-item small{color:var(--muted);font-size:10.5px;min-width:60px;text-align:right}
-    .meter-explain{background:linear-gradient(155deg,var(--panel),var(--panel-2));border:1px solid var(--ink-10);border-radius:24px;padding:24px}
-    .meter-explain h3{font-family:'Space Grotesk';font-size:24px;margin:17px 0 10px}
-    .meter-explain p{font-size:13.5px;color:var(--muted);margin:0 0 14px}
-    .meter-explain ol{padding-left:20px;margin:15px 0 0;color:var(--muted);font-size:13px}
-    .meter-explain li{margin:7px 0}
-    .meter-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
-    .legend-item{border:1px solid var(--ink-10);border-radius:14px;padding:12px;background:var(--panel)}
-    .legend-item b{display:flex;align-items:center;gap:7px;font-size:12px}
-    .legend-item i{width:8px;height:8px;border-radius:50%}
-    .legend-item p{font-size:10.5px;color:var(--muted);margin:5px 0 0}
+    .image-placeholder{display:grid;grid-template-columns:1fr .8fr;min-height:340px;overflow:hidden;border:1px dashed var(--acc-55);border-radius:24px;background:var(--panel1)}
+    .image-copy{padding:34px;display:flex;flex-direction:column;justify-content:center}
+    .image-copy h3{margin:18px 0 10px;font-family:'Space Grotesk',sans-serif;font-size:28px;line-height:1.12}.image-copy p{margin:0;color:var(--ink-65);font-size:14px}
+    .image-copy code{display:block;width:max-content;max-width:100%;margin-top:19px;padding:8px 10px;border-radius:8px;background:var(--panel2);color:var(--acc);font-family:'JetBrains Mono',monospace;font-size:10px;word-break:break-all}
+    .image-art{position:relative;display:grid;place-items:center;overflow:hidden;background:linear-gradient(145deg,var(--panel1),var(--panel2))}
+    .image-art:before{content:"";width:220px;height:270px;border:1px solid var(--ink-2);border-radius:18px;background:var(--ink-08);box-shadow:0 20px 45px var(--ink-2);transform:rotate(5deg)}
+    .image-art:after{content:"CAPTURA\A ANONIMIZADA";white-space:pre;position:absolute;color:var(--ink-65);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.4px;text-align:center;line-height:1.5}
 
-    .opa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:28px}
-    .opa-card{border:1px solid var(--ink-10);background:var(--panel);border-radius:20px;padding:22px}
-    .opa-card h3{font-family:'Space Grotesk';font-size:19px;margin:0 0 12px}
-    .status-example{border-radius:14px;padding:13px 14px;margin-top:10px}
-    .status-example.bad{border:1px solid var(--bad-line);background:var(--bad-soft)}
-    .status-example.good{border:1px solid var(--good-line);background:var(--good-soft)}
-    .status-example small{display:block;text-transform:uppercase;letter-spacing:.8px;font-size:9.5px;font-weight:700;margin-bottom:4px}
-    .status-example.bad small{color:var(--bad)}
-    .status-example.good small{color:var(--good)}
-    .status-example p{margin:0;font-size:12.5px;color:var(--muted)}
-    .quality-list{display:grid;gap:8px;margin-top:14px}
-    .quality-list div{display:flex;gap:9px;font-size:12.5px;color:var(--muted)}
-    .quality-list div:before{content:"✓";color:var(--good);font-weight:800}
-
-    .media-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    .media-card{background:var(--panel);border:1px solid var(--ink-10);border-radius:22px;overflow:hidden}
-    .media-card.wide{grid-column:1/-1;display:grid;grid-template-columns:1.15fr .85fr}
-    .embed-shell{aspect-ratio:16/9;background:linear-gradient(145deg,#04283C,#001B2A);position:relative;display:grid;place-items:center;color:#EAF3F8;overflow:hidden}
-    .media-card.wide .embed-shell{aspect-ratio:auto;min-height:280px}
-    .embed-shell iframe,.embed-shell img{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
-    .embed-placeholder{width:min(82%,420px);text-align:center;padding:22px}
-    .play-mark{width:62px;height:62px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;background:rgba(206,138,80,.16);border:1px solid rgba(206,138,80,.45);color:#CE8A50;font-family:'Space Grotesk';font-size:22px}
-    .embed-placeholder b{display:block;font-family:'Space Grotesk';font-size:16px;margin-bottom:7px}
-    .embed-placeholder p{font-size:12px;color:#B9CBD5;margin:0}
-    .embed-placeholder code{display:inline-block;margin-top:10px;font-family:'JetBrains Mono';font-size:9.5px;color:#CE8A50;background:rgba(179,111,58,.12);padding:5px 8px;border-radius:7px}
-    .media-copy{padding:20px 22px}
-    .media-copy h3{font-family:'Space Grotesk';font-size:19px;margin:11px 0 7px}
-    .media-copy p{font-size:13px;color:var(--muted);margin:0}
-    .media-copy ul{padding-left:18px;color:var(--muted);font-size:12.5px;margin:12px 0 0}
-    .media-copy li{margin:5px 0}
+    .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .video-card{overflow:hidden;border:1px solid var(--ink-09);border-radius:23px;background:var(--panel1)}
+    .video-slot{aspect-ratio:16/9;display:grid;place-items:center;padding:24px;background:linear-gradient(145deg,var(--panel1),var(--panel2));color:var(--text);text-align:center}
+    .video-slot iframe{width:100%;height:100%;border:0}
+    .video-slot.has-video{padding:0;background:#000}
+    .video-slot video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
+    .play{width:58px;height:58px;display:grid;place-items:center;margin:0 auto 13px;border:1px solid var(--acc-4);border-radius:50%;background:var(--acc-16);color:var(--acc);font-size:20px}
+    .video-slot strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:17px}.video-slot p{margin:6px 0 0;color:var(--ink-65);font-size:12px}.video-slot code{display:inline-block;margin-top:11px;padding:6px 8px;border-radius:7px;background:var(--ink-08);color:var(--acc);font-family:'JetBrains Mono',monospace;font-size:9px}
+    .video-copy{padding:22px}.video-copy h3{margin:14px 0 7px;font-family:'Space Grotesk',sans-serif;font-size:21px}.video-copy p{margin:0;color:var(--ink-65);font-size:13.5px}
 
     .faq-list{display:grid;gap:10px}
-    .faq{border:1px solid var(--ink-10);background:var(--panel);border-radius:18px;overflow:hidden}
+    .faq{border:1px solid var(--ink-1);background:var(--panel1);border-radius:18px;overflow:hidden}
     .faq button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:18px;text-align:left;padding:19px 20px;border:0;background:transparent;color:var(--text);cursor:pointer;font-family:'Space Grotesk';font-size:15px;font-weight:700}
-    .faq button span:last-child{width:28px;height:28px;border:1px solid var(--accent-32);border-radius:50%;display:grid;place-items:center;color:var(--accent);flex:none}
+    .faq button span:last-child{width:28px;height:28px;border:1px solid var(--acc-4);border-radius:50%;display:grid;place-items:center;color:var(--acc);flex:none}
     .faq .answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .2s ease}
     .faq .answer>div{overflow:hidden}
-    .faq .answer p{color:var(--muted);font-size:13.5px;margin:0;padding:0 20px 0}
+    .faq .answer p{color:var(--ink-65);font-size:13.5px;margin:0;padding:0 20px 0}
     .faq.open .answer{grid-template-rows:1fr}
     .faq.open .answer p{padding-bottom:19px}
     .faq.open button span:last-child{transform:rotate(45deg)}
 
-    .support{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;background:linear-gradient(155deg,var(--panel),var(--panel-2));border:1px solid var(--ink-10);border-radius:28px;padding:34px}
-    .support h2{font-family:'Space Grotesk';font-size:clamp(28px,4vw,42px);line-height:1.08;letter-spacing:-1px;margin:13px 0 12px}
-    .support p{color:var(--muted);font-size:14px;margin:0;max-width:650px}
-    .support-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-    .support-check{background:var(--panel);border:1px solid var(--ink-10);border-radius:20px;padding:22px}
-    .support-check h3{font-family:'Space Grotesk';font-size:16px;margin:0 0 12px}
-    .support-check ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
-    .support-check li{display:flex;gap:9px;color:var(--muted);font-size:12.5px}
-    .support-check li:before{content:"·";color:var(--accent);font-weight:900}
-    .disabled-link{opacity:.58;cursor:not-allowed;text-decoration:none;border-style:dashed}
+    .closeout{padding:44px;border:1px solid var(--ink-08);border-radius:27px;background:linear-gradient(145deg,var(--panel1),var(--panel2));color:var(--text)}
+    .closeout-grid{display:grid;grid-template-columns:1fr .7fr;gap:42px;align-items:center}
+    .closeout h2{max-width:16ch;margin:17px 0 11px;font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4vw,47px);line-height:1.05;letter-spacing:-1.4px}.closeout p{max-width:630px;margin:0;color:var(--ink-65)}
+    .closeout-check{display:grid;gap:10px;margin:0;padding:0;list-style:none}.closeout-check li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--ink-09);border-radius:12px;background:var(--ink-035);font-size:13px;font-weight:700}.closeout-check li:before{content:"✓";color:var(--good);font-weight:700}
+    .footer-logo img{height:28px;width:auto}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr!important}}
+    @media(max-width:640px){.footer-grid{grid-template-columns:1fr!important;gap:26px!important}}
 
-    footer{padding:32px 0 40px;border-top:1px solid var(--ink-07)}
-    .footer-inner{display:flex;justify-content:space-between;gap:20px;align-items:center;color:var(--muted);font-size:11.5px}
-    .footer-inner img{width:100px}
-    .footer-logo-dark{display:none}
-    [data-theme="dark"] .footer-logo-dark{display:block}
-    [data-theme="dark"] .footer-logo-light{display:none}
-
-    @media (max-width:1050px){
-      .desktop-nav{display:none}.menu-btn{display:flex}.header-inner{gap:14px}.header-actions{margin-left:auto}
-      .mobile-panel{display:block;position:fixed;z-index:55;top:74px;left:0;right:0;background:var(--header);backdrop-filter:blur(16px);border-bottom:1px solid var(--ink-10);max-height:0;opacity:0;overflow:hidden;transition:max-height .25s,opacity .2s}
-      .mobile-panel.open{max-height:520px;opacity:1}
-      .mobile-nav{display:grid;padding:13px 24px 22px}
-      .mobile-nav a{border-radius:10px;padding:12px}
-      .hero-grid{grid-template-columns:1fr .75fr;gap:32px}
-      .start-grid{grid-template-columns:repeat(2,1fr)}
-      .start-step:nth-child(2){border-right:0}.start-step:nth-child(-n+2){border-bottom:1px solid var(--ink-10)}
-      .report-grid{grid-template-columns:repeat(2,1fr)}.report-card:last-child{grid-column:1/-1;min-height:330px}
-      .impact-grid{grid-template-columns:1fr}.impact-card{display:grid;grid-template-columns:1fr 1.6fr;gap:12px;align-items:start}.impact-card h3{margin:10px 0}.impact-card strong{grid-column:2;border-top:0;padding-top:0}
+    @media(max-width:1180px){#vstepper{display:none!important}}
+    @media(max-width:1350px){
+      .desktop-nav{display:none}.brand-tag{display:none}.menu-button{display:flex}.header-actions{margin-left:auto}
     }
-    @media (max-width:800px){
-      .wrap{width:min(100% - 32px,680px)}section{padding:72px 0}.hero{padding:66px 0 56px}
-      .hero-grid,.guide-layout,.tracker-layout,.thermo-layout,.support{grid-template-columns:1fr}.hero h1{font-size:clamp(43px,12vw,64px)}
-      .decision-card{max-width:520px}.guide-panel{position:relative;top:auto;min-height:0}
-      .report-grid,.media-grid{grid-template-columns:1fr}.report-card:last-child,.media-card.wide{grid-column:auto}
-      .media-card.wide{display:block}.media-card.wide .embed-shell{aspect-ratio:16/9;min-height:0}
-      .opa-grid{grid-template-columns:1fr}.meter-item{grid-template-columns:120px 1fr auto}
-      .support{padding:26px}.footer-inner{align-items:flex-start;flex-direction:column}
+    @media(max-width:1030px){
+      .hero-grid{gap:40px}.indicator-map{grid-template-columns:1fr}.indicator-group{display:grid;grid-template-columns:auto 1fr;column-gap:18px}.indicator-group .pill{grid-row:1/3;align-self:start}.indicator-group h3{margin:2px 0 6px}.indicator-group ul{grid-column:1/-1;grid-template-columns:repeat(2,1fr)}.read-order,.priority-grid{grid-template-columns:repeat(2,1fr)}
     }
-    @media (max-width:560px){
-      .brand img{width:104px}.brand-tag{display:none}.header-inner{height:66px}.mobile-panel{top:66px}
-      .icon-btn{width:40px;height:40px}.menu-btn{font-size:0;width:40px;padding:0}.menu-btn span:first-child{font-size:16px}
-      .hero h1{letter-spacing:-1.9px}.hero-actions{display:grid}.btn{width:100%}
-      .start-grid{grid-template-columns:1fr}.start-step{border-right:0;border-bottom:1px solid var(--ink-10)!important}.start-step:last-child{border-bottom:0!important}
-      .report-grid{grid-template-columns:1fr}.report-card{min-height:0}.report-card:last-child{min-height:0}
-      .impact-card{display:block}.impact-card strong{border-top:1px solid var(--ink-10);padding-top:14px}
-      .field-grid,.check-buttons,.meter-legend{grid-template-columns:1fr}.fake-field.full{grid-column:auto}
-      .meter-item{grid-template-columns:1fr auto}.meter-rail{grid-column:1/-1;grid-row:2}.meter-item small{grid-column:2;grid-row:1}
-      .ai-banner{grid-template-columns:1fr}.ai-stamp{width:auto;height:auto;border-radius:14px;padding:12px}
-      .alert-top{align-items:flex-start;flex-direction:column}.support{padding:22px}
+    @media(max-width:820px){
+      section{padding:70px 0}.hero{padding:70px 0}.hero-grid,.reading-grid,.image-placeholder,.closeout-grid{grid-template-columns:1fr}.hero-grid>*{min-width:0}.radar-illustration{min-height:390px}.reading-aside{position:static}.definition-grid{grid-template-columns:1fr}.definition-card{display:grid;grid-template-columns:auto 1fr;column-gap:14px}.definition-card .num{grid-row:1/3}.definition-card h3{margin:0 0 5px}.moments{grid-template-columns:1fr}.same-bridge{height:90px}.same-bridge:before{top:0;bottom:0;left:50%;right:auto;width:2px;height:auto}.same-bridge span{background:var(--bg)}.three-views{grid-template-columns:1fr;margin-left:0}.indicator-title{grid-template-columns:42px 1fr}.value{grid-column:2;max-width:none;text-align:left}.image-art{min-height:280px}.indicator-guide-grid{grid-template-columns:1fr}.video-grid{grid-template-columns:1fr}.closeout{padding:32px}
     }
-    @media (prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
-    @media print{header,.progress,.hero-actions,.guide-buttons,.tracker-check,.support-actions{display:none!important}body{background:#fff;color:#002F49}.hero{padding-top:28px}section{padding:38px 0;break-inside:avoid}.wrap{width:92%}.guide-panel{position:static}.faq .answer{grid-template-rows:1fr}.faq .answer p{padding-bottom:19px}}
+    @media(max-width:640px){
+      section{padding-left:18px!important;padding-right:18px!important}
+      .wrap{width:100%}.header-inner{padding:12px 16px}.brand img{height:32px}.mobile-nav{width:100%;padding:4px 16px 20px}.icon-button{width:40px;height:40px}
+      .hero{padding:52px 0 58px}.hero h1{font-size:45px;letter-spacing:-2px}.hero-lead,.section-lead{font-size:16px}.hero-actions{display:grid}.btn{width:100%}.radar-illustration{min-height:340px}.radar-sheet{width:310px}.mask-badge{right:0}.read-order,.priority-grid{grid-template-columns:1fr}.guide-card-head{display:grid}.guide-source{width:max-content}.radar-example-figure{border-radius:16px}
+      section{padding-top:58px;padding-bottom:58px}.section-title{font-size:34px;letter-spacing:-1px}.definition-card{padding:19px}.notice{grid-template-columns:1fr}.moment-card{padding:22px}.reading-step{grid-template-columns:40px 1fr}.reading-step b{width:40px;height:40px}.indicator-group{display:block}.indicator-group .pill{margin-bottom:2px}.indicator-group ul{grid-template-columns:1fr}.case-head{display:grid;padding:21px}.case-head .pill{width:max-content}.case-privacy{align-items:flex-start}.indicator-list{padding-inline:17px}.indicator-title{grid-template-columns:38px 1fr}.indicator-title .index{width:38px;height:38px}.value{grid-column:1/-1;max-width:none;text-align:left}.view-box{min-height:0}.image-copy{padding:25px}.video-copy{padding:18px}.closeout{padding:25px}.truth-strip{gap:10px 16px}
+    }
+    @media(max-width:430px){section h2{letter-spacing:-1px!important}.header-actions{gap:8px}.hero h1{letter-spacing:-1.4px!important}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}
   </style>
 </head>
 <body>
-  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <div class="progress" aria-hidden="true"><span id="readingProgress"></span></div>
+
+  <nav id="vstepper" aria-label="Navegação rápida por seções" style="position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:14px;align-items:flex-end">
+    <a class="vstep on" href="#topo" title="INÍCIO" style="display:flex;align-items:center;gap:9px"><span class="slabel">INÍCIO</span><span class="sdot"></span></a>
+    <a class="vstep" href="#radar" title="O RADAR" style="display:flex;align-items:center;gap:9px"><span class="slabel">O RADAR</span><span class="sdot"></span></a>
+    <a class="vstep" href="#horarios" title="08H E 14H" style="display:flex;align-items:center;gap:9px"><span class="slabel">08H E 14H</span><span class="sdot"></span></a>
+    <a class="vstep" href="#como-ler" title="COMO LER" style="display:flex;align-items:center;gap:9px"><span class="slabel">COMO LER</span><span class="sdot"></span></a>
+    <a class="vstep" href="#indicadores" title="INDICADORES" style="display:flex;align-items:center;gap:9px"><span class="slabel">INDICADORES</span><span class="sdot"></span></a>
+    <a class="vstep" href="#exemplo" title="EXEMPLO" style="display:flex;align-items:center;gap:9px"><span class="slabel">EXEMPLO</span><span class="sdot"></span></a>
+    <a class="vstep" href="#videos" title="VÍDEOS" style="display:flex;align-items:center;gap:9px"><span class="slabel">VÍDEOS</span><span class="sdot"></span></a>
+    <a class="vstep" href="#faq" title="FAQ" style="display:flex;align-items:center;gap:9px"><span class="slabel">FAQ</span><span class="sdot"></span></a>
+  </nav>
 
   <header>
     <div class="wrap header-inner">
-      <a class="brand" href="#topo" aria-label="Vesta — início do guia">
-        <img class="logo-light" src="/uploads/vesta_logo_light.svg" alt="Vesta">
-        <img class="logo-dark" src="/vesta_logo_dark.svg" alt="Vesta">
-        <span class="brand-tag">Wiki do piloto<br>GSM</span>
+      <a class="brand" href="#topo" aria-label="Vesta · início da Wiki GSM">
+        <img class="only-dark" src="/vesta_logo_dark.svg" alt="Vesta" width="142" height="36">
+        <img class="only-light" src="/uploads/vesta_logo_light.svg" alt="Vesta" width="142" height="36">
+        <span class="brand-tag">WIKI GSM · RADAR</span>
       </a>
       <nav class="desktop-nav" aria-label="Navegação principal">
-        <a href="#comece">Comece aqui</a>
-        <a href="#relatorios">Relatórios</a>
-        <a href="#guia">Guia rápido</a>
-        <a href="#tracker">Tracker</a>
-        <a href="#treinamento">Treinamento</a>
-        <a href="#faq">FAQ</a>
+        <a href="#radar">O Radar</a>
+        <a href="#horarios">08h e 14h</a>
+        <a href="#como-ler">Como ler</a>
+        <a href="#indicadores">Indicadores</a>
+        <a href="#exemplo">Exemplo</a>
+        <a href="#videos">Vídeos</a><a href="#faq">FAQ</a>
       </nav>
       <div class="header-actions">
-        <button class="icon-btn" id="themeButton" type="button" aria-label="Ativar tema escuro" title="Alternar tema">◐</button>
-        <button class="icon-btn menu-btn" id="menuButton" type="button" aria-expanded="false" aria-controls="mobilePanel"><span aria-hidden="true">☰</span><span>Menu</span></button>
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobilePanel">
+          <span class="ico-open" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
+          <span class="ico-close" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+        </button>
+        <button class="icon-button" id="themeButton" type="button" title="Alternar tema claro/escuro" aria-label="Ativar tema escuro">
+          <span class="ico-sun" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg></span>
+          <span class="ico-moon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg></span>
+        </button>
       </div>
     </div>
+    <div class="mobile-panel" id="mobilePanel">
+      <nav class="mobile-nav" aria-label="Navegação móvel">
+        <a href="#radar">O Radar</a><a href="#horarios">08h e 14h</a><a href="#como-ler">Como ler</a><a href="#indicadores">Indicadores</a><a href="#exemplo">Exemplo</a><a href="#videos">Vídeos</a><a href="#faq">FAQ</a>
+      </nav>
+    </div>
   </header>
-  <div class="mobile-panel" id="mobilePanel">
-    <nav class="mobile-nav" aria-label="Navegação móvel">
-      <a href="#comece">Comece aqui</a><a href="#relatorios">Relatórios</a><a href="#guia">Guia rápido</a><a href="#tracker">Tracker</a><a href="#treinamento">Treinamento</a><a href="#faq">FAQ</a>
-    </nav>
-  </div>
 
   <main id="conteudo">
     <section class="hero" id="topo">
       <div class="wrap hero-grid">
         <div>
-          <span class="pill"><span class="dot"></span>Piloto de retenção · GSM Bahia</span>
-          <h1>Leia o sinal. <span>Confirme o contexto.</span> Registre a ação.</h1>
-          <p class="hero-lead">Um guia de bolso para transformar o Radar 08h, o Radar 14h e o Relatório Diário em decisões seguras — sem tratar a IA como veredito.</p>
+          <span class="pill">Piloto de retenção · GSM</span>
+          <h1>Como ler o <span>Radar</span> com segurança</h1>
+          <p class="hero-lead">Um guia simples para entender cada informação do arquivo, conferir o que importa e decidir o próximo passo com apoio da Vesta.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#comece">Começar em 5 minutos →</a>
-            <a class="btn btn-secondary" href="#guia">Ver um alerta por dentro</a>
+            <a class="btn btn-primary cta" href="#como-ler">Aprender a leitura →</a>
+            <a class="btn btn-secondary obtn" href="#exemplo">Ver card fictício</a>
           </div>
-          <div class="assurance" aria-label="Princípios do piloto">
-            <span><i></i>IA apoia</span><span><i></i>pessoa decide</span><span><i></i>OPA confirma</span><span><i></i>tracker fecha o ciclo</span>
+          <div class="truth-strip" aria-label="Princípios da leitura">
+            <span><i></i>mesmo Radar às 08h e 14h</span>
+            <span><i></i>OPA Suíte traz os fatos</span>
+            <span><i></i>IA apoia a análise</span>
+            <span><i></i>GSM decide a ação</span>
           </div>
         </div>
-        <aside class="decision-card" aria-label="Roteiro de decisão">
-          <span class="pill">Roteiro único</span>
-          <h2>Do relatório à ação</h2>
-          <p>Use a mesma sequência em qualquer janela.</p>
-          <div class="mini-flow">
-            <div class="mini-step"><b>1</b><span>Identifique a janela e o corte</span></div>
-            <div class="mini-step"><b>2</b><span>Leia risco, evidência e impacto</span></div>
-            <div class="mini-step"><b>3</b><span>Confirme a situação atual no OPA</span></div>
-            <div class="mini-step"><b>4</b><span>Execute ou escale e atualize o tracker</span></div>
+        <figure class="radar-illustration" aria-label="Ilustração estática de um arquivo Radar sem dados pessoais">
+          <div class="radar-glow"></div>
+          <div class="radar-sheet">
+            <div class="sheet-head"><strong>RADAR GSM</strong><span>EXEMPLO VISUAL</span></div>
+            <div class="sheet-body">
+              <div class="sheet-row"><span class="sheet-risk">01</span><span class="sheet-lines"><i></i><i></i></span><span class="sheet-tag">ALTO</span></div>
+              <div class="sheet-row"><span class="sheet-risk">02</span><span class="sheet-lines"><i></i><i></i></span><span class="sheet-tag">MÉDIO</span></div>
+              <div class="sheet-row"><span class="sheet-risk">03</span><span class="sheet-lines"><i></i><i></i></span><span class="sheet-tag">BAIXO</span></div>
+              <div class="sheet-note"><span>Fatos do OPA Suíte</span><span>Leitura Vesta</span><span>Ação humana</span></div>
+            </div>
           </div>
-          <div class="decision-footer">O relatório prioriza a leitura. O sistema operacional e a revisão humana confirmam a decisão.</div>
-        </aside>
+          <figcaption class="mask-badge">SEM DADOS REAIS</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section id="comece">
+    <section id="radar">
       <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Comece aqui</p>
-          <h2 class="section-title">Recebeu um relatório agora?</h2>
-          <p class="section-lead">Faça estas quatro coisas, nesta ordem. A leitura completa pode vir depois; o caso prioritário não deve esperar por interpretação perfeita.</p>
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">1 · O que é o Radar</p>
+          <h2 class="section-title">Uma lista organizada para orientar a atenção</h2>
+          <p class="section-lead">O Radar analisa os chamados em aberto no OPA Suíte, identifica os protocolos classificados no tema de cancelamento conforme a rúbrica do piloto e os ordena por criticidade operacional. Assim, a GSM economiza tempo e localiza primeiro os casos que precisam de conferência.</p>
         </div>
-        <div class="start-grid">
-          <article class="start-step"><div class="num">01</div><h3>Veja o corte</h3><p>Confirme se é Radar 08h, Radar 14h ou fechamento diário e qual horário o dado representa.</p></article>
-          <article class="start-step"><div class="num">02</div><h3>Comece pelo maior risco</h3><p>Leia protocolo, motivo do alerta, tempo, evidências e impacto da ação sugerida.</p></article>
-          <article class="start-step"><div class="num">03</div><h3>Abra o OPA</h3><p>Confira se o atendimento continua igual. O status pode ter mudado depois do corte do relatório.</p></article>
-          <article class="start-step"><div class="num">04</div><h3>Feche o ciclo</h3><p>Execute ou escale a ação, registre o retorno e deixe responsável, status e próximo passo claros.</p></article>
+        <div class="definition-grid">
+          <article class="definition-card pcard" data-reveal><span class="num">01</span><div><h3>Objetivo</h3><p>Ajudar a GSM a localizar rapidamente os casos que merecem conferência e acompanhamento.</p></div></article>
+          <article class="definition-card pcard" data-reveal><span class="num">02</span><div><h3>O que ele mostra</h3><p>Contexto do atendimento, prioridade por cor, seis indicadores, motivo da prioridade, próximo passo, departamento sugerido e confiança do alerta.</p></div></article>
+          <article class="definition-card pcard" data-reveal><span class="num">03</span><div><h3>Como deve ser usado</h3><p>Como apoio à decisão. A GSM consulta o caso, confirma o contexto atual e escolhe o que fazer.</p></div></article>
         </div>
-        <div class="guardrail">
-          <span class="pill warn">Regra de segurança</span>
-          <div><b>Não agir apenas pela cor.</b><p>Vermelho organiza prioridade; não prova sozinho que o cliente será perdido, que o atendimento está parado agora ou que a sugestão cabe no caso.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="soft-section" id="relatorios">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Um produto, três momentos</p>
-          <h2 class="section-title">Cada relatório responde a uma pergunta diferente</h2>
-          <p class="section-lead">O Radar orienta ação durante o dia. O Relatório Diário consolida o que aconteceu e o que precisa ser aprendido ou acompanhado.</p>
-        </div>
-        <div class="report-grid">
-          <article class="report-card">
-            <span class="pill">Abertura</span><div class="report-time">08h <small>Radar</small></div>
-            <h3>Por onde começar o dia?</h3>
-            <p>Fotografia operacional da abertura: riscos herdados, retornos pendentes e casos que merecem confirmação primeiro.</p>
-            <div class="card-list">
-              <div><small>Leia primeiro</small><span>Casos de maior risco ainda abertos ou sem retorno claro.</span></div>
-              <div><small>Saída esperada</small><span>Fila priorizada, responsável e primeira ação do turno.</span></div>
-              <div><small>Não confundir com</small><span>Resumo definitivo do dia.</span></div>
-            </div>
-          </article>
-          <article class="report-card">
-            <span class="pill">Rechecagem</span><div class="report-time">14h <small>Radar</small></div>
-            <h3>O que mudou desde a abertura?</h3>
-            <p>Releitura do meio do dia: novos sinais, casos que avançaram e prioridades das 08h que continuam sem desfecho.</p>
-            <div class="card-list">
-              <div><small>Leia primeiro</small><span>Pendências das 08h, agravamentos e novos casos críticos.</span></div>
-              <div><small>Saída esperada</small><span>Correção de rota, escalonamento e retorno antes do fechamento.</span></div>
-              <div><small>Não confundir com</small><span>Reenvio idêntico do Radar 08h.</span></div>
-            </div>
-          </article>
-          <article class="report-card">
-            <span class="pill">Fechamento</span><div class="report-time">D+1 <small>Diário</small></div>
-            <h3>O que o dia ensinou?</h3>
-            <p>Visão consolidada do período anterior: volume, andamento do piloto, qualidade da classificação e pontos de acompanhamento.</p>
-            <div class="card-list">
-              <div><small>Leia primeiro</small><span>Termômetro, variações relevantes, pendências e qualidade do registro.</span></div>
-              <div><small>Saída esperada</small><span>Ajustes na operação, na régua e no acompanhamento do piloto.</span></div>
-              <div><small>Não confundir com</small><span>Nova fila urgente sem conferir a janela atual.</span></div>
-            </div>
-          </article>
-        </div>
-        <div class="prototype-flag"><b>Premissa do protótipo:</b> 08h é abertura/priorização; 14h é rechecagem/correção de rota; o Diário consolida o período anterior. Antes da publicação, confirme horários de corte, cobertura e SLA oficial com a operação GSM.</div>
-        <div class="compare" role="region" aria-label="Comparação dos relatórios" tabindex="0">
-          <table>
-            <thead><tr><th>Peça</th><th>Pergunta de gestão</th><th>Confirmação no OPA</th><th>Registro esperado</th></tr></thead>
-            <tbody>
-              <tr><td>Radar 08h</td><td>Qual caso deve entrar primeiro na fila?</td><td>O caso ainda está aberto? Houve retorno desde o corte?</td><td>Prioridade, dono e primeiro próximo passo.</td></tr>
-              <tr><td>Radar 14h</td><td>O plano da manhã funcionou? O que exige nova decisão?</td><td>O status ou a gravidade mudou? Quem está com a ação?</td><td>Resultado parcial, escalonamento e novo prazo.</td></tr>
-              <tr><td>Relatório Diário</td><td>O piloto está aprendendo e fechando ciclos?</td><td>Os desfechos e status correspondem à realidade?</td><td>Resultados, pendências, qualidade e aprendizado.</td></tr>
-            </tbody>
-          </table>
+        <div class="notice">
+          <span class="pill plain-pill">Importante</span>
+          <div><strong>O Radar não substitui o OPA Suíte nem a decisão da pessoa responsável.</strong><p>Como os chamados continuam em aberto, podem receber novas interações, mudar de departamento ou status e até ser concluídos depois da geração do arquivo. Quanto maior a demora para consultar o Radar, maior a chance de alguma informação estar desatualizada.</p></div>
         </div>
       </div>
     </section>
 
-    <section id="guia">
+    <section class="soft-section" id="horarios">
       <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Guia rápido de leitura</p>
-          <h2 class="section-title">Um alerta é uma hipótese explicada</h2>
-          <p class="section-lead">Clique nas partes do exemplo. O objetivo não é concordar com a máquina — é saber o que confirmar antes de decidir.</p>
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">2 · Entregas do dia</p>
+          <h2 class="section-title">Dois horários. O mesmo Radar.</h2>
+          <p class="section-lead">A GSM recebe o Radar às 08h e às 14h. A estrutura do arquivo e a forma de leitura são iguais. O que muda é o horário em que as informações foram reunidas. O envio das 14h não mostra apenas o que mudou desde as 08h. É uma nova geração do mesmo Radar, com a mesma estrutura e a mesma forma de leitura.</p>
         </div>
-        <div class="guide-layout">
-          <div>
-            <article class="alert-demo" aria-label="Alerta demonstrativo">
-              <div class="alert-top"><div><div class="small-note">Protocolo OPA · exemplo fictício</div><div class="protocol">OPA-DEMO-0000</div></div><span class="pill bad"><span class="dot"></span>Risco alto</span></div>
-              <div class="alert-body">
-                <div class="signal-row active" data-guide-step="0"><button type="button"><small>1 · Risco</small><span>Alto · requer priorização e confirmação humana</span></button></div>
-                <div class="signal-row" data-guide-step="1"><button type="button"><small>2 · Evidências</small><span>Sinal explícito de cancelamento + recontato recente + atendimento ainda aberto no corte</span></button></div>
-                <div class="signal-row" data-guide-step="2"><button type="button"><small>3 · Sugestão de ação</small><span>Confirmar contexto no OPA e acionar retenção/coordenação</span></button></div>
-                <div class="signal-row" data-guide-step="3"><button type="button"><small>4 · Situação atual</small><span>A confirmar no OPA antes de qualquer contato ou promessa</span></button></div>
-                <div class="signal-row" data-guide-step="4"><button type="button"><small>5 · Fechamento</small><span>Registrar ação, resultado, status, responsável e próximo passo no tracker</span></button></div>
-              </div>
-              <div class="alert-meta"><span class="meta-chip">Impacto sugerido: médio</span><span class="meta-chip">Confiança: média</span><span class="meta-chip">Dono sugerido: retenção/coordenação</span></div>
-            </article>
-            <div class="privacy-note"><b>Evidência segura é curta e operacional.</b> O relatório não precisa reproduzir mensagens brutas, áudio, telefone, nome ou outros dados pessoais para explicar por que o caso foi priorizado.</div>
+        <div class="moments">
+          <article class="moment-card pcard" data-reveal>
+            <div class="moment-time">08h</div>
+            <h3>Primeiro envio do dia</h3>
+            <p>Mostra o Radar preparado para o início do acompanhamento daquele dia.</p>
+            <div class="moment-list"><div><i></i><span>Mesmos campos e indicadores.</span></div><div><i></i><span>Mesma ordem de leitura.</span></div><div><i></i><span>Fatos disponíveis até esse momento.</span></div></div>
+          </article>
+          <div class="same-bridge" aria-hidden="true"><span>mesmo<br>Radar</span></div>
+          <article class="moment-card pcard" data-reveal>
+            <div class="moment-time">14h</div>
+            <h3>Segundo envio do dia</h3>
+            <p>Mostra novamente o mesmo tipo de Radar, preparado com as informações disponíveis nesse horário.</p>
+            <div class="moment-list"><div><i></i><span>Mesmos campos e indicadores.</span></div><div><i></i><span>Mesma ordem de leitura.</span></div><div><i></i><span>Fatos disponíveis até esse momento.</span></div></div>
+          </article>
+        </div>
+        <div class="same-summary"><strong>Não existem duas formas de ler.</strong><span>Abra qualquer um dos envios e siga o único passo a passo da próxima seção.</span></div>
+      </div>
+    </section>
+
+    <section id="como-ler">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">3 · Como ler o Radar</p>
+          <h2 class="section-title">Uma leitura única, em cinco passos</h2>
+          <p class="section-lead">Use esta sequência tanto no arquivo das 08h quanto no arquivo das 14h. Nenhum campo deve ser lido isoladamente. Compare a cor, os indicadores, a confiança e a sugestão de ação com o histórico atualizado do protocolo no OPA Suíte.</p>
+        </div>
+        <div class="reading-grid">
+          <div class="reading-steps">
+            <article class="reading-step pcard" data-reveal><b>1</b><div><h3>Confirme o horário do arquivo</h3><p>Veja se o Radar foi enviado às 08h ou às 14h. Isso informa o momento em que os dados foram reunidos.</p></div></article>
+            <article class="reading-step pcard" data-reveal><b>2</b><div><h3>Abra o protocolo no OPA Suíte</h3><p>Leia o histórico antes de responder. O card resume o caso, mas o sistema mostra o contexto atualizado.</p></div></article>
+            <article class="reading-step pcard" data-reveal><b>3</b><div><h3>Leia a cor e o motivo da prioridade</h3><p>Vermelho pede ação hoje, laranja pede tratamento em até 24h e amarelo pede monitoramento. Leia também “Por que virou” essa cor.</p></div></article>
+            <article class="reading-step pcard" data-reveal><b>4</b><div><h3>Valide os seis indicadores</h3><p>Confira satisfação estimada, facilidade para o cliente, resolução, eficiência das transferências, qualidade e reversão. Observe a confiança do alerta e confirme sinais frágeis.</p></div></article>
+            <article class="reading-step pcard" data-reveal><b>5</b><div><h3>Assuma a ação e registre o desfecho</h3><p>Confirme ou ajuste o próximo passo, combine responsável e prazo de retorno e atualize o resultado no OPA Suíte.</p></div></article>
           </div>
-          <aside class="guide-panel" aria-live="polite">
-            <span class="pill" id="guideKicker">Passo 1 de 5</span>
-            <h3 id="guideTitle">Risco organiza a fila; não decide sozinho.</h3>
-            <p id="guideText">Leia o nível como urgência para conferir. A cor combina sinais disponíveis no corte, mas não conhece tudo o que aconteceu depois.</p>
-            <div class="guide-rule" id="guideRule">Pergunta-chave: “qual fato preciso confirmar agora?”</div>
-            <div class="guide-buttons" aria-label="Etapas da leitura">
-              <button class="active" type="button" data-guide-button="0" aria-label="Ver passo 1">1</button><button type="button" data-guide-button="1" aria-label="Ver passo 2">2</button><button type="button" data-guide-button="2" aria-label="Ver passo 3">3</button><button type="button" data-guide-button="3" aria-label="Ver passo 4">4</button><button type="button" data-guide-button="4" aria-label="Ver passo 5">5</button>
-            </div>
+          <aside class="reading-aside">
+            <span class="pill plain-pill">Perguntas de bolso</span>
+            <h3>Antes de agir, responda:</h3>
+            <p>Se alguma resposta ainda não estiver clara, volte ao protocolo no OPA Suíte.</p>
+            <ol><li>O que é fato registrado?</li><li>O que foi estimado pela IA?</li><li>Essa informação ainda está atual?</li><li>Qual ação faz sentido agora?</li><li>Preciso de apoio ou aprovação?</li></ol>
           </aside>
         </div>
       </div>
     </section>
 
-    <section class="soft-section" id="ia">
+    <section class="soft-section" id="indicadores">
       <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">IA e revisão humana</p>
-          <h2 class="section-title">Sugestão de ação não é ordem automática</h2>
-          <p class="section-lead">A sugestão reúne um próximo passo provável, um motivo e um dono possível. A pessoa responsável confirma se cabe no contexto, na alçada e na política da GSM.</p>
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">4 · Visão geral dos indicadores</p>
+          <h2 class="section-title">O card organiza contexto, sinais e prioridade</h2>
+          <p class="section-lead">Cada bloco responde a uma pergunta diferente. Ler nessa ordem ajuda a entender o caso antes de decidir.</p>
         </div>
-        <div class="ai-banner">
-          <div><h3>A IA reduz o tempo para encontrar onde olhar.</h3><p>Ela não substitui a consulta ao OPA, a leitura humana do caso, a alçada da liderança ou o registro do que realmente aconteceu.</p></div>
-          <div class="ai-stamp">APOIO<br>À DECISÃO</div>
+        <div class="indicator-map">
+          <article class="indicator-group pcard" data-reveal>
+            <span class="pill plain-pill">Contexto</span><div><h3>Qual é o atendimento?</h3><p>Identifica o caso. O departamento atual mostra onde ele estava; o sugerido, no rodapé, orienta a análise e não transfere o protocolo automaticamente.</p></div>
+            <ul><li>Protocolo</li><li>Tema de cancelamento</li><li>Departamento atual</li><li>Tempo em aberto</li></ul>
+          </article>
+          <article class="indicator-group pcard" data-reveal>
+            <span class="pill plain-pill">Seis indicadores</span><div><h3>O que os sinais mostram?</h3><p>As faixas resumem registros do OPA Suíte e análises da IA. Não são pesquisa de satisfação nem verdade definitiva.</p></div>
+            <ul><li>Satisfação estimada</li><li>Facilidade para o cliente</li><li>Resolução</li><li>Eficiência das transferências</li><li>Qualidade do atendimento</li><li>Reversão</li></ul>
+          </article>
+          <article class="indicator-group pcard" data-reveal>
+            <span class="pill plain-pill">Prioridade e ação</span><div><h3>O que precisa acontecer agora?</h3><p>A cor ordena a atenção. O motivo, a sugestão e a confiança ajudam a GSM a validar o próximo passo.</p></div>
+            <ul><li>Cor de prioridade</li><li>Por que virou essa cor</li><li>O que fazer agora</li><li>Departamento sugerido</li><li>Confiança do alerta</li></ul>
+          </article>
         </div>
-        <div class="impact-grid">
-          <article class="impact-card low"><div><span class="pill good">Baixo impacto</span><h3>Conferir e registrar</h3></div><p>Ex.: checar status, corrigir um campo factual, registrar retorno já realizado ou organizar a fila.</p><strong>Revisão: a pessoa confirma a informação antes de salvar.</strong></article>
-          <article class="impact-card medium"><div><span class="pill warn">Médio impacto</span><h3>Contatar e coordenar</h3></div><p>Ex.: retornar ao cliente, acionar outra área, priorizar atendimento ou combinar prazo operacional.</p><strong>Revisão: responsável confirma contexto, tom, dono e prazo antes de agir.</strong></article>
-          <article class="impact-card high"><div><span class="pill bad">Alto impacto</span><h3>Assumir compromisso</h3></div><p>Ex.: conceder benefício, prometer condição financeira/contratual, reverter cancelamento ou decidir exceção.</p><strong>Revisão: aprovação humana explícita e conforme alçada. Nunca executar só pela IA.</strong></article>
-        </div>
+        <div class="human-rule"><strong>De onde vem cada informação?</strong><p>Protocolo, tema e departamento atual são fatos registrados no OPA Suíte. O tempo em aberto é calculado a partir do início do atendimento. Satisfação, facilidade para o cliente, resolução, qualidade e reversão são análises da Vesta com apoio de IA. A eficiência das transferências é apresentada como baixa, média ou alta por uma regra visual aplicada à contagem de transferências registrada no OPA Suíte. Em todos os casos, confirme o histórico atualizado antes de agir.</p></div>
       </div>
     </section>
 
-    <section id="tracker">
+    <section id="exemplo">
       <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Tracker de retorno</p>
-          <h2 class="section-title">O trabalho termina quando o retorno fica rastreável</h2>
-          <p class="section-lead">O protocolo OPA liga relatório, atendimento e tracker. Evite uma segunda narrativa: registre fatos curtos, responsáveis e próximos passos.</p>
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">5 · Exemplo visual</p>
+          <h2 class="section-title">Leia um alerta com o mesmo visual do Radar</h2>
+          <p class="section-lead">O card abaixo reproduz a organização visual de um atendimento do relatório. Protocolo, tempos, departamentos, sinais e textos foram substituídos por dados totalmente fictícios antes da captura.</p>
         </div>
-        <div class="tracker-layout">
-          <div class="tracker-steps">
-            <article class="tracker-step"><div class="num">1</div><div><h3>Localize pelo protocolo</h3><p>Use o protocolo OPA como chave. Não duplique a linha só porque o caso reapareceu no Radar 14h.</p></div></article>
-            <article class="tracker-step"><div class="num">2</div><div><h3>Registre a ação real</h3><p>Informe data/hora, responsável, ação realizada e resultado — não apenas a sugestão do relatório.</p></div></article>
-            <article class="tracker-step"><div class="num">3</div><div><h3>Atualize o estado</h3><p>Deixe claro se está resolvido, aguardando, escalado ou ainda em tratamento, usando os rótulos oficiais.</p></div></article>
-            <article class="tracker-step"><div class="num">4</div><div><h3>Defina o próximo passo</h3><p>Se não terminou, registre dono e prazo. Se terminou, confirme o desfecho no OPA e no tracker.</p></div></article>
-          </div>
-          <article class="tracker-card">
-            <div class="tracker-card-head"><h3>Ficha mínima · exemplo fictício</h3><span class="pill">Demonstração</span></div>
-            <div class="tracker-card-body">
-              <div class="field-grid">
-                <div class="fake-field"><small>Protocolo OPA</small><span>OPA-DEMO-0000</span></div>
-                <div class="fake-field"><small>Data e hora do retorno</small><span>DD/MM/AAAA · HH:MM</span></div>
-                <div class="fake-field"><small>Responsável</small><span>Papel ou equipe responsável</span></div>
-                <div class="fake-field"><small>Status atual</small><span>Rótulo oficial do tracker</span></div>
-                <div class="fake-field full"><small>Ação realizada + resultado</small><span>Fato curto, verificável e sem copiar mensagem bruta.</span></div>
-                <div class="fake-field full"><small>Próximo passo + prazo</small><span>Quem fará o quê e até quando — ou “ciclo encerrado”.</span></div>
+
+        <figure class="radar-example-figure" data-reveal tabindex="0" aria-label="Card fictício do Radar.">
+          <svg class="example-card-svg" viewBox="0 0 1500 563" role="img" aria-labelledby="example-card-title example-card-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="example-card-title">Card fictício e anonimizado de um protocolo do Radar</title>
+            <desc id="example-card-desc">Exemplo visual em alta definição com identificação, prioridade, seis indicadores, motivo da cor e próximos passos. Todos os dados são fictícios.</desc>
+            <foreignObject width="1500" height="563">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="example-svg-stage">
+                <article class="ex-card">
+                  <span class="ex-demo">Exemplo fictício · sem dados reais</span>
+                  <div class="ex-top">
+                    <div class="ex-protocol"><small>Protocolo OPA Suíte</small><strong>GSM-DEMO-0001</strong></div>
+                    <div class="ex-meta">
+                      <span class="ex-pill">Tema: <b>cancelamento</b></span>
+                      <span class="ex-pill">Depto. atual: <b>Atendimento</b></span>
+                      <span class="ex-pill">Em aberto: <b>2d 4h</b></span>
+                    </div>
+                    <div class="ex-priority">Ação imediata — resolver hoje <b>VERMELHO</b></div>
+                  </div>
+                  <div class="ex-signals">
+                    <div class="ex-signal"><div class="ex-sig-head"><span>Satisfação estimada</span><span class="ex-value warn">média</span></div><div class="ex-bar warn"><i></i><i></i><i></i></div><p>Há desgaste, mas ainda existe espaço para recuperar.</p></div>
+                    <div class="ex-signal"><div class="ex-sig-head"><span>Facilidade para o cliente</span><span class="ex-value bad">baixa</span></div><div class="ex-bar bad"><i></i><i></i><i></i></div><p>O cliente precisou insistir ou repetir contexto para avançar.</p></div>
+                    <div class="ex-signal"><div class="ex-sig-head"><span>Resolução</span><span class="ex-value warn">parcial</span></div><div class="ex-bar warn"><i></i><i></i><i></i></div><p>Parte foi tratada, mas o caso ainda não foi concluído.</p></div>
+                    <div class="ex-signal"><div class="ex-sig-head"><span>Eficiência das transferências</span><span class="ex-value warn">média</span></div><div class="ex-bar warn"><i></i><i></i><i></i></div><p>Houve duas transferências; reassuma o contexto completo.</p></div>
+                    <div class="ex-signal"><div class="ex-sig-head"><span>Qualidade do atendimento</span><span class="ex-value warn">média</span></div><div class="ex-bar warn"><i></i><i></i><i></i></div><p>O roteiro foi seguido, mas a condução pode melhorar.</p></div>
+                    <div class="ex-signal"><div class="ex-sig-head"><span>Reversão</span><span class="ex-value warn">tentativa em curso</span></div><div class="ex-bar warn"><i></i><i></i><i></i></div><p>Há tentativa de retenção; o desfecho ainda precisa de acompanhamento.</p></div>
+                  </div>
+                  <div class="ex-actions">
+                    <div class="ex-reason"><span class="ex-box-title">Por que virou vermelho</span><p>Exemplo: intenção explícita de cancelamento, atendimento ainda aberto e baixa facilidade para o cliente. Vermelho = atuação necessária hoje.</p></div>
+                    <div class="ex-next"><span class="ex-box-title">O que fazer agora</span><div class="ex-step"><b>1</b><span>Acompanhar a tentativa de retenção e confirmar o retorno combinado.</span></div><div class="ex-step"><b>2</b><span>Registrar o desfecho no OPA Suíte e concluir a solicitação ou nova tratativa.</span></div></div>
+                  </div>
+                  <div class="ex-footer"><span class="ex-pill">Depto. sugerido: <b>Retenção e cancelamento</b></span><span class="ex-pill">Confiança do alerta: <b>alta</b></span><span class="ex-privacy">Dados criados somente para treinamento</span></div>
+                </article>
               </div>
-              <div class="tracker-check">
-                <div class="tracker-check-head"><b>Checklist antes de salvar</b><span class="check-count" id="checkCount">0/4 completo</span></div>
-                <div class="check-buttons">
-                  <button type="button" aria-pressed="false">Protocolo confere</button><button type="button" aria-pressed="false">OPA foi consultado</button><button type="button" aria-pressed="false">Resultado é factual</button><button type="button" aria-pressed="false">Dono e prazo estão claros</button>
-                </div>
-              </div>
-            </div>
+            </foreignObject>
+          </svg>
+          <figcaption><strong>Visual anonimizado por reconstrução.</strong> Nenhum protocolo ou conteúdo de cliente do relatório original foi reutilizado.<span class="mobile-scroll-hint">No celular, deslize o card para os lados.</span></figcaption>
+        </figure>
+
+        <div class="read-order" aria-label="Ordem recomendada de leitura do card">
+          <div><b>1</b><span><strong>Topo:</strong> identifique protocolo, tema, departamento e tempo em aberto.</span></div>
+          <div><b>2</b><span><strong>Cor:</strong> entenda a urgência e o prazo esperado para agir.</span></div>
+          <div><b>3</b><span><strong>Indicadores:</strong> veja quais sinais sustentam a atenção.</span></div>
+          <div><b>4</b><span><strong>Rodapé:</strong> valide motivo, próximo passo, destino e confiança.</span></div>
+        </div>
+
+        <h3 class="indicator-guide-title">O que significa cada indicador</h3>
+        <div class="indicator-guide-grid">
+          <article class="guide-card pcard" data-reveal>
+            <div class="guide-card-head"><h3>Satisfação estimada</h3><span class="guide-source">Análise Vesta com IA</span></div>
+            <p>É uma leitura da conversa, não uma pesquisa de satisfação respondida pelo cliente.</p>
+            <ul class="band-list"><li><b>Baixa:</b> há atrito forte ou insatisfação.</li><li><b>Média:</b> existe desgaste, mas ainda há espaço para recuperar.</li><li><b>Alta:</b> a percepção do atendimento é favorável.</li></ul>
+          </article>
+          <article class="guide-card pcard" data-reveal>
+            <div class="guide-card-head"><h3>Facilidade para o cliente</h3><span class="guide-source">Análise Vesta com IA</span></div>
+            <p>Mostra se o cliente conseguiu avançar com facilidade ou se precisou insistir, esperar ou repetir informações.</p>
+            <ul class="band-list"><li><b>Baixa:</b> houve repetição, demora ou insistência; simplifique a solução.</li><li><b>Média:</b> houve alguma dificuldade no caminho do cliente.</li><li><b>Alta:</b> o cliente avançou sem insistir ou repetir contexto.</li></ul>
+          </article>
+          <article class="guide-card pcard" data-reveal>
+            <div class="guide-card-head"><h3>Resolução</h3><span class="guide-source">Análise Vesta com IA</span></div>
+            <p>Mostra se a evidência indica conclusão. “Vou verificar” ou “abri chamado” não contam como solução.</p>
+            <ul class="band-list"><li><b>Não resolvido:</b> ainda não houve resposta final.</li><li><b>Parcial:</b> parte foi tratada, mas resta pendência.</li><li><b>Indeterminado:</b> não há evidência suficiente.</li><li><b>Resolvido:</b> solução ou orientação foi confirmada.</li></ul>
+          </article>
+          <article class="guide-card pcard" data-reveal>
+            <div class="guide-card-head"><h3>Eficiência das transferências</h3><span class="guide-source fact">Contagem do OPA Suíte + regra Vesta</span></div>
+            <p>Mostra se o atendimento avançou com continuidade ou passou por áreas demais. A classificação usa a quantidade de transferências registrada no OPA Suíte.</p>
+            <ul class="band-list"><li><b>Baixa:</b> três ou mais transferências; a próxima área deve assumir e resolver.</li><li><b>Média:</b> duas transferências; reassuma todo o contexto.</li><li><b>Alta:</b> nenhuma ou uma transferência; o caso avançou com continuidade.</li></ul>
+          </article>
+          <article class="guide-card pcard" data-reveal>
+            <div class="guide-card-head"><h3>Qualidade do atendimento</h3><span class="guide-source">Análise Vesta com IA</span></div>
+            <p>Avalia a conversa — acolhimento, clareza, resolução, continuidade, condução da retenção e encaminhamento. Não avalia uma pessoa isoladamente.</p>
+            <ul class="band-list"><li><b>Baixa:</b> faltou clareza, acolhimento ou condução.</li><li><b>Média:</b> o roteiro foi seguido, mas pode melhorar.</li><li><b>Alta:</b> conversa clara, acolhedora e orientada à solução.</li></ul>
+          </article>
+          <article class="guide-card pcard" data-reveal>
+            <div class="guide-card-head"><h3>Reversão</h3><span class="guide-source">Análise Vesta com IA</span></div>
+            <p>Resume se houve tentativa de retenção e qual desfecho aparece nas evidências. Confirme no OPA Suíte antes de encerrar.</p>
+            <ul class="band-list"><li><b>Não tentada:</b> retenção ainda não iniciada.</li><li><b>Tentativa em curso:</b> acompanhe o retorno.</li><li><b>Tentou, sem sucesso:</b> retome a tratativa e trate a solicitação do cliente.</li><li><b>Revertido:</b> confirme a permanência do cliente antes de encerrar.</li></ul>
           </article>
         </div>
-        <div class="prototype-flag"><b>Mapeamento necessário:</b> a ficha usa nomes genéricos. Na versão publicada, substituir pelos nomes e listas suspensas do tracker oficial, preservando os campos mínimos acima.</div>
+
+        <div class="priority-grid">
+          <article class="priority-card"><h3>Cor de prioridade</h3><p><strong>Vermelho:</strong> agir hoje. <strong>Laranja:</strong> tratar em até 24h. <strong>Amarelo:</strong> monitorar. Nenhum indicador isolado define a cor: a prioridade combina criticidade, sinais de risco e, em determinadas situações, o tempo em que o atendimento de cancelamento permanece aberto.</p></article>
+          <article class="priority-card"><h3>Por que virou essa cor</h3><p>Resume quais sinais e regras sustentaram a prioridade. Não é uma fala literal do cliente. Use como ponto de partida para conferir o histórico atualizado.</p></article>
+          <article class="priority-card"><h3>O que fazer agora</h3><p>Apresenta duas ações ordenadas. A situação da reversão normalmente orienta o primeiro passo; depois entram resolução, eficiência das transferências, facilidade para o cliente e qualidade. A GSM confirma, ajusta ou descarta cada orientação conforme o contexto, a política e a alçada.</p></article>
+          <article class="priority-card"><h3>Confiança do alerta</h3><p><strong>Baixa:</strong> evidência incompleta ou sem desfecho. <strong>Média:</strong> há contexto, mas ainda existem lacunas. <strong>Alta:</strong> conversa e sinais claros. Não é probabilidade de cancelamento nem garantia de acerto.</p></article>
+        </div>
+
+        <div class="human-rule"><strong>Leia o exemplo como um conjunto</strong><p>O protocolo está no tema de cancelamento e permanecia aberto quando o Radar foi gerado. A prioridade é vermelha; a satisfação está média; a facilidade para o cliente, baixa; a resolução, parcial; a eficiência das transferências, média, porque houve duas transferências; a qualidade está média; e a tentativa de reversão continua em curso. Em conjunto, esses sinais orientam a GSM a acompanhar o retorno, confirmar o contexto atual e registrar o desfecho no OPA Suíte.</p></div>
+
+        <div class="human-rule"><strong>Roteiro de ação</strong><p>Abra o protocolo, valide os sinais, assuma o próximo passo, combine responsável e prazo de retorno e registre o desfecho no OPA Suíte. Com confiança baixa, confirme a evidência antes de concluir.</p></div>
       </div>
     </section>
 
-    <section class="soft-section" id="termometro">
+    <section id="videos">
       <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Termômetro do piloto</p>
-          <h2 class="section-title">Leia a saúde do processo, não só a quantidade de retenções</h2>
-          <p class="section-lead">Um piloto saudável encontra sinais, fecha ciclos e aprende com a revisão humana. O termômetro deve mostrar componentes, período, denominador e regra de cor.</p>
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">6 · Vídeos de treinamento</p>
+          <h2 class="section-title">Aprenda assistindo</h2>
+          <p class="section-lead">Assista primeiro à visão geral e depois percorra, em detalhe, todos os campos do card de um protocolo fictício.</p>
         </div>
-        <div class="thermo-layout">
-          <article class="meter-card">
-            <h3>O que procurar no relatório</h3>
-            <div class="meter-list">
-              <div class="meter-item"><b>Cobertura</b><div class="meter-rail"><span style="width:78%"></span></div><small>casos tratados</small></div>
-              <div class="meter-item"><b>Tempo de retorno</b><div class="meter-rail"><span style="width:58%;background:var(--warn)"></span></div><small>dentro da janela</small></div>
-              <div class="meter-item"><b>Rastreabilidade</b><div class="meter-rail"><span style="width:88%;background:var(--good)"></span></div><small>tracker completo</small></div>
-              <div class="meter-item"><b>Qualidade</b><div class="meter-rail"><span style="width:66%;background:var(--warn)"></span></div><small>revisão humana</small></div>
-              <div class="meter-item"><b>Desfecho</b><div class="meter-rail"><span style="width:72%;background:var(--accent)"></span></div><small>ciclo encerrado</small></div>
+        <div class="video-grid">
+          <article class="video-card pcard" data-reveal>
+            <div class="video-slot" data-youtube-id="5B4-VRvJLNY" data-video-title="O que é o Radar e quando ele chega">
+              <div><div class="play">▶</div><strong>Vídeo ainda não conectado</strong><p>Substitua o ID do YouTube (não listado) no atributo data-youtube-id.</p><code>5B4-VRvJLNY</code></div>
             </div>
-            <p class="small-note" style="margin:20px 0 0">Barras ilustrativas, sem valores oficiais. A versão final deve exibir número, base e período em cada componente.</p>
+            <div class="video-copy"><span class="pill plain-pill">Visão geral</span><h3>O que é o Radar e quando ele chega</h3><p>Vídeo completo sobre o objetivo do Radar, os envios das 08h e 14h e a regra de apoio à decisão.</p></div>
           </article>
-          <aside class="meter-explain">
-            <span class="pill warn"><span class="dot"></span>Atenção · exemplo</span>
-            <h3>Cor é o começo da pergunta.</h3>
-            <p>Se o termômetro estiver amarelo, procure qual componente puxou o estado e se o problema é operacional ou de registro.</p>
-            <ol><li>Qual período e base foram medidos?</li><li>O que mudou em relação ao corte anterior?</li><li>Qual ação tem dono e prazo?</li></ol>
-          </aside>
-        </div>
-        <div class="meter-legend">
-          <div class="legend-item"><b><i style="background:var(--good)"></i>Saudável</b><p>Processo dentro da régua validada; manter e observar.</p></div>
-          <div class="legend-item"><b><i style="background:var(--warn)"></i>Atenção</b><p>Há desvio ou base incompleta; corrigir com ação definida.</p></div>
-          <div class="legend-item"><b><i style="background:var(--bad)"></i>Crítico</b><p>Há risco relevante ao ciclo; liderança revisa e prioriza.</p></div>
-        </div>
-        <div class="prototype-flag"><b>Sem limiares inventados:</b> as cores acima explicam a leitura, não definem percentuais. Os cortes verde/amarelo/vermelho devem ser calibrados e aprovados pela GSM.</div>
-
-        <div class="section-head" style="margin-top:72px" id="opa">
-          <p class="eyebrow">Qualidade do status no OPA</p>
-          <h2 class="section-title">O status deve contar a verdade operacional</h2>
-          <p class="section-lead">Um status bom permite que outra pessoa entenda se o cliente, a GSM ou uma área interna tem a próxima ação — sem reler toda a conversa.</p>
-        </div>
-        <div class="opa-grid">
-          <article class="opa-card">
-            <h3>Exemplo fraco</h3>
-            <div class="status-example bad"><small>Finalizado</small><p>Cliente recebeu mensagem, mas ainda espera confirmação de prazo.</p></div>
-            <div class="quality-list"><div>“Mensagem enviada” não prova resolução.</div><div>Transferência sem dono não fecha o ciclo.</div><div>Status desatualizado distorce Radar e termômetro.</div></div>
-          </article>
-          <article class="opa-card">
-            <h3>Exemplo de boa qualidade</h3>
-            <div class="status-example good"><small>Em tratamento · rótulo ilustrativo</small><p>Área responsável definida, cliente informado e prazo de retorno registrado.</p></div>
-            <div class="quality-list"><div>Corresponde ao estado atual no momento da consulta.</div><div>Deixa responsável e próxima ação identificáveis.</div><div>Só encerra quando o ciclo realmente terminou.</div></div>
-          </article>
-        </div>
-        <div class="prototype-flag"><b>Taxonomia ilustrativa:</b> use somente os rótulos que existem no OPA da GSM. A regra de qualidade permanece: status atual, dono, próximo passo e encerramento coerentes.</div>
-      </div>
-    </section>
-
-    <section id="treinamento">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Treinamento multimídia</p>
-          <h2 class="section-title">Aprenda no formato que resolve sua dúvida</h2>
-          <p class="section-lead">Os espaços abaixo estão prontos para vídeos não listados do YouTube, imagens e GIFs. Nenhum vídeo real foi inventado ou conectado.</p>
-          <p style="margin:14px 0 0;font-size:14px">→ Guia dedicado: <a href="/treinamentos/relatorios-piloto-gsm/como-ler-o-radar/">como ler o Radar, passo a passo</a></p>
-        </div>
-        <div class="media-grid">
-          <article class="media-card">
-            <div class="embed-shell video-embed" data-youtube-id="OeIiyGg95Uk" data-video-title="Como ler o Radar 08h e o Radar 14h">
-              <div class="embed-placeholder"><div class="play-mark">▶</div><b>Vídeo ainda não conectado</b><p>Substitua o ID no HTML para ativar o player.</p><code>OeIiyGg95Uk</code></div>
+          <article class="video-card pcard" data-reveal>
+            <div class="video-slot" data-youtube-id="lQh9XeQ8-v8" data-video-title="Como interpretar o card de um protocolo">
+              <div><div class="play">▶</div><strong>Vídeo ainda não conectado</strong><p>Substitua o ID do YouTube (não listado) no atributo data-youtube-id.</p><code>lQh9XeQ8-v8</code></div>
             </div>
-            <div class="media-copy"><span class="pill">Vídeo · 3–5 min</span><h3>Radar 08h × Radar 14h</h3><p>Mostre a mesma situação nos dois cortes e o que muda na decisão.</p></div>
-          </article>
-          <article class="media-card">
-            <div class="embed-shell video-embed" data-youtube-id="qZytYodYwtc" data-video-title="Como confirmar uma sugestão e atualizar o tracker">
-              <div class="embed-placeholder"><div class="play-mark">▶</div><b>Vídeo ainda não conectado</b><p>O player usará o domínio com privacidade aprimorada.</p><code>qZytYodYwtc</code></div>
-            </div>
-            <div class="media-copy"><span class="pill">Vídeo · 4–6 min</span><h3>Do alerta ao tracker</h3><p>Faça uma demonstração: protocolo → OPA → revisão → ação → registro.</p></div>
-          </article>
-          <article class="media-card wide">
-            <div class="embed-shell image-embed" data-media-src="SUBSTITUA_PELO_CAMINHO_DA_IMAGEM_OU_GIF" data-media-alt="Demonstração de atualização de status no OPA">
-              <div class="embed-placeholder"><div class="play-mark">GIF</div><b>Imagem ou GIF ainda não conectado</b><p>Use uma captura anonimizada, sem dados pessoais ou mensagens brutas.</p><code>SUBSTITUA_PELO_CAMINHO_DA_IMAGEM_OU_GIF</code></div>
-            </div>
-            <div class="media-copy"><span class="pill">Imagem ou GIF</span><h3>Qualidade do status no OPA</h3><p>Uma sequência visual pode mostrar:</p><ul><li>onde conferir o status atual;</li><li>como identificar dono e prazo;</li><li>quando o caso pode ser encerrado;</li><li>como ocultar dados pessoais na captura.</li></ul></div>
+            <div class="video-copy"><span class="pill plain-pill">Leitura completa</span><h3>Como interpretar o card de um protocolo</h3><p>Vídeo detalhado sobre identificação, prioridade, indicadores, motivo da cor, ações sugeridas, departamento sugerido e confiança do alerta.</p></div>
           </article>
         </div>
       </div>
@@ -668,13 +634,14 @@
     <section class="soft-section" id="faq">
       <div class="wrap narrow">
         <div class="section-head">
-          <p class="eyebrow">FAQ e boas práticas</p>
+          <p class="eyebrow">7 · Perguntas frequentes</p>
           <h2 class="section-title">Respostas curtas para dúvidas do dia a dia</h2>
         </div>
         <div class="faq-list">
           <article class="faq open"><button type="button" aria-expanded="true"><span>Todo caso vermelho precisa de contato imediato?</span><span aria-hidden="true">+</span></button><div class="answer"><div><p>Precisa de confirmação imediata. Abra o OPA, veja se o caso continua atual e então execute ou escale a ação conforme impacto e alçada.</p></div></div></article>
           <article class="faq"><button type="button" aria-expanded="false"><span>E se a evidência do relatório não bater com o OPA?</span><span aria-hidden="true">+</span></button><div class="answer"><div><p>O OPA e a situação atual prevalecem para a decisão. Não execute a sugestão; registre a divergência no fluxo de calibração para que a régua aprenda.</p></div></div></article>
           <article class="faq"><button type="button" aria-expanded="false"><span>A IA pode escolher oferta, condição ou benefício?</span><span aria-hidden="true">+</span></button><div class="answer"><div><p>Não sozinha. Ações financeiras, contratuais ou de exceção são de alto impacto e exigem aprovação humana explícita conforme a política da GSM.</p></div></div></article>
+          <article class="faq"><button type="button" aria-expanded="false"><span>O departamento sugerido significa que preciso transferir o atendimento agora?</span><span aria-hidden="true">+</span></button><div class="answer"><div><p>Não automaticamente. O departamento sugerido é calculado a partir do tema identificado e não é o mesmo que o departamento atual, que mostra onde o protocolo está no OPA Suíte agora. Antes de encaminhar, confira o histórico, verifique quem pode resolver o caso e preserve o contexto do cliente.</p></div></div></article>
           <article class="faq"><button type="button" aria-expanded="false"><span>Posso marcar como finalizado depois de enviar uma mensagem?</span><span aria-hidden="true">+</span></button><div class="answer"><div><p>Só se o ciclo realmente terminou segundo a regra operacional. Se o cliente ou outra área ainda precisa responder, o status deve mostrar a pendência e o próximo dono.</p></div></div></article>
           <article class="faq"><button type="button" aria-expanded="false"><span>Por que um caso aparece às 08h e de novo às 14h?</span><span aria-hidden="true">+</span></button><div class="answer"><div><p>Porque a segunda janela reavalia o estado. O reaparecimento pode indicar pendência, agravamento ou ausência de registro. Atualize a linha existente; não duplique sem necessidade.</p></div></div></article>
           <article class="faq"><button type="button" aria-expanded="false"><span>O relatório mede desempenho individual?</span><span aria-hidden="true">+</span></button><div class="answer"><div><p>Não. O piloto é diagnóstico operacional e apoio à priorização. Não deve ser tratado como ranking individual, auditoria punitiva ou KPI contratual fechado.</p></div></div></article>
@@ -683,83 +650,93 @@
       </div>
     </section>
 
-    <section id="suporte">
+    <section>
       <div class="wrap">
-        <div class="support">
-          <div>
-            <span class="pill">Contato e suporte</span>
-            <h2>Ficou em dúvida sobre um caso?</h2>
-            <p>Confirme o protocolo e a janela do relatório antes de pedir ajuda. Nunca envie mensagens brutas, dados pessoais, telefone ou mídia do cliente por canais não aprovados.</p>
-            <div class="support-actions">
-              <a class="btn btn-primary" href="mailto:contato@vestabi.com?subject=D%C3%BAvida%20sobre%20o%20piloto%20GSM">Falar com a Vesta</a>
-              <a class="btn btn-secondary" href="https://www.vestabi.com" target="_blank" rel="noopener">Acessar vestabi.com</a>
-              <span class="btn btn-secondary disabled-link" aria-disabled="true" title="Substituir pelo canal interno aprovado">Canal interno · adicionar link</span>
-            </div>
+        <div class="closeout" data-reveal>
+          <div class="closeout-grid">
+            <div><span class="pill plain-pill">Resumo de bolso</span><h2>Leia a cor. Valide os sinais. Assuma o próximo passo.</h2><p>O Radar organiza a prioridade e resume evidências. O OPA Suíte mostra o contexto atualizado. A decisão e o registro do desfecho continuam com a pessoa responsável.</p></div>
+            <ul class="closeout-check"><li>Mesmo Radar às 08h e 14h</li><li>Uma única forma de leitura</li><li>Seis indicadores com faixas claras</li><li>Exemplo visual totalmente fictício</li><li>Revisão humana em toda decisão</li></ul>
           </div>
-          <aside class="support-check">
-            <h3>Inclua no pedido de ajuda</h3>
-            <ul><li>protocolo OPA;</li><li>relatório e janela (08h, 14h ou Diário);</li><li>dúvida objetiva: risco, ação, tracker ou status;</li><li>o que já foi conferido no OPA;</li><li>captura somente se estiver anonimizada.</li></ul>
-          </aside>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap footer-inner">
+  <footer style="border-top:1px solid var(--ink-08)">
+    <div class="footer-grid" style="max-width:1200px;margin:0 auto;padding:52px 24px 20px;display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(3,minmax(150px,1fr));gap:32px">
       <div>
-        <img class="footer-logo-light" src="/uploads/vesta_logo_light.svg" alt="Vesta">
-        <img class="footer-logo-dark" src="/vesta_logo_dark.svg" alt="Vesta">
+        <div class="footer-logo">
+          <img class="only-dark" src="/vesta_logo_dark.svg" alt="Vesta" width="110" height="28">
+          <img class="only-light" src="/uploads/vesta_logo_light.svg" alt="Vesta" width="110" height="28">
+        </div>
+        <p style="margin:14px 0 0;font-size:13px;line-height:1.7;color:var(--ink-45);max-width:280px">Material de treinamento Vesta para a equipe GSM Bahia — piloto de retenção. Protótipo local, conteúdo de demonstração.</p>
       </div>
-      <div>Protótipo local · conteúdo operacional a validar com a GSM · sem dados reais de clientes</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:1.5px;color:var(--ink-4)">NESTE GUIA</span>
+        <a href="#radar" style="font-size:14px;font-weight:600;color:var(--ink-65)">O Radar</a>
+        <a href="#como-ler" style="font-size:14px;font-weight:600;color:var(--ink-65)">Como ler</a>
+        <a href="#indicadores" style="font-size:14px;font-weight:600;color:var(--ink-65)">Indicadores</a>
+        <a href="#faq" style="font-size:14px;font-weight:600;color:var(--ink-65)">FAQ</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:1.5px;color:var(--ink-4)">TREINAMENTOS VESTA</span>
+        <a href="/treinamentos/" style="font-size:14px;font-weight:600;color:var(--ink-65)">Todos os treinamentos</a>
+        <a href="/treinamentos/atendimento-gsm/" style="font-size:14px;font-weight:600;color:var(--ink-65)">Atendimento GSM</a>
+        <a href="/" style="font-size:14px;font-weight:600;color:var(--ink-65)">Voltar para a Vesta</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:1.5px;color:var(--ink-4)">CONTATO</span>
+        <a href="mailto:contato@vestabi.com" style="font-size:14px;font-weight:600;color:var(--ink-65)">contato@vestabi.com</a>
+        <a href="https://www.vestabi.com" target="_blank" rel="noopener" style="font-size:14px;font-weight:600;color:var(--ink-65)">www.vestabi.com</a>
+      </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:18px 24px 28px;border-top:1px solid var(--ink-08);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <span style="font-size:13px;color:var(--ink-45)">© 2026 Vesta · protótipo local · conteúdo de demonstração, sem dados reais de clientes</span>
+      <span style="font-size:12.5px;color:var(--ink-4)">Feita em Salvador, Bahia.</span>
     </div>
   </footer>
 
   <script>
     (function(){
+      'use strict';
       var root=document.documentElement;
       var themeButton=document.getElementById('themeButton');
-      try{var savedTheme=localStorage.getItem('vesta-wiki-theme');if(savedTheme==='dark'||savedTheme==='light')root.setAttribute('data-theme',savedTheme)}catch(e){}
+      try{var saved=localStorage.getItem('vesta-theme');if(saved==='dark'||saved==='light')root.setAttribute('data-theme',saved)}catch(e){}
       function syncTheme(){var dark=root.getAttribute('data-theme')==='dark';themeButton.setAttribute('aria-label',dark?'Ativar tema claro':'Ativar tema escuro');document.querySelector('meta[name="theme-color"]').setAttribute('content',dark?'#001B2A':'#F1F5F8')}
       syncTheme();
-      themeButton.addEventListener('click',function(){var next=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',next);try{localStorage.setItem('vesta-wiki-theme',next)}catch(e){}syncTheme()});
+      themeButton.addEventListener('click',function(){var next=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',next);try{localStorage.setItem('vesta-theme',next)}catch(e){}syncTheme()});
 
       var menuButton=document.getElementById('menuButton');
       var mobilePanel=document.getElementById('mobilePanel');
-      function closeMenu(){mobilePanel.classList.remove('open');menuButton.setAttribute('aria-expanded','false');document.body.classList.remove('menu-open')}
-      menuButton.addEventListener('click',function(){var open=mobilePanel.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));document.body.classList.toggle('menu-open',open)});
+      function closeMenu(){mobilePanel.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Abrir menu');document.body.classList.remove('menu-open')}
+      menuButton.addEventListener('click',function(){var open=mobilePanel.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');document.body.classList.toggle('menu-open',open)});
       mobilePanel.querySelectorAll('a').forEach(function(link){link.addEventListener('click',closeMenu)});
-      window.addEventListener('resize',function(){if(window.innerWidth>1050)closeMenu()});
+      document.addEventListener('keydown',function(event){if(event.key==='Escape')closeMenu()});
+      window.addEventListener('resize',function(){if(window.innerWidth>1350)closeMenu()});
 
       var progress=document.getElementById('readingProgress');
-      function updateProgress(){var total=document.documentElement.scrollHeight-window.innerHeight;var value=total>0?window.scrollY/total*100:0;progress.style.width=Math.min(100,Math.max(0,value))+'%'}
+      function updateProgress(){var total=document.documentElement.scrollHeight-window.innerHeight;var value=total>0?window.scrollY/total*100:0;progress.style.width=Math.max(0,Math.min(100,value))+'%'}
       updateProgress();window.addEventListener('scroll',updateProgress,{passive:true});window.addEventListener('resize',updateProgress);
 
-      var guideContent=[
-        {title:'Risco organiza a fila; não decide sozinho.',text:'Leia o nível como urgência para conferir. A cor combina sinais disponíveis no corte, mas não conhece tudo o que aconteceu depois.',rule:'Pergunta-chave: “qual fato preciso confirmar agora?”'},
-        {title:'Evidência explica por que o caso subiu.',text:'Procure sinais concretos e combinados: pedido explícito, recontato, tempo em aberto, falha repetida ou ausência de avanço. Um sinal isolado pode não bastar.',rule:'Boa evidência é curta, verificável e não expõe dados pessoais.'},
-        {title:'Sugestão é um ponto de partida.',text:'Ela propõe um próximo passo e um possível dono. Confirme se a ação ainda faz sentido, se está dentro da política e qual impacto pode gerar.',rule:'Quanto maior o impacto, mais explícita deve ser a revisão humana.'},
-        {title:'O OPA mostra a situação atual.',text:'Entre o corte e a leitura, o cliente pode ter recebido retorno, o status pode ter mudado ou outra área pode ter assumido. Verifique antes de agir.',rule:'A decisão usa o presente; o relatório preserva o retrato do corte.'},
-        {title:'O tracker fecha o ciclo e ensina o piloto.',text:'Registre o que realmente foi feito, o resultado, o status, o responsável e o próximo prazo. Sem retorno estruturado, a régua não aprende.',rule:'Não copie a sugestão como se fosse ação realizada.'}
-      ];
-      var guideTitle=document.getElementById('guideTitle'),guideText=document.getElementById('guideText'),guideRule=document.getElementById('guideRule'),guideKicker=document.getElementById('guideKicker');
-      var guideRows=Array.from(document.querySelectorAll('[data-guide-step]'));var guideButtons=Array.from(document.querySelectorAll('[data-guide-button]'));
-      function setGuide(index){var item=guideContent[index];guideTitle.textContent=item.title;guideText.textContent=item.text;guideRule.textContent=item.rule;guideKicker.textContent='Passo '+(index+1)+' de 5';guideRows.forEach(function(row,i){row.classList.toggle('active',i===index)});guideButtons.forEach(function(button,i){button.classList.toggle('active',i===index);button.setAttribute('aria-current',i===index?'step':'false')})}
-      guideRows.forEach(function(row){row.addEventListener('click',function(){setGuide(Number(row.getAttribute('data-guide-step')))})});guideButtons.forEach(function(button){button.addEventListener('click',function(){setGuide(Number(button.getAttribute('data-guide-button')))})});
-
-      var checkButtons=Array.from(document.querySelectorAll('.check-buttons button'));var checkCount=document.getElementById('checkCount');
-      function updateCheck(){var done=checkButtons.filter(function(button){return button.classList.contains('done')}).length;checkCount.textContent=done+'/4 completo'}
-      checkButtons.forEach(function(button){button.addEventListener('click',function(){var done=button.classList.toggle('done');button.setAttribute('aria-pressed',String(done));updateCheck()})});
+      function youtubeId(value){if(!value||value.indexOf('_AQUI')>-1)return'';var clean=value.trim();var match=clean.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{6,})/);return match?match[1]:clean.replace(/[^A-Za-z0-9_-]/g,'')}
+      document.querySelectorAll('.video-slot').forEach(function(slot){var id=youtubeId(slot.getAttribute('data-youtube-id'));if(!id)return;var frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/'+id+'?rel=0';frame.title=slot.getAttribute('data-video-title')||'Vídeo de treinamento';frame.loading='lazy';frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';frame.allowFullscreen=true;slot.replaceChildren(frame)});
 
       document.querySelectorAll('.faq button').forEach(function(button){button.addEventListener('click',function(){var item=button.closest('.faq');var open=item.classList.toggle('open');button.setAttribute('aria-expanded',String(open))})});
 
-      function youtubeId(value){if(!value||value.indexOf('SUBSTITUA_')===0)return'';var clean=value.trim();var match=clean.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{6,})/);return match?match[1]:clean.replace(/[^A-Za-z0-9_-]/g,'')}
-      document.querySelectorAll('.video-embed').forEach(function(shell){var id=youtubeId(shell.getAttribute('data-youtube-id'));if(!id)return;var frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/'+id+'?rel=0';frame.title=shell.getAttribute('data-video-title')||'Vídeo de treinamento';frame.loading='lazy';frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';frame.allowFullscreen=true;shell.replaceChildren(frame)});
-      document.querySelectorAll('.image-embed').forEach(function(shell){var src=(shell.getAttribute('data-media-src')||'').trim();if(!src||src.indexOf('SUBSTITUA_')===0)return;var image=document.createElement('img');image.src=src;image.alt=shell.getAttribute('data-media-alt')||'';image.loading='lazy';image.decoding='async';shell.replaceChildren(image)});
+      if('IntersectionObserver' in window){
+        var revealElements=Array.from(document.querySelectorAll('[data-reveal]'));
+        revealElements.forEach(function(element){element.classList.add('vhide')});
+        var revealAlive=false;
+        var revealObserver=new IntersectionObserver(function(entries){revealAlive=true;entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.remove('vhide');revealObserver.unobserve(entry.target)}})},{rootMargin:'0px 0px -20% 0px'});
+        revealElements.forEach(function(element){revealObserver.observe(element)});
+        setTimeout(function(){if(!revealAlive)document.querySelectorAll('.vhide').forEach(function(element){element.classList.remove('vhide')})},1200);
 
-      var navLinks=Array.from(document.querySelectorAll('.desktop-nav a,.mobile-nav a'));
-      var targets=navLinks.map(function(link){return document.querySelector(link.getAttribute('href'))}).filter(Boolean);
-      if('IntersectionObserver' in window){var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){navLinks.forEach(function(link){link.classList.toggle('active',link.getAttribute('href')==='#'+entry.target.id)})}})},{rootMargin:'-25% 0px -65% 0px',threshold:0});targets.forEach(function(target){observer.observe(target)})}
+        var links=Array.from(document.querySelectorAll('.desktop-nav a,.mobile-nav a,#vstepper a'));
+        var sections=[];
+        links.forEach(function(link){var section=document.querySelector(link.getAttribute('href'));if(section&&sections.indexOf(section)===-1)sections.push(section)});
+        var sectionObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){links.forEach(function(link){var active=link.getAttribute('href')==='#'+entry.target.id;link.classList.toggle('active',active);if(link.classList.contains('vstep'))link.classList.toggle('on',active)})}})},{rootMargin:'-40% 0px -55% 0px'});
+        sections.forEach(function(section){sectionObserver.observe(section)});
+      }
     })();
   </script>
 </body>
