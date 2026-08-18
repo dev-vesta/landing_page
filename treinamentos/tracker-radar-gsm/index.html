@@ -1,0 +1,368 @@
+<!doctype html>
+<!--
+  WIKI DO TRACKER DO RADAR GSM — PÁGINA DE TREINAMENTO
+
+  Conteúdo consolidado a partir da implementação e dos contratos atuais de
+  dev-vesta/GSM_Bahia (tracker-google-sheets-v2, estratégia do Tracker e Apps Script).
+  Esta Wiki é orientada à GSM: detalhes internos de banco, IDs e processamento foram
+  reduzidos ao efeito prático para a pessoa usuária.
+
+  Decisões validadas em 17/08/2026:
+  - nome oficial: Tracker do Radar GSM;
+  - Responsável GSM sempre obrigatório para garantir rastreabilidade;
+  - feedback Parcialmente correto ou Totalmente incorreto solicita nova análise da
+    Vesta e exige observação, sem expor o mecanismo técnico interno.
+  - arquitetura enxuta: seis blocos, leitura operacional primeiro e detalhes sob
+    demanda para reduzir repetição e cansaço na consulta.
+
+  Implementação estática, sem build e sem integração com a planilha real.
+  Fontes e logos são ativos canônicos publicados pela Vesta. Todos os protocolos, textos,
+  nomes e números apresentados são fictícios e servem somente para treinamento.
+-->
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tracker do Radar GSM · Wiki GSM — Vesta</title>
+  <meta name="description" content="Guia prático para a GSM acompanhar os alertas do Radar, registrar a tratativa e fechar o ciclo no Tracker.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="canonical" href="https://www.vestabi.com/treinamentos/tracker-radar-gsm/">
+  <meta name="theme-color" content="#F1F5F8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    /* Fontes e tokens canônicos da landing_page e da Wiki GSM publicada. */
+    @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/space-grotesk.woff2') format('woff2')}
+    @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/space-grotesk.woff2') format('woff2')}
+    @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/space-grotesk.woff2') format('woff2')}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/plus-jakarta-sans.woff2') format('woff2')}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/plus-jakarta-sans.woff2') format('woff2')}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/plus-jakarta-sans.woff2') format('woff2')}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/plus-jakarta-sans.woff2') format('woff2')}
+    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/jetbrains-mono.woff2') format('woff2')}
+    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/jetbrains-mono.woff2') format('woff2')}
+    [data-theme="dark"]{
+      --bg:#001B2A;--text:#EAF3F8;--panel1:#04283C;--panel2:#02202F;--panel-inner:rgba(0,27,42,.6);
+      --header-bg:rgba(0,27,42,.78);--acc:#B36F3A;--acc-hi:#CE8A50;--good:#4CC593;--good-soft:rgba(30,158,106,.14);--on-acc:#FFFFFF;--glow:rgba(179,111,58,.13);
+      --ink-02:rgba(234,243,248,.02);--ink-035:rgba(234,243,248,.035);--ink-045:rgba(234,243,248,.045);--ink-06:rgba(234,243,248,.06);--ink-07:rgba(234,243,248,.07);--ink-08:rgba(234,243,248,.08);--ink-09:rgba(234,243,248,.09);--ink-1:rgba(234,243,248,.1);--ink-2:rgba(234,243,248,.2);--ink-22:rgba(234,243,248,.22);--ink-25:rgba(234,243,248,.25);--ink-4:rgba(234,243,248,.4);--ink-45:rgba(234,243,248,.45);--ink-5:rgba(234,243,248,.5);--ink-55:rgba(234,243,248,.55);--ink-6:rgba(234,243,248,.6);--ink-62:rgba(234,243,248,.62);--ink-65:rgba(234,243,248,.65);--ink-68:rgba(234,243,248,.68);--ink-85:rgba(234,243,248,.85);
+      --acc-05:rgba(179,111,58,.05);--acc-07:rgba(179,111,58,.07);--acc-08:rgba(179,111,58,.08);--acc-09:rgba(179,111,58,.09);--acc-12:rgba(179,111,58,.12);--acc-13:rgba(179,111,58,.13);--acc-14:rgba(179,111,58,.14);--acc-15:rgba(179,111,58,.15);--acc-16:rgba(179,111,58,.16);--acc-25:rgba(179,111,58,.25);--acc-3:rgba(179,111,58,.3);--acc-35:rgba(179,111,58,.35);--acc-4:rgba(179,111,58,.4);--acc-42:rgba(179,111,58,.42);--acc-45:rgba(179,111,58,.45);--acc-5:rgba(179,111,58,.5);--acc-55:rgba(179,111,58,.55);
+      --warn:#E3B341;--warn-soft:rgba(227,179,65,.12);--warn-line:rgba(227,179,65,.32);--bad:#E8776B;--bad-soft:rgba(232,119,107,.12);--bad-line:rgba(232,119,107,.32)
+    }
+    [data-theme="light"]{
+      --bg:#F1F5F8;--text:#002F49;--panel1:#FFFFFF;--panel2:#E9F0F5;--panel-inner:rgba(255,255,255,.8);
+      --header-bg:rgba(241,245,248,.85);--acc:#A45F2C;--acc-hi:#8A4E22;--good:#1A8C5E;--good-soft:rgba(26,140,94,.12);--on-acc:#FFFFFF;--glow:rgba(164,95,44,.09);
+      --ink-02:rgba(0,47,73,.02);--ink-035:rgba(0,47,73,.035);--ink-045:rgba(0,47,73,.045);--ink-06:rgba(0,47,73,.06);--ink-07:rgba(0,47,73,.07);--ink-08:rgba(0,47,73,.08);--ink-09:rgba(0,47,73,.09);--ink-1:rgba(0,47,73,.1);--ink-2:rgba(0,47,73,.2);--ink-22:rgba(0,47,73,.22);--ink-25:rgba(0,47,73,.25);--ink-4:rgba(0,47,73,.4);--ink-45:rgba(0,47,73,.45);--ink-5:rgba(0,47,73,.5);--ink-55:rgba(0,47,73,.55);--ink-6:rgba(0,47,73,.6);--ink-62:rgba(0,47,73,.62);--ink-65:rgba(0,47,73,.65);--ink-68:rgba(0,47,73,.68);--ink-85:rgba(0,47,73,.85);
+      --acc-05:rgba(164,95,44,.05);--acc-07:rgba(164,95,44,.07);--acc-08:rgba(164,95,44,.08);--acc-09:rgba(164,95,44,.09);--acc-12:rgba(164,95,44,.12);--acc-13:rgba(164,95,44,.13);--acc-14:rgba(164,95,44,.14);--acc-15:rgba(164,95,44,.15);--acc-16:rgba(164,95,44,.16);--acc-25:rgba(164,95,44,.25);--acc-3:rgba(164,95,44,.3);--acc-35:rgba(164,95,44,.35);--acc-4:rgba(164,95,44,.4);--acc-42:rgba(164,95,44,.42);--acc-45:rgba(164,95,44,.45);--acc-5:rgba(164,95,44,.5);--acc-55:rgba(164,95,44,.55);
+      --warn:#9B6508;--warn-soft:rgba(227,179,65,.13);--warn-line:rgba(181,115,10,.28);--bad:#A65345;--bad-soft:rgba(166,83,69,.09);--bad-line:rgba(166,83,69,.26)
+    }
+    /* Compatibilidade sem alterar os valores canônicos usados pelos componentes do Tracker. */
+    :root{--panel:var(--panel1);--panel-2:var(--panel2);--panel-soft:var(--panel-inner);--header:var(--header-bg);--accent:var(--acc);--accent-hi:var(--acc-hi);--on-accent:var(--on-acc);--muted:var(--ink-65);--line:var(--ink-2);--ink-04:var(--ink-045);--ink-10:var(--ink-1);--ink-16:var(--ink-2);--ink-24:var(--ink-25);--accent-08:var(--acc-08);--accent-14:var(--acc-14);--accent-32:var(--acc-3);--good-line:color-mix(in srgb,var(--good) 32%,transparent);--shadow:0 18px 52px var(--ink-1)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;line-height:1.62;-webkit-font-smoothing:antialiased;transition:background .4s ease,color .4s ease}
+    body.menu-open{overflow:hidden}
+    button,a{font:inherit}a{color:var(--acc);text-decoration:none}a:hover{color:var(--acc-hi)}
+    a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}::selection{background:var(--acc-25)}
+    .skip-link{position:absolute;left:12px;top:-60px;z-index:100;background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;text-decoration:none;transition:top .2s ease}.skip-link:focus{top:12px;color:var(--on-acc)}
+    .progress{position:fixed;z-index:90;top:0;left:0;right:0;height:3px;background:var(--ink-06)}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc-hi));border-radius:0 999px 999px 0}
+    .wrap{width:min(1200px,calc(100% - 48px));margin-inline:auto}.narrow{width:min(850px,100%);margin-inline:auto}.mono{font-family:'JetBrains Mono',monospace}
+    section{padding:88px 0;scroll-margin-top:88px}.soft{background:var(--ink-02);border-block:1px solid var(--ink-08)}
+    .eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 12px;color:var(--acc);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}.eyebrow:before{content:"";width:28px;height:2px;background:currentColor}
+    .section-head{margin-bottom:34px}.section-title{max-width:17ch;margin:0;font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4.7vw,52px);line-height:1.06;letter-spacing:-1.6px;text-wrap:balance}.section-lead{max-width:790px;margin:17px 0 0;color:var(--ink-65);font-size:18px}
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border:1px solid var(--acc-35);border-radius:999px;background:var(--acc-08);color:var(--acc);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase}.pill:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}.plain-pill:before{display:none}.pill .dot{display:none}.pill.good{color:var(--good);border-color:var(--good-line);background:var(--good-soft)}.pill.warn{color:var(--warn);border-color:var(--warn-line);background:var(--warn-soft)}.pill.bad{color:var(--bad);border-color:var(--bad-line);background:var(--bad-soft)}
+    [data-reveal]{transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}[data-reveal].vhide{opacity:0;transform:translateY(46px)}
+    ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-thumb{background:var(--acc-3);border-radius:999px;border:2px solid transparent;background-clip:padding-box}
+    .cta{background:var(--acc);color:var(--on-acc);font-family:'Space Grotesk',sans-serif;font-weight:700;border-radius:999px;transition:transform .14s,box-shadow .2s}.cta:hover{color:var(--on-acc);transform:translateY(-3px);box-shadow:0 12px 32px var(--acc-4)}
+    .obtn{border:1px solid var(--ink-2);color:var(--text);transition:border-color .2s,transform .14s}.obtn:hover{transform:translateY(-3px);color:var(--text);border-color:var(--ink-45)}
+    .pcard{background:var(--ink-035);border:1px solid var(--ink-08);transition:border-color .25s,transform .2s,background .25s}.pcard:hover{border-color:var(--acc-45);transform:translateY(-4px);background:var(--acc-05)}
+    .vstep .slabel{font-size:11px;font-weight:700;letter-spacing:1px;transition:opacity .25s;opacity:0;color:var(--acc)}.vstep .sdot{width:8px;height:8px;border-radius:999px;transition:all .3s;background:var(--ink-25)}.vstep.on .slabel{opacity:1}.vstep.on .sdot{width:26px;background:var(--acc)}
+    .only-dark{display:none}.only-light{display:block}[data-theme="dark"] .only-dark{display:block}[data-theme="dark"] .only-light{display:none}
+    header{position:sticky;z-index:70;top:0;border-bottom:1px solid var(--ink-07);background:var(--header-bg);backdrop-filter:blur(14px)}.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px}.brand{display:flex;align-items:center;gap:14px;color:var(--text);text-decoration:none;flex:none}.brand img{height:36px;width:auto}.brand-tag{font-family:'JetBrains Mono',monospace;color:var(--ink-45);font-size:11px;font-weight:400;line-height:1.35;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+    .desktop-nav{display:flex;align-items:center;gap:1px;margin-left:auto}.desktop-nav a,.mobile-nav a{padding:9px 15px;border-radius:999px;color:var(--ink-65);font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap}.desktop-nav a:hover,.desktop-nav a.active,.mobile-nav a:hover,.mobile-nav a.active{color:var(--text)}.header-actions{display:flex;align-items:center;gap:10px}.icon-button{display:flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:1px solid var(--ink-22);border-radius:999px;background:transparent;color:var(--text);cursor:pointer;transition:border-color .2s;flex-shrink:0}.icon-button:hover{border-color:var(--acc);color:var(--acc)}#themeButton .ico-sun{display:none}#themeButton .ico-moon{display:flex}[data-theme="dark"] #themeButton .ico-sun{display:flex}[data-theme="dark"] #themeButton .ico-moon{display:none}.menu-button{display:none}.menu-button .ico-close{display:none}.menu-button[aria-expanded="true"] .ico-open{display:none}.menu-button[aria-expanded="true"] .ico-close{display:flex}.mobile-panel{display:flex;flex-direction:column;max-height:0;opacity:0;overflow:hidden;transition:max-height .3s cubic-bezier(.22,1,.36,1),opacity .25s ease}.mobile-panel.open{max-height:460px;opacity:1}.mobile-nav{display:flex;flex-direction:column;max-width:1200px;width:calc(100% - 48px);margin-inline:auto;padding:4px 0 20px}.mobile-nav a{padding:13px 4px;border-radius:0}
+    .hero{position:relative;overflow:hidden;padding:104px 0 80px;border-bottom:1px solid var(--ink-08)}.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--ink-045) 1px,transparent 1px),linear-gradient(90deg,var(--ink-045) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 80% at 50% 20%,black 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 20%,black 30%,transparent 75%);pointer-events:none}.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);gap:68px;align-items:center}.hero h1{max-width:13ch;margin:23px 0 0;font-family:'Space Grotesk',sans-serif;font-size:clamp(46px,6.5vw,78px);line-height:.98;letter-spacing:-3px;text-wrap:balance}.hero h1 span{color:var(--acc)}.hero-lead{max-width:680px;margin:24px 0 0;color:var(--ink-65);font-size:19px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:31px}.btn{display:inline-flex;min-height:48px;align-items:center;justify-content:center;gap:8px;padding:12px 21px;border:1px solid transparent;border-radius:999px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:transform .15s,box-shadow .15s,border-color .15s}.btn:hover{transform:translateY(-2px)}.btn-primary{box-shadow:0 10px 25px var(--acc-25)}.btn-secondary{background:transparent}
+    .flow-card{position:relative;background:linear-gradient(155deg,var(--panel),var(--panel-2));border:1px solid var(--ink-10);border-radius:28px;padding:26px;box-shadow:var(--shadow);overflow:hidden}.flow-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}.flow-card h2{font-family:'Space Grotesk';font-size:23px;letter-spacing:-.5px;margin:16px 0 6px}.flow-card>p{font-size:13.5px;color:var(--muted);margin:0 0 18px}.mini-flow{display:grid;gap:8px}.mini-step{display:grid;grid-template-columns:34px 1fr;gap:11px;align-items:center;border:1px solid var(--ink-07);background:var(--panel-soft);border-radius:14px;padding:10px 12px}.mini-step b{width:34px;height:34px;border-radius:11px;background:var(--accent-08);color:var(--accent);display:grid;place-items:center;font-family:'Space Grotesk'}.mini-step span{font-size:13.5px;font-weight:600}.flow-foot{margin-top:16px;padding-top:14px;border-top:1px solid var(--ink-10);font-size:12px;color:var(--muted)}
+    .concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.concept-card{background:var(--panel);border:1px solid var(--ink-10);border-radius:22px;padding:24px;position:relative;overflow:hidden}.concept-card:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--accent)}.concept-card h3{font-family:'Space Grotesk';font-size:21px;margin:18px 0 9px}.concept-card p{font-size:13.5px;color:var(--muted);margin:0}.concept-card strong{display:block;margin-top:16px;padding-top:14px;border-top:1px solid var(--ink-10);font-size:13px}
+    .journey{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--ink-10);border-radius:24px;overflow:hidden;background:var(--panel)}.journey-step{padding:22px 19px;min-height:178px;border-right:1px solid var(--ink-10)}.journey-step:last-child{border-right:0}.journey-step .num{font-family:'Space Grotesk';font-size:32px;color:var(--accent);line-height:1}.journey-step h3{font-family:'Space Grotesk';font-size:16px;margin:15px 0 7px}.journey-step p{color:var(--muted);font-size:12.5px;margin:0}.notice{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;margin-top:22px;padding:18px 20px;border:1px solid var(--warn-line);background:var(--warn-soft);border-radius:16px}.notice b{color:var(--warn)}.notice p{margin:2px 0 0;color:var(--muted);font-size:14px}
+    .workspace-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:24px;align-items:start}.tabs{display:grid;gap:10px}.tab-button{width:100%;text-align:left;border:1px solid var(--ink-1);background:var(--panel1);color:var(--text);border-radius:17px;padding:16px 18px;cursor:pointer;transition:border-color .25s,transform .2s,background .25s}.tab-button:hover,.tab-button.active{border-color:var(--acc-42);background:var(--acc-08);transform:translateY(-2px)}.tab-button b{display:block;font-family:'Space Grotesk';font-size:15px}.tab-button span{display:block;color:var(--ink-65);font-size:12px;margin-top:3px}.tab-panel{position:sticky;top:100px;background:linear-gradient(155deg,var(--panel1),var(--panel2));color:var(--text);border:1px solid var(--acc-3);border-radius:24px;padding:28px;min-height:330px}.tab-panel .pill{color:var(--acc);border-color:var(--acc-35);background:var(--acc-08)}.tab-panel h3{font-family:'Space Grotesk';font-size:30px;line-height:1.08;margin:20px 0 12px}.tab-panel p{color:var(--ink-65);font-size:14px}.tab-panel ul{padding-left:19px;color:var(--ink-65);font-size:13px}.tab-panel li{margin:8px 0}.tab-rule{border-top:1px solid var(--ink-14,var(--ink-1));margin-top:20px;padding-top:17px;font-weight:700;font-size:13.5px;color:var(--text)}
+    .row-demo{background:var(--panel);border:1px solid var(--ink-10);border-radius:24px;overflow:hidden}.row-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:19px 22px;border-bottom:1px solid var(--ink-10)}.row-head h3{font-family:'Space Grotesk';font-size:18px;margin:0}.row-head small{display:block;color:var(--muted);font-size:10.5px}.row-body{padding:22px}.field-section+.field-section{margin-top:25px;padding-top:25px;border-top:1px solid var(--ink-10)}.field-section h4{font-family:'Space Grotesk';font-size:16px;margin:0 0 13px}.field-section>p{font-size:12.5px;color:var(--muted);margin:-7px 0 16px}.field-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.field{border:1px solid var(--ink-10);background:var(--ink-04);border-radius:13px;padding:12px 13px;min-height:74px}.field.full{grid-column:1/-1}.field.editable{border-color:var(--accent-32);background:var(--accent-08)}.field small{display:block;color:var(--muted);font-size:9.5px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}.field b,.field span{font-size:12.5px}.field.editable small{color:var(--accent)}.demo-note{margin-top:16px;padding:13px 15px;border-radius:13px;background:var(--good-soft);border:1px solid var(--good-line);font-size:12px;color:var(--muted)}.demo-note b{color:var(--good)}
+    .sheet-figure{margin:0;background:var(--panel);border:1px solid var(--ink-10);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}.sheet-stage{padding:18px;background:linear-gradient(145deg,var(--panel-2),var(--panel));overflow:auto}.sheet-image{display:block;width:100%;height:auto;min-width:760px;border:1px solid var(--ink-10);background:#fff}.sheet-caption{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;padding:15px 18px;color:var(--muted);font-size:12px}.sheet-caption strong{color:var(--text)}.sheet-caption span:last-child{text-align:right}.sheet-figure.compact .sheet-image{min-width:680px}.sheet-figure.compact .sheet-stage{padding:14px}
+    .ownership{display:grid;grid-template-columns:1fr 1fr;gap:18px}.owner-card{border:1px solid var(--ink-10);border-radius:22px;padding:24px;background:var(--panel)}.owner-card h3{font-family:'Space Grotesk';font-size:21px;margin:14px 0 9px}.owner-card p{color:var(--muted);font-size:13.5px}.owner-card ul{list-style:none;padding:0;margin:17px 0 0;display:grid;gap:9px}.owner-card li{font-size:13px;padding:10px 12px;border-radius:11px;background:var(--ink-04);border:1px solid var(--ink-07)}
+    .decision-layout{display:grid;grid-template-columns:minmax(0,.74fr) minmax(0,1.26fr);gap:24px;align-items:start}.decision-nav{position:sticky;top:100px;display:grid;gap:8px}.decision-nav button{text-align:left;border:1px solid var(--ink-10);border-radius:14px;background:var(--panel);color:var(--muted);padding:13px 15px;cursor:pointer;font-weight:700;font-size:13px}.decision-nav button.active,.decision-nav button:hover{background:var(--accent-08);border-color:var(--accent-32);color:var(--text)}.decision-content{display:grid;gap:14px}.choice-card{border:1px solid var(--ink-10);background:var(--panel);border-radius:18px;padding:20px}.choice-card h3{font-family:'Space Grotesk';font-size:18px;margin:0 0 7px}.choice-card p{font-size:13px;color:var(--muted);margin:0}.choice-card .required{margin-top:13px;padding-top:12px;border-top:1px solid var(--ink-10);font-size:12px;font-weight:700}.choice-card.calibration{border-left:4px solid var(--accent)}
+    .rules-table{margin-top:30px;border:1px solid var(--ink-10);border-radius:20px;overflow:auto;background:var(--panel)}table{border-collapse:collapse;width:100%;min-width:790px}th,td{padding:15px 17px;text-align:left;border-bottom:1px solid var(--ink-10);font-size:13px;vertical-align:top}tr:last-child td{border-bottom:0}th{color:var(--muted);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;background:var(--ink-04)}td:first-child{font-family:'Space Grotesk';font-weight:700;color:var(--accent)}
+    .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.metric{background:var(--panel);border:1px solid var(--ink-10);border-radius:18px;padding:19px}.metric strong{display:block;font-family:'Space Grotesk';font-size:17px;margin-bottom:6px}.metric p{color:var(--muted);font-size:12.5px;margin:0}.metric em{display:block;margin-top:13px;color:var(--accent);font-style:normal;font-size:11px;font-weight:700}
+    .quick-note{margin-top:18px;padding:15px 17px;border:1px solid var(--good-line);background:var(--good-soft);border-radius:15px;color:var(--muted);font-size:13px}.quick-note strong{color:var(--good)}
+    .guide-list{display:grid;gap:12px}.guide{border:1px solid var(--ink-10);border-radius:20px;background:var(--panel);overflow:hidden}.guide summary{display:grid;grid-template-columns:44px 1fr auto;gap:15px;align-items:center;padding:19px 21px;cursor:pointer;list-style:none}.guide summary::-webkit-details-marker{display:none}.guide summary .guide-num{width:44px;height:44px;border-radius:13px;background:var(--accent-08);color:var(--accent);display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700}.guide summary b{display:block;font-family:'Space Grotesk';font-size:17px}.guide summary small{display:block;color:var(--muted);font-size:12px;margin-top:2px}.guide summary .guide-plus{width:30px;height:30px;border:1px solid var(--accent-32);border-radius:50%;display:grid;place-items:center;color:var(--accent);font-size:19px;transition:transform .2s}.guide[open] summary{background:var(--accent-08)}.guide[open] .guide-plus{transform:rotate(45deg)}.guide-body{padding:0 21px 21px}.option-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding-top:17px;border-top:1px solid var(--ink-10)}.option{padding:13px 14px;border:1px solid var(--ink-10);border-radius:13px;background:var(--ink-04)}.option b{display:block;font-family:'Space Grotesk';font-size:13.5px}.option span{display:block;color:var(--muted);font-size:11.5px;margin-top:3px}.rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:26px}.rule-card{border:1px solid var(--ink-10);border-radius:18px;background:var(--panel);padding:18px}.rule-card h3{font-family:'Space Grotesk';font-size:17px;margin:10px 0 8px}.rule-card p{color:var(--muted);font-size:12.5px;margin:0}.rule-card strong{display:block;margin-top:12px;padding-top:11px;border-top:1px solid var(--ink-10);font-size:11.5px}.secondary-metrics{margin-top:14px;border:1px solid var(--ink-10);border-radius:16px;background:var(--panel);overflow:hidden}.secondary-metrics summary{cursor:pointer;padding:15px 18px;font-family:'Space Grotesk';font-size:13px;font-weight:700}.secondary-metrics .metric-grid{padding:0 14px 14px}.secondary-metrics .metric{box-shadow:none}
+    .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.video-grid.single-video{grid-template-columns:minmax(0,591px);justify-content:center}.video-card{overflow:hidden;border:1px solid var(--ink-09);border-radius:23px;background:var(--panel1)}.video-slot{aspect-ratio:16/9;display:grid;place-items:center;padding:24px;background:linear-gradient(145deg,var(--panel1),var(--panel2));color:var(--text);text-align:center}.video-slot iframe{width:100%;height:100%;border:0}.video-slot.has-video{padding:0;background:#000}.video-slot video{display:block;width:100%;height:100%;object-fit:contain;background:#000}.play{width:58px;height:58px;display:grid;place-items:center;margin:0 auto 13px;border:1px solid var(--acc-4);border-radius:50%;background:var(--acc-16);color:var(--acc);font-size:20px}.video-poster{width:100%;height:100%;border:0;padding:0;margin:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;position:relative}.video-poster:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.32))}.video-poster .play{position:relative;margin:0;width:64px;height:64px;background:var(--acc);border:0;color:#fff;font-size:22px;transition:transform .15s}.video-poster:hover .play{transform:scale(1.08)}.video-slot strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:17px}.video-slot p{margin:6px 0 0;color:var(--ink-65);font-size:12px}.video-slot code{display:inline-block;margin-top:11px;padding:6px 8px;border-radius:7px;background:var(--ink-08);color:var(--acc);font-family:'JetBrains Mono',monospace;font-size:9px}.video-copy{padding:22px}.video-copy h3{margin:14px 0 7px;font-family:'Space Grotesk',sans-serif;font-size:21px}.video-copy p{margin:0;color:var(--ink-65);font-size:13.5px}
+    .faq-list{display:grid;gap:10px}.faq{border:1px solid var(--ink-10);background:var(--panel);border-radius:18px;overflow:hidden}.faq button{width:100%;display:flex;justify-content:space-between;gap:18px;text-align:left;padding:19px 20px;border:0;background:transparent;color:var(--text);cursor:pointer;font-family:'Space Grotesk';font-size:15px;font-weight:700}.faq button span:last-child{width:28px;height:28px;border:1px solid var(--accent-32);border-radius:50%;display:grid;place-items:center;color:var(--accent);flex:none}.answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .2s}.answer>div{overflow:hidden}.answer p{color:var(--muted);font-size:13.5px;margin:0;padding:0 20px}.faq.open .answer{grid-template-rows:1fr}.faq.open .answer p{padding-bottom:19px}.faq.open button span:last-child{transform:rotate(45deg)}
+    .closeout{background:linear-gradient(155deg,var(--panel1),var(--panel2));color:var(--text);border-radius:28px;padding:34px;border:1px solid var(--acc-3)}.closeout-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:30px}.closeout h2{font-family:'Space Grotesk';font-size:clamp(30px,4vw,44px);line-height:1.06;margin:14px 0 12px}.closeout p{color:var(--ink-65);font-size:14px}.closeout ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}.closeout li{border:1px solid var(--ink-1);border-radius:12px;padding:11px 13px;color:var(--ink-85);font-size:12.5px}.closeout li:before{content:"✓";color:var(--good);margin-right:9px;font-weight:800}
+    footer{border-top:1px solid var(--ink-08)}.footer-logo img{height:28px;width:auto}.footer-grid{max-width:1200px;margin:0 auto;padding:52px 24px 20px;display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(3,minmax(150px,1fr));gap:32px}.footer-brand-copy{margin:14px 0 0;font-size:13px;line-height:1.7;color:var(--ink-45);max-width:280px}.footer-col{display:flex;flex-direction:column;gap:10px}.footer-col>span{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11.5px;letter-spacing:1.5px;color:var(--ink-4)}.footer-col a{font-size:14px;font-weight:600;color:var(--ink-65)}.footer-col a:hover{color:var(--text)}.footer-bottom{max-width:1200px;margin:0 auto;padding:18px 24px 28px;border-top:1px solid var(--ink-08);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.footer-bottom span:first-child{font-size:13px;color:var(--ink-45)}.footer-bottom span:last-child{font-size:12.5px;color:var(--ink-4)}
+    @media(max-width:1180px){#vstepper{display:none!important}}
+    @media(max-width:1350px){.desktop-nav{display:none}.brand-tag{display:none}.menu-button{display:flex}.header-actions{margin-left:auto}}
+    @media(max-width:1080px){.hero-grid{gap:34px}.journey{grid-template-columns:repeat(3,1fr)}.journey-step:nth-child(3){border-right:0}.journey-step:nth-child(-n+3){border-bottom:1px solid var(--ink-10)}.journey-step:nth-child(4){grid-column:1/2}.metric-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:820px){section{padding:70px 0}.hero{padding:70px 0}.hero-grid,.workspace-grid,.decision-layout,.closeout-grid{grid-template-columns:1fr}.hero-grid>*{min-width:0}.flow-card{max-width:530px}.concept-grid{grid-template-columns:1fr}.journey{grid-template-columns:repeat(2,1fr)}.journey-step{border-bottom:1px solid var(--ink-10)!important}.journey-step:nth-child(even){border-right:0}.journey-step:nth-child(4){grid-column:auto}.journey-step:last-child{grid-column:1/-1;border-bottom:0!important}.tab-panel,.decision-nav{position:relative;top:auto}.decision-nav{grid-template-columns:repeat(3,1fr)}.decision-nav button{text-align:center}.ownership,.rule-grid{grid-template-columns:1fr}}
+    @media(max-width:640px){section{padding-left:18px!important;padding-right:18px!important;padding-top:58px;padding-bottom:58px}.wrap{width:100%}.header-inner{padding:12px 16px}.mobile-nav{width:100%;padding:4px 16px 20px}.icon-button{width:40px;height:40px}.hero{padding:52px 0 58px}.hero h1{font-size:45px;letter-spacing:-2px}.hero-lead,.section-lead{font-size:16px}.hero-actions{display:grid}.btn{width:100%}.section-title{font-size:34px;letter-spacing:-1px}.concept-grid,.journey,.field-grid,.ownership,.metric-grid,.decision-nav,.option-list{grid-template-columns:1fr}.journey-step,.journey-step:nth-child(even){border-right:0}.journey-step:last-child{grid-column:auto}.field.full{grid-column:auto}.row-head{align-items:flex-start;flex-direction:column}.closeout{padding:25px}.guide summary{grid-template-columns:38px 1fr auto;padding:16px}.guide summary .guide-num{width:38px;height:38px}.guide-body{padding:0 16px 16px}.footer-grid{grid-template-columns:1fr;gap:26px}.footer-bottom{align-items:flex-start;flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+    @media print{header,.progress,.hero-actions,.decision-nav{display:none!important}body{background:#fff;color:#002F49}.hero{padding-top:28px}section{padding:38px 0;break-inside:avoid}.wrap{width:92%}.tab-panel{position:static}.answer{grid-template-rows:1fr}.answer p{padding-bottom:19px}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <div class="progress" aria-hidden="true"><span id="readingProgress"></span></div>
+
+  <nav id="vstepper" aria-label="Navegação rápida por seções" style="position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:14px;align-items:flex-end">
+    <a class="vstep on" href="#topo" title="INÍCIO" style="display:flex;align-items:center;gap:9px"><span class="slabel">INÍCIO</span><span class="sdot"></span></a>
+    <a class="vstep" href="#passo-a-passo" title="COMECE AQUI" style="display:flex;align-items:center;gap:9px"><span class="slabel">COMECE AQUI</span><span class="sdot"></span></a>
+    <a class="vstep" href="#preenchimento" title="COMO PREENCHER" style="display:flex;align-items:center;gap:9px"><span class="slabel">COMO PREENCHER</span><span class="sdot"></span></a>
+    <a class="vstep" href="#indicadores" title="INDICADORES" style="display:flex;align-items:center;gap:9px"><span class="slabel">INDICADORES</span><span class="sdot"></span></a>
+    <a class="vstep" href="#planilha" title="ABAS" style="display:flex;align-items:center;gap:9px"><span class="slabel">ABAS</span><span class="sdot"></span></a>
+    <a class="vstep" href="#videos" title="VÍDEO" style="display:flex;align-items:center;gap:9px"><span class="slabel">VÍDEO</span><span class="sdot"></span></a>
+    <a class="vstep" href="#faq" title="DÚVIDAS" style="display:flex;align-items:center;gap:9px"><span class="slabel">DÚVIDAS</span><span class="sdot"></span></a>
+  </nav>
+
+  <header>
+    <div class="wrap header-inner">
+      <a class="brand" href="#topo" aria-label="Vesta · início da Wiki GSM">
+        <img class="only-dark" src="/vesta_logo_dark.svg" alt="Vesta" width="142" height="36">
+        <img class="only-light" src="/uploads/vesta_logo_light.svg" alt="Vesta" width="142" height="36">
+        <span class="brand-tag">WIKI GSM · TRACKER</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Navegação principal">
+        <a href="#passo-a-passo">Comece aqui</a><a href="#preenchimento">Como preencher</a><a href="#indicadores">Indicadores</a><a href="#planilha">Abas</a><a href="#videos">Vídeo</a><a href="#faq">Dúvidas</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button" id="themeButton" type="button" title="Alternar tema claro/escuro" aria-label="Ativar tema escuro">
+          <span class="ico-sun" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg></span>
+          <span class="ico-moon" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"/></svg></span>
+        </button>
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobilePanel">
+          <span class="ico-open" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
+          <span class="ico-close" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-panel" id="mobilePanel">
+      <nav class="mobile-nav" aria-label="Navegação móvel"><a href="#passo-a-passo">Comece aqui</a><a href="#preenchimento">Como preencher</a><a href="#indicadores">Indicadores</a><a href="#planilha">Abas</a><a href="#videos">Vídeo</a><a href="#faq">Dúvidas</a></nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="topo">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="pill"><span class="dot"></span>Piloto de retenção · GSM Bahia</span>
+          <h1>Do alerta ao <span>retorno registrado.</span></h1>
+          <p class="hero-lead">O Tracker do Radar GSM guarda quem assumiu cada alerta, o andamento da tratativa e o desfecho informado pela GSM. Ele é a memória operacional do piloto.</p>
+          <div class="hero-actions"><a class="btn btn-primary cta" href="#passo-a-passo">Começar em 1 minuto →</a><a class="btn btn-secondary obtn" href="#preenchimento">Consultar um campo</a></div>
+        </div>
+        <aside class="flow-card pcard" aria-label="Fluxo do acompanhamento">
+          <span class="pill">Comece aqui</span><h2>Três ações em cada caso</h2><p>Esta é a sequência essencial.</p>
+          <div class="mini-flow"><div class="mini-step"><b>1</b><span>Abra o protocolo na Fila GSM</span></div><div class="mini-step"><b>2</b><span>Confira o contexto atual no OPA Suíte</span></div><div class="mini-step"><b>3</b><span>Decida e registre o retorno no Tracker</span></div></div>
+          <div class="flow-foot">A tratativa e as movimentações do atendimento continuam no OPA Suíte. O Tracker registra o acompanhamento do piloto.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="soft" id="passo-a-passo">
+      <div class="wrap">
+        <div class="section-head"><p class="eyebrow">Comece aqui</p><h2 class="section-title">Trabalhe na Fila GSM</h2><p class="section-lead">Siga esta sequência sempre que assumir um caso do Radar.</p></div>
+        <div class="journey">
+          <article class="journey-step"><div class="num">01</div><h3>Abra a Fila GSM</h3><p>No card do Radar, use “Acessar Planilha” e localize o protocolo.</p></article>
+          <article class="journey-step"><div class="num">02</div><h3>Leia o alerta</h3><p>Confira a evidência principal e o próximo passo sugerido pela Vesta.</p></article>
+          <article class="journey-step"><div class="num">03</div><h3>Valide no OPA Suíte</h3><p>Veja o histórico mais recente. O atendimento pode ter mudado após o Radar.</p></article>
+          <article class="journey-step"><div class="num">04</div><h3>Registre o andamento</h3><p>Atualize Status GSM, Feedback, Observação GSM e Responsável GSM.</p></article>
+          <article class="journey-step"><div class="num">05</div><h3>Feche o ciclo</h3><p>Quando houver um desfecho, informe o Resultado e confira os campos obrigatórios.</p></article>
+        </div>
+        <figure class="sheet-figure" style="margin-top:24px">
+          <div class="sheet-stage"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/tracker-campos-gsm-reais-2026-08-17.png"><img class="sheet-image" src="assets/tracker-preenchimento-simulado.gif" alt="Simulação do preenchimento das colunas Status GSM, Feedback sobre o alerta, Resultado, Observação GSM e Responsável GSM com opções reais do Tracker" width="1400" height="220" loading="lazy"></picture></div>
+          <figcaption class="sheet-caption"><span><strong>Preenchimento simulado na interface real.</strong> Os menus usam opções atuais do Tracker.</span><span>Dados demonstrativos · reinicia automaticamente.</span></figcaption>
+        </figure>
+        <div class="quick-note"><strong>Responsável GSM é sempre obrigatório.</strong> “Situação no Radar” é atualizada pelo sistema; “Status GSM” é informado pela pessoa que acompanha o caso.</div>
+      </div>
+    </section>
+
+    <section id="preenchimento">
+      <div class="wrap">
+        <div class="section-head"><p class="eyebrow">Como preencher</p><h2 class="section-title">Três campos, três perguntas</h2><p class="section-lead">Abra apenas o campo que precisa consultar. Status mostra o andamento; Feedback avalia o alerta; Resultado registra o desfecho.</p></div>
+        <div class="guide-list">
+          <details class="guide">
+            <summary><span class="guide-num">1</span><span><b>Status GSM</b><small>Em que etapa está o acompanhamento?</small></span><span class="guide-plus" aria-hidden="true">+</span></summary>
+            <div class="guide-body"><div class="option-list">
+              <div class="option"><b>Não analisado</b><span>A ocorrência ainda não foi assumida.</span></div><div class="option"><b>Em análise</b><span>A GSM está conferindo o caso.</span></div><div class="option"><b>Tratativa em andamento</b><span>Já existe uma ação em execução.</span></div><div class="option"><b>Aguardando retorno do cliente</b><span>A continuidade depende do cliente; ainda não é resultado.</span></div><div class="option"><b>Encerrado</b><span>O caso chegou a um desfecho conhecido.</span></div><div class="option"><b>Não aplicável</b><span>O acompanhamento não se aplica ao caso.</span></div>
+            </div></div>
+          </details>
+          <details class="guide">
+            <summary><span class="guide-num">2</span><span><b>Feedback sobre o alerta</b><small>A avaliação e a sugestão da Vesta estavam corretas?</small></span><span class="guide-plus" aria-hidden="true">+</span></summary>
+            <div class="guide-body"><div class="option-list">
+              <div class="option"><b>Diagnóstico e sugestão corretos</b><span>A GSM concorda com a avaliação e a recomendação.</span></div><div class="option"><b>Parcialmente correto</b><span>Parte da avaliação ou sugestão precisa de ajuste.</span></div><div class="option"><b>Totalmente incorreto</b><span>O alerta não se confirmou na avaliação da GSM.</span></div>
+            </div></div>
+          </details>
+          <details class="guide">
+            <summary><span class="guide-num">3</span><span><b>Resultado</b><small>Qual foi o desfecho final?</small></span><span class="guide-plus" aria-hidden="true">+</span></summary>
+            <div class="guide-body"><div class="option-list">
+              <div class="option"><b>Cliente retido</b><span>A intenção de cancelamento foi revertida.</span></div><div class="option"><b>Demanda resolvida sem cancelamento</b><span>A necessidade foi resolvida sem resultar em cancelamento.</span></div><div class="option"><b>Infelizmente houve cancelamento</b><span>O cancelamento foi efetivado.</span></div><div class="option"><b>Risco de cancelamento não confirmado</b><span>A avaliação final não confirmou o risco.</span></div><div class="option"><b>Sem retorno do cliente</b><span>O acompanhamento terminou sem resposta do cliente.</span></div><div class="option"><b>Outro desfecho</b><span>Use quando o resultado não cabe nas opções anteriores.</span></div>
+            </div></div>
+          </details>
+        </div>
+        <div class="rule-grid" aria-label="Regras para atualizar o acompanhamento">
+          <article class="rule-card"><span class="pill">Em andamento</span><h3>Registre o próximo passo</h3><p>Atualize o Status GSM e a Observação GSM. Informe o Feedback quando já puder avaliar.</p><strong>Responsável GSM sempre obrigatório.</strong></article>
+          <article class="rule-card"><span class="pill good">Encerrado</span><h3>Informe o desfecho</h3><p>Feedback e Resultado são obrigatórios. Use Resultado somente quando a conclusão estiver confirmada.</p><strong>Explique feedback parcial/incorreto ou “Outro desfecho”.</strong></article>
+          <article class="rule-card"><span class="pill warn">Não aplicável</span><h3>Justifique a decisão</h3><p>O Feedback é obrigatório e o Resultado é opcional.</p><strong>Observação GSM e Responsável GSM obrigatórios.</strong></article>
+        </div>
+        <div class="notice"><span class="pill warn">Nova análise</span><div><b>Feedback parcial ou incorreto exige uma observação clara.</b><p>O caso será encaminhado para uma nova análise da Vesta e continuará em acompanhamento até a revisão ser concluída.</p></div></div>
+      </div>
+    </section>
+
+    <section class="soft" id="indicadores">
+      <div class="wrap">
+        <div class="section-head"><p class="eyebrow">Acompanhar o piloto</p><h2 class="section-title">Olhe primeiro para as pendências</h2><p class="section-lead">Na gestão diária, comece por Sem retorno, Cobertura de retorno e Com retorno GSM. Estes números medem o uso do Tracker, não os indicadores do card do Radar.</p></div>
+        <figure class="sheet-figure compact" style="margin-bottom:22px">
+          <div class="sheet-stage"><img class="sheet-image" src="assets/tracker-indicadores-reais-2026-08-17.png" alt="Recorte real do quadro de indicadores da Fila GSM com Alertas na fila, Cobertura de retorno, Feedbacks de calibração, Com retorno GSM, Retidos e Sem retorno" width="1180" height="230" loading="lazy"></div>
+          <figcaption class="sheet-caption"><span><strong>Quadro real da Fila GSM.</strong> Os números representam o momento da captura.</span><span>Capturado em 17/08/2026 · os valores são atualizados automaticamente.</span></figcaption>
+        </figure>
+        <div class="metric-grid">
+          <article class="metric"><strong>Sem retorno</strong><p>Ocorrências que ainda não receberam nenhuma informação da GSM.</p><em>Aponta pendência de registro</em></article>
+          <article class="metric"><strong>Cobertura de retorno</strong><p>Percentual das ocorrências que já possuem algum retorno da GSM.</p><em>Mede cobertura, não conclusão</em></article>
+          <article class="metric"><strong>Com retorno GSM</strong><p>Ocorrências em que ao menos um campo da GSM já foi preenchido.</p><em>Mostra atuação registrada</em></article>
+        </div>
+        <details class="secondary-metrics"><summary>Consultar os outros indicadores</summary><div class="metric-grid"><article class="metric"><strong>Alertas na fila</strong><p>Universo de ocorrências acompanhado na versão atual.</p></article><article class="metric"><strong>Feedbacks de calibração</strong><p>Alertas avaliados como parcialmente corretos ou totalmente incorretos.</p></article><article class="metric"><strong>Clientes retidos</strong><p>Casos cujo desfecho informado pela GSM foi “Cliente retido”.</p></article></div></details>
+        <div class="notice"><span class="pill warn">Leitura correta</span><div><b>“Com retorno” não significa “encerrado”.</b><p>Uma ocorrência pode ter responsável e status preenchidos, mas continuar em análise, em tratativa ou aguardando o cliente.</p></div></div>
+      </div>
+    </section>
+
+    <section id="planilha">
+      <div class="wrap">
+        <div class="section-head"><p class="eyebrow">Para consulta</p><h2 class="section-title">As quatro abas do Tracker</h2><p class="section-lead">O trabalho acontece na Fila GSM. Use as outras abas para orientação e conferência.</p></div>
+        <div class="workspace-grid">
+          <div class="tabs" role="tablist" aria-label="Abas do Tracker">
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="0"><b>Como usar</b><span>Orientações e regras de preenchimento</span></button>
+            <button class="tab-button active" role="tab" aria-selected="true" data-tab="1"><b>Fila GSM</b><span>Onde a GSM registra o acompanhamento</span></button>
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="2"><b>Radar atual</b><span>Consulta protegida dos alertas</span></button>
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="3"><b>Eventos GSM — Histórico completo</b><span>Histórico protegido das alterações</span></button>
+          </div>
+          <aside class="tab-panel" role="tabpanel" aria-live="polite"><span class="pill" id="tabKicker">Onde trabalhar</span><h3 id="tabTitle">Fila GSM</h3><p id="tabText">É a área em que a GSM acompanha os casos e registra sua atuação.</p><ul id="tabList"><li>Leia as informações preenchidas pela Vesta.</li><li>Edite somente os campos destinados à GSM.</li><li>Casos concluídos saem da visão ativa, mas permanecem no histórico.</li></ul><div class="tab-rule" id="tabRule">Esta é a única aba em que a GSM atualiza o acompanhamento.</div></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft" id="videos">
+      <div class="wrap">
+        <div class="section-head"><p class="eyebrow">Treinamento</p><h2 class="section-title">Aprenda assistindo</h2><p class="section-lead">Em um único vídeo, acompanhe o fluxo completo: localizar o alerta, conferir o contexto no OPA Suíte e registrar corretamente o retorno no Tracker.</p></div>
+        <div class="video-grid single-video">
+          <article class="video-card pcard" data-reveal>
+            <div class="video-slot" data-youtube-id="0Y4tsKLC-A4" data-video-title="Tracker do Radar GSM: como acompanhar e registrar um caso">
+              <div><div class="play">▶</div><strong>Vídeo ainda não conectado</strong><p>Substitua o ID do YouTube (não listado) no atributo data-youtube-id.</p><code>0Y4tsKLC-A4</code></div>
+            </div>
+            <div class="video-copy"><span class="pill plain-pill">Guia completo</span><h3>Tracker do Radar GSM: do alerta ao retorno</h3><p>Veja como trabalhar na Fila GSM, preencher os campos de acompanhamento, interpretar as pendências e manter a rastreabilidade do piloto.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft" id="faq">
+      <div class="wrap narrow">
+        <div class="section-head"><p class="eyebrow">Dúvidas rápidas</p><h2 class="section-title">Antes de concluir um registro</h2></div>
+        <div class="faq-list">
+          <article class="faq"><button type="button" aria-expanded="false"><span>O caso desapareceu do Radar. Posso ignorá-lo no Tracker?</span><span>+</span></button><div class="answer"><div><p>Não. Uma ocorrência que entrou como alerta vermelho permanece no Tracker enquanto houver uma pendência da GSM, mesmo que a criticidade mude ou o caso deixe a seleção atual do Radar.</p></div></div></article>
+          <article class="faq"><button type="button" aria-expanded="false"><span>“Aguardando retorno do cliente” é resultado?</span><span>+</span></button><div class="answer"><div><p>Não. É um Status GSM intermediário. O resultado deve ser informado somente quando houver um desfecho conhecido.</p></div></div></article>
+          <article class="faq"><button type="button" aria-expanded="false"><span>Posso marcar “Parcialmente correto” sem explicar?</span><span>+</span></button><div class="answer"><div><p>Não. Descreva o que estava correto e o que precisa ser ajustado. Essa observação orienta a nova análise da Vesta.</p></div></div></article>
+          <article class="faq"><button type="button" aria-expanded="false"><span>Um caso concluído é apagado?</span><span>+</span></button><div class="answer"><div><p>Não. Ele pode sair da visão ativa, mas permanece preservado no histórico do Tracker.</p></div></div></article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img class="only-dark" src="/vesta_logo_dark.svg" alt="Vesta" width="110" height="28">
+          <img class="only-light" src="/uploads/vesta_logo_light.svg" alt="Vesta" width="110" height="28">
+        </div>
+        <p class="footer-brand-copy">Material de treinamento Vesta para a equipe GSM Bahia — piloto de retenção. Os exemplos usam conteúdo de demonstração.</p>
+      </div>
+      <div class="footer-col">
+        <span>NESTE GUIA</span>
+        <a href="#passo-a-passo">Comece aqui</a>
+        <a href="#preenchimento">Como preencher</a>
+        <a href="#indicadores">Indicadores</a>
+        <a href="#faq">Dúvidas</a>
+      </div>
+      <div class="footer-col">
+        <span>TREINAMENTOS VESTA</span>
+        <a href="https://www.vestabi.com/treinamentos/" target="_blank" rel="noopener">Todos os treinamentos</a>
+        <a href="https://www.vestabi.com/treinamentos/relatorios-piloto-gsm/" target="_blank" rel="noopener">Como ler o Radar</a>
+        <a href="https://www.vestabi.com/" target="_blank" rel="noopener">Voltar para a Vesta</a>
+      </div>
+      <div class="footer-col">
+        <span>CONTATO</span>
+        <a href="mailto:contato@vestabi.com">contato@vestabi.com</a>
+        <a href="https://www.vestabi.com" target="_blank" rel="noopener">www.vestabi.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Vesta · conteúdo de demonstração, sem dados reais de clientes</span>
+      <span>Feita em Salvador, Bahia.</span>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      'use strict';
+      var root=document.documentElement,themeButton=document.getElementById('themeButton');
+      try{var saved=localStorage.getItem('vesta-theme');if(saved==='dark'||saved==='light')root.setAttribute('data-theme',saved)}catch(e){}
+      function syncTheme(){var dark=root.getAttribute('data-theme')==='dark';themeButton.setAttribute('aria-label',dark?'Ativar tema claro':'Ativar tema escuro');document.querySelector('meta[name="theme-color"]').setAttribute('content',dark?'#001B2A':'#F1F5F8')}
+      syncTheme();themeButton.addEventListener('click',function(){var next=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',next);try{localStorage.setItem('vesta-theme',next)}catch(e){}syncTheme()});
+      var menuButton=document.getElementById('menuButton'),mobilePanel=document.getElementById('mobilePanel');
+      function closeMenu(){mobilePanel.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Abrir menu');document.body.classList.remove('menu-open')}
+      menuButton.addEventListener('click',function(){var open=mobilePanel.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');document.body.classList.toggle('menu-open',open)});mobilePanel.querySelectorAll('a').forEach(function(link){link.addEventListener('click',closeMenu)});document.addEventListener('keydown',function(event){if(event.key==='Escape')closeMenu()});window.addEventListener('resize',function(){if(window.innerWidth>1350)closeMenu()});
+      var progress=document.getElementById('readingProgress');function updateProgress(){var total=document.documentElement.scrollHeight-window.innerHeight;progress.style.width=(total>0?Math.max(0,Math.min(100,window.scrollY/total*100)):0)+'%'}updateProgress();window.addEventListener('scroll',updateProgress,{passive:true});window.addEventListener('resize',updateProgress);
+      var tabData=[
+        {k:'Orientação',t:'Como usar',p:'Reúne uma explicação curta dos cinco campos preenchidos pela GSM e das principais regras operacionais.',l:['Mostra o que registrar em cada coluna.','Diferencia status, feedback, resultado, observação e responsável.','Pode ser consultada sempre que surgir uma dúvida de preenchimento.'],r:'Use esta aba para consultar as regras; os registros são feitos na Fila GSM.'},
+        {k:'Onde trabalhar',t:'Fila GSM',p:'É a área em que a GSM acompanha os casos e registra sua atuação. Os indicadores aparecem no topo e cada ocorrência ocupa uma linha.',l:['Leia Protocolo, Alerta Vesta, Evidência principal e Próximo passo sugerido.','Preencha Status GSM, Feedback sobre o alerta, Resultado, Observação GSM e Responsável GSM.','Casos concluídos deixam a visão ativa, mas permanecem preservados.'],r:'Esta é a única aba em que a GSM atualiza o acompanhamento.'},
+        {k:'Somente leitura',t:'Radar atual',p:'Apresenta uma visão protegida dos alertas do Radar e de sua situação no acompanhamento.',l:['Serve para consulta e conferência.','Não é a área de preenchimento da GSM.','A criticidade do caso e a pendência de acompanhamento são informações diferentes.'],r:'Para registrar uma ação ou retorno, volte à Fila GSM.'},
+        {k:'Rastreabilidade',t:'Eventos GSM — Histórico completo',p:'Preserva o histórico das alterações registradas pela GSM.',l:['Mostra os eventos já capturados.','Não deve ser editada para corrigir um caso.','As revisões anteriores permanecem preservadas.'],r:'Para corrigir uma informação, atualize a ocorrência na Fila GSM.'}
+      ];
+      function setTab(index){var d=tabData[index];document.getElementById('tabKicker').textContent=d.k;document.getElementById('tabTitle').textContent=d.t;document.getElementById('tabText').textContent=d.p;document.getElementById('tabList').innerHTML=d.l.map(function(x){return'<li>'+x+'</li>'}).join('');document.getElementById('tabRule').textContent=d.r;document.querySelectorAll('.tab-button').forEach(function(b,i){var active=i===index;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))})}
+      document.querySelectorAll('.tab-button').forEach(function(button){button.addEventListener('click',function(){setTab(Number(button.getAttribute('data-tab')))})});setTab(1);
+      function youtubeId(value){if(!value||value.indexOf('_AQUI')>-1)return'';var clean=value.trim();var match=clean.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{6,})/);return match?match[1]:clean.replace(/[^A-Za-z0-9_-]/g,'')}
+      document.querySelectorAll('.video-slot').forEach(function(slot){
+        var id=youtubeId(slot.getAttribute('data-youtube-id'));if(!id)return;
+        var title=slot.getAttribute('data-video-title')||'Vídeo de treinamento';
+        function playVideo(){
+          var frame=document.createElement('iframe');
+          frame.src='https://www.youtube-nocookie.com/embed/'+id+'?rel=0&autoplay=1&modestbranding=1&cc_load_policy=0';
+          frame.title=title;
+          frame.referrerPolicy='strict-origin-when-cross-origin';
+          frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+          frame.allowFullscreen=true;
+          slot.replaceChildren(frame);
+        }
+        var poster=document.createElement('button');
+        poster.type='button';
+        poster.className='video-poster';
+        poster.setAttribute('aria-label','Assistir: '+title);
+        poster.style.backgroundImage="url('https://i.ytimg.com/vi/"+id+"/hqdefault.jpg')";
+        poster.innerHTML='<span class="play" aria-hidden="true">▶</span>';
+        poster.addEventListener('click',playVideo);
+        slot.classList.add('has-video');
+        slot.replaceChildren(poster);
+      });
+      document.querySelectorAll('.faq button').forEach(function(button){button.addEventListener('click',function(){var faq=button.closest('.faq'),open=faq.classList.toggle('open');button.setAttribute('aria-expanded',String(open))})});
+      document.querySelectorAll('.section-head,.flow-card,.journey,.sheet-figure,.guide,.rule-card,.metric,.workspace-grid,.video-card,.faq').forEach(function(element){element.setAttribute('data-reveal','')});
+      if('IntersectionObserver' in window){
+        var revealObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.remove('vhide');revealObserver.unobserve(entry.target)}})},{threshold:.08});
+        document.querySelectorAll('[data-reveal]').forEach(function(element){element.classList.add('vhide');revealObserver.observe(element)});
+        var links=Array.from(document.querySelectorAll('.desktop-nav a,.mobile-nav a,#vstepper a')),sections=[];
+        links.forEach(function(link){var section=document.querySelector(link.getAttribute('href'));if(section&&sections.indexOf(section)===-1)sections.push(section)});
+        var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting)links.forEach(function(link){var active=link.getAttribute('href')==='#'+entry.target.id;link.classList.toggle('active',active);if(link.classList.contains('vstep'))link.classList.toggle('on',active)})})},{rootMargin:'-40% 0px -55% 0px'});
+        sections.forEach(function(section){observer.observe(section)})
+      }
+    })();
+  </script>
+</body>
+</html>
